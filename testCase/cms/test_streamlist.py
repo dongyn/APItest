@@ -28,9 +28,9 @@ class test_streamlist(unittest.TestCase):
     # 将解密后的字符串转为字典
     def decrypt_to_dict(self, text, split_num, str_split):
         data = text.json()["data"]
-        print(aes.decrypt(data, 'r'))
-        decrypt = aes.decrypt(text, 'r')[split_num:].split(str_split)
-        str_decrypt = decrypt[0] + str_split
+        decrypt = aes.decrypt(data, 'r')
+        split_decrypt = decrypt[split_num:].split(str_split)
+        str_decrypt = split_decrypt[0] + str_split
         global false, null, true
         false = null = true = ""
         dict_decrypt = eval(str_decrypt)
@@ -55,7 +55,6 @@ class test_streamlist(unittest.TestCase):
         crypt_data = aes.encrypt(data, 'c_q')
         form = {"data": crypt_data, "encode": "v1"}
         response = requests.post(url=self.url, data=json.dumps(form), headers=headers)
-        print(response.status_code)
         if (response.status_code == 403):
             err_code = response.json()['err_code']
             assert err_code == 500

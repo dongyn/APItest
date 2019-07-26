@@ -9,18 +9,32 @@
 
 import requests
 import json
+from common.AES_CBC import AES_CBC
 from common.Log import logger
 
 logger = logger
+global false, null, true
+aes = AES_CBC()
 class RunMain():
 
     def headers(self):
         self.headers = {'Content-Type': 'application/json;charset=UTF-8',
                         'Content-Length': '732',
+                        # 'Host': 'test.ams.starschina.com',
                         'Host': 'apiv1.starschina.com',
                         'Accept-Encoding': 'gzip'
                         }
-        return  self.headers
+        return self.headers
+
+    # 将解密后的字符串转为字典
+    def decrypt_to_dict(self, text, key_type):
+        r_data = text.json()['data']
+        str_decrypt = aes.decrypt(r_data, key_type)
+        global false, null, true
+        false = null = true = ""
+        response_data = eval(str_decrypt)
+        return response_data
+
     def send_post(self, url, data):# 定义一个方法，传入需要的参数url和data
         # 参数必须按照url、data顺序传入
         result = requests.post(url=url, data=data).json()# 因为这里要封装post方法，所以这里的url和data值不能写死

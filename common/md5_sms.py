@@ -16,7 +16,9 @@ class timeStamp_md5():
         timestr = str(int(int(timeStamp / 300) * 300))
         key = "edeac39d37f25c04020b9e6aa4802965500c26ea"
         sum_time = timestr + key + timestr
+        print(sum_time)
         md5_str = hashlib.md5(sum_time.encode()).hexdigest()[0:6]
+        print(md5_str)
         return md5_str
 
 # 调用

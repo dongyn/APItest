@@ -1,7 +1,6 @@
 # -*- coding:utf-8 -*-
 #@Time  : 2019/7/24 16:01
 #@Author: dongyani
-# 动态获取加密后的sign
 
 from datetime import datetime
 import time
@@ -9,17 +8,13 @@ import hashlib
 import hmac
 
 class get_Sign():
-
     def encrypt(self, resultParams):
-
         resultParams = eval(resultParams) if type(resultParams) == type("a") else resultParams
         if "timestamp" in list(resultParams.keys()):
             timeStamp = resultParams["timestamp"]
         else:
-            # 获取当前时间
-            dtime = datetime.now()
             # 转为时间戳
-            timeStamp = int(time.mktime(dtime.timetuple()))
+            timeStamp = int(time.mktime(datetime.now().timetuple()))
             dict_timeStamp = {"timestamp":timeStamp}
             # 把时间戳字典加到参数列表中
             resultParams.update(dict_timeStamp)
@@ -36,10 +31,13 @@ class get_Sign():
         dict_sign = {"sign": sign_hmac}
         #把sign添加到参数列表中
         resultParams.update(dict_sign)
-
+        print(resultParams)
         return resultParams
 
 if __name__ == "__main__":
-    str_dict = {"device_id":"40439d078e887033","os_version":"8.1.0","app_version":"8.0.6","gcid":"63b9d926f335078d837240764f120aa7","country_code":"+86","channel":"vivo","open_id":"18192873108","os_type":1,"imei":"A000008D9CEF1C","bssid":"02:00:00:00:00:00","access_token":"907303","installation_id":1901231425555756,"app_key":"xdThhy2239daax","mac_address":"02:00:00:00:00:00","provider":1 }
-    print(get_Sign().encrypt(str_dict))
+    a = "a"
+    b = "b"
+    print(type(a) == type(b))
+    # str_dict = {"device_id":"40439d078e887033","os_version":"8.1.0","app_version":"8.0.6","gcid":"63b9d926f335078d837240764f120aa7","country_code":"+86","channel":"vivo","open_id":"18192873108","os_type":1,"imei":"A000008D9CEF1C","bssid":"02:00:00:00:00:00","access_token":"907303","timestamp":1563950104,"installation_id":1901231425555756,"app_key":"xdThhy2239daax","mac_address":"02:00:00:00:00:00","provider":1 }
+    # encrypt(str_dict)
 

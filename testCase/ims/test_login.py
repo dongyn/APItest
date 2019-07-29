@@ -60,7 +60,7 @@ class test_Login(unittest.TestCase):
                         '"access_token":"%(access_token)s",' \
                         '"os_type":3,' \
                         '"timestamp":%(timeStamp)d,' \
-                        '"open_id":"19991828757",' \
+                        '"open_id":""%(telephone)s",' \
                         '"provider":1,' \
                         '"app_key":"%(app_key)s",' \
                         '"device_id":"802ca0fba119ab0a",' \
@@ -72,7 +72,9 @@ class test_Login(unittest.TestCase):
                             'version': version,
                             'access_token': self.access_token,
                             'timeStamp': self.timeStamp,
-                            'app_key': app_key}
+                            'app_key': app_key,
+                            'telephone':telephone}
+             data = get_Sign().encrypt(data)
              response = requests.post(self.url, data=json.dumps(data), headers=headers)
              if response.status_code == 403:
                  err_code = response.json()['err_code']
@@ -84,9 +86,8 @@ class test_Login(unittest.TestCase):
     def test_login_03(self):
         data = '{"app_version":"%(version)s",' \
                        '"access_token":"%(access_token)s",' \
-                       '"os_type":,' \
                        '"timestamp":%(timeStamp)d,' \
-                       '"open_id":"19991828757",' \
+                       '"open_id":"%(telephone)s",' \
                        '"provider":1,' \
                        '"app_key":"%(app_key)s",' \
                        '"device_id":"802ca0fba119ab0a",' \
@@ -98,7 +99,9 @@ class test_Login(unittest.TestCase):
                            'version': version,
                            'app_key' : app_key,
                            'access_token': self.access_token,
-                           'timeStamp': self.timeStamp}
+                           'timeStamp': self.timeStamp,
+                           'telephone':telephone}
+        data = get_Sign().encrypt(data)
         response = requests.post(self.url, data=json.dumps(data), headers=headers)
         if response.status_code == 403:
             err_code = response.json()['err_code']
@@ -109,4 +112,4 @@ class test_Login(unittest.TestCase):
 # if __name__ == "__main__":
 #     test_Login().test_login_01()
 #     test_Login().test_login_02()
-#     test_Login().test_login_03()
+#     test_Login().test_login_03()，

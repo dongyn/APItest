@@ -1,0 +1,1463 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>自动化测试报告,测试结果如下：</title>
+    <meta name="generator" content="HTMLTestRunner 0.8.2"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    
+<style type="text/css" media="screen">
+body        { font-family: verdana, arial, helvetica, sans-serif; font-size: 80%; }
+table       { font-size: 100%; }
+pre         { }
+
+/* -- heading ---------------------------------------------------------------------- */
+h1 {
+	font-size: 16pt;
+	color: gray;
+}
+.heading {
+    margin-top: 0ex;
+    margin-bottom: 1ex;
+}
+
+.heading .attribute {
+    margin-top: 1ex;
+    margin-bottom: 0;
+}
+
+.heading .description {
+    margin-top: 4ex;
+    margin-bottom: 6ex;
+}
+
+/* -- css div popup ------------------------------------------------------------------------ */
+a.popup_link {
+}
+
+a.popup_link:hover {
+    color: red;
+}
+
+.popup_window {
+    display: none;
+    position: relative;
+    left: 0px;
+    top: 0px;
+    /*border: solid #627173 1px; */
+    padding: 10px;
+    background-color: #E6E6D6;
+    font-family: "Lucida Console", "Courier New", Courier, monospace;
+    text-align: left;
+    font-size: 8pt;
+    width: 500px;
+}
+
+}
+/* -- report ------------------------------------------------------------------------ */
+#show_detail_line {
+    margin-top: 3ex;
+    margin-bottom: 1ex;
+}
+#result_table {
+    width: 80%;
+    border-collapse: collapse;
+    border: 1px solid #777;
+}
+#header_row {
+    font-weight: bold;
+    color: white;
+    background-color: #777;
+}
+#result_table td {
+    border: 1px solid #777;
+    padding: 2px;
+}
+#total_row  { font-weight: bold; }
+.passClass  { background-color: #6c6; }
+.failClass  { background-color: #c60; }
+.errorClass { background-color: #c00; }
+.passCase   { color: #6c6; }
+.failCase   { color: #c60; font-weight: bold; }
+.errorCase  { color: #c00; font-weight: bold; }
+.hiddenRow  { display: none; }
+.testcase   { margin-left: 2em; }
+
+
+/* -- ending ---------------------------------------------------------------------- */
+#ending {
+}
+
+</style>
+
+</head>
+<body>
+<script language="javascript" type="text/javascript"><!--
+output_list = Array();
+
+/* level - 0:Summary; 1:Failed; 2:All */
+function showCase(level) {
+    trs = document.getElementsByTagName("tr");
+    for (var i = 0; i < trs.length; i++) {
+        tr = trs[i];
+        id = tr.id;
+        if (id.substr(0,2) == 'ft') {
+            if (level < 1) {
+                tr.className = 'hiddenRow';
+            }
+            else {
+                tr.className = '';
+            }
+        }
+        if (id.substr(0,2) == 'pt') {
+            if (level > 1) {
+                tr.className = '';
+            }
+            else {
+                tr.className = 'hiddenRow';
+            }
+        }
+    }
+}
+
+
+function showClassDetail(cid, count) {
+    var id_list = Array(count);
+    var toHide = 1;
+    for (var i = 0; i < count; i++) {
+        tid0 = 't' + cid.substr(1) + '.' + (i+1);
+        tid = 'f' + tid0;
+        tr = document.getElementById(tid);
+        if (!tr) {
+            tid = 'p' + tid0;
+            tr = document.getElementById(tid);
+        }
+        id_list[i] = tid;
+        if (tr.className) {
+            toHide = 0;
+        }
+    }
+    for (var i = 0; i < count; i++) {
+        tid = id_list[i];
+        if (toHide) {
+            document.getElementById('div_'+tid).style.display = 'none'
+            document.getElementById(tid).className = 'hiddenRow';
+        }
+        else {
+            document.getElementById(tid).className = '';
+        }
+    }
+}
+
+
+function showTestDetail(div_id){
+    var details_div = document.getElementById(div_id)
+    var displayState = details_div.style.display
+    // alert(displayState)
+    if (displayState != 'block' ) {
+        displayState = 'block'
+        details_div.style.display = 'block'
+    }
+    else {
+        details_div.style.display = 'none'
+    }
+}
+
+
+function html_escape(s) {
+    s = s.replace(/&/g,'&amp;');
+    s = s.replace(/</g,'&lt;');
+    s = s.replace(/>/g,'&gt;');
+    return s;
+}
+
+/* obsoleted by detail in <div>
+function showOutput(id, name) {
+    var w = window.open("", //url
+                    name,
+                    "resizable,scrollbars,status,width=800,height=450");
+    d = w.document;
+    d.write("<pre>");
+    d.write(html_escape(output_list[id]));
+    d.write("\n");
+    d.write("<a href='javascript:window.close()'>close</a>\n");
+    d.write("</pre>\n");
+    d.close();
+}
+*/
+--></script>
+
+<div class='heading'>
+<h1>自动化测试报告,测试结果如下：</h1>
+<p class='attribute'><strong>Start Time:</strong> 2019-07-26 17:44:15</p>
+<p class='attribute'><strong>Duration:</strong> 0:01:20.813462</p>
+<p class='attribute'><strong>Status:</strong> Pass 57 Failure 3 Error 6</p>
+
+<p class='description'>用例执行情况：</p>
+</div>
+
+
+
+<p id='show_detail_line'>Show
+<a href='javascript:showCase(0)'>Summary</a>
+<a href='javascript:showCase(1)'>Failed</a>
+<a href='javascript:showCase(2)'>All</a>
+</p>
+<table id='result_table'>
+<colgroup>
+<col align='left' />
+<col align='right' />
+<col align='right' />
+<col align='right' />
+<col align='right' />
+<col align='right' />
+</colgroup>
+<tr id='header_row'>
+    <td>Test Group/Test case</td>
+    <td>Count</td>
+    <td>Pass</td>
+    <td>Fail</td>
+    <td>Error</td>
+    <td>View</td>
+</tr>
+
+<tr class='passClass'>
+    <td>ams.test_accesskey.funtv_accesskey: 测试风行缓存接口</td>
+    <td>3</td>
+    <td>3</td>
+    <td>0</td>
+    <td>0</td>
+    <td><a href="javascript:showClassDetail('c1',3)">Detail</a></td>
+</tr>
+
+<tr id='pt1.1' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_01_funtv_accesskey</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt1.1')" >
+        pass</a>
+
+    <div id='div_pt1.1' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_pt1.1').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+pt1.1: 接口https://apiv1.starschina.com/cms/v1.0/funtv/accesskey请求失败
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr id='pt1.2' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_02_funtv_accesskey_error</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt1.2')" >
+        pass</a>
+
+    <div id='div_pt1.2' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_pt1.2').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+pt1.2: 404
+接口https://apiv1.starschina.com/cms/v1.0/funtv/accesskey请求app_key参数值错误，返回的err_code应为500
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr id='pt1.3' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_03_funtv_accesskey_null</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt1.3')" >
+        pass</a>
+
+    <div id='div_pt1.3' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_pt1.3').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+pt1.3: 接口https://apiv1.starschina.com/cms/v1.0/funtv/accesskey缺失app_version和app_key参数，返回的状态码应为403
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr class='passClass'>
+    <td>ams.test_config.config_app_scret_key: 测试app配置接口</td>
+    <td>3</td>
+    <td>3</td>
+    <td>0</td>
+    <td>0</td>
+    <td><a href="javascript:showClassDetail('c2',3)">Detail</a></td>
+</tr>
+
+<tr id='pt2.1' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_01_config</div></td>
+    <td colspan='5' align='center'>pass</td>
+</tr>
+
+<tr id='pt2.2' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_02_config_error</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt2.2')" >
+        pass</a>
+
+    <div id='div_pt2.2' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_pt2.2').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+pt2.2: 403
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr id='pt2.3' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_03_config_null</div></td>
+    <td colspan='5' align='center'>pass</td>
+</tr>
+
+<tr class='passClass'>
+    <td>ams.test_epg_list.test_epglist: 测试节目单列表接口</td>
+    <td>3</td>
+    <td>3</td>
+    <td>0</td>
+    <td>0</td>
+    <td><a href="javascript:showClassDetail('c3',3)">Detail</a></td>
+</tr>
+
+<tr id='pt3.1' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_01_epg_list</div></td>
+    <td colspan='5' align='center'>pass</td>
+</tr>
+
+<tr id='pt3.2' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_02_epg_list_error</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt3.2')" >
+        pass</a>
+
+    <div id='div_pt3.2' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_pt3.2').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+pt3.2: 403
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr id='pt3.3' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_03_epg_list_null</div></td>
+    <td colspan='5' align='center'>pass</td>
+</tr>
+
+<tr class='passClass'>
+    <td>ams.test_page.test_Page: 测试页面加载接口</td>
+    <td>3</td>
+    <td>3</td>
+    <td>0</td>
+    <td>0</td>
+    <td><a href="javascript:showClassDetail('c4',3)">Detail</a></td>
+</tr>
+
+<tr id='pt4.1' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_page_01</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt4.1')" >
+        pass</a>
+
+    <div id='div_pt4.1' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_pt4.1').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+pt4.1: 请求失败
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr id='pt4.2' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_page_02</div></td>
+    <td colspan='5' align='center'>pass</td>
+</tr>
+
+<tr id='pt4.3' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_page_03</div></td>
+    <td colspan='5' align='center'>pass</td>
+</tr>
+
+<tr class='passClass'>
+    <td>ams.test_randlist.test_randlist: 测试获取随机排序的直播列表接口</td>
+    <td>3</td>
+    <td>3</td>
+    <td>0</td>
+    <td>0</td>
+    <td><a href="javascript:showClassDetail('c5',3)">Detail</a></td>
+</tr>
+
+<tr id='pt5.1' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_01_getlivelist</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt5.1')" >
+        pass</a>
+
+    <div id='div_pt5.1' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_pt5.1').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+pt5.1: 接口https://apiv1.starschina.com/cms/v1.0/stream/randlist返回的节目名称title错误
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr id='pt5.2' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_02_getlivelist_error</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt5.2')" >
+        pass</a>
+
+    <div id='div_pt5.2' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_pt5.2').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+pt5.2: 404
+接口https://apiv1.starschina.com/cms/v1.0/stream/randlist请求app_key参数值错误，返回的err_code应为500
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr id='pt5.3' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_03_getlivelist_null</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt5.3')" >
+        pass</a>
+
+    <div id='div_pt5.3' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_pt5.3').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+pt5.3: 接口https://apiv1.starschina.com/cms/v1.0/stream/randlist缺失app_version和app_key参数，返回的状态码应为403
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr class='failClass'>
+    <td>ams.test_search.test_Search: 测试搜索接口</td>
+    <td>4</td>
+    <td>3</td>
+    <td>1</td>
+    <td>0</td>
+    <td><a href="javascript:showClassDetail('c6',4)">Detail</a></td>
+</tr>
+
+<tr id='pt6.1' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_search_01</div></td>
+    <td colspan='5' align='center'>pass</td>
+</tr>
+
+<tr id='ft6.2' class='none'>
+    <td class='failCase'><div class='testcase'>test_search_02</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_ft6.2')" >
+        fail</a>
+
+    <div id='div_ft6.2' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_ft6.2').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+ft6.2: {"title": "集体么去impose", "os_type":1, "app_version": "8.0.6", "app_key":"xdThhy2239daax"}
+破冰行动
+Traceback (most recent call last):
+  File "C:\Users\pengp\PycharmProjects\Interface_Test_CIBN\testCase\ams\test_search.py", line 66, in test_search_02
+    assert response_data == ''
+AssertionError
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr id='pt6.3' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_search_03</div></td>
+    <td colspan='5' align='center'>pass</td>
+</tr>
+
+<tr id='pt6.4' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_search_04</div></td>
+    <td colspan='5' align='center'>pass</td>
+</tr>
+
+<tr class='errorClass'>
+    <td>ams.test_stream.test_stream: 测试查看直播详情接口</td>
+    <td>3</td>
+    <td>2</td>
+    <td>0</td>
+    <td>1</td>
+    <td><a href="javascript:showClassDetail('c7',3)">Detail</a></td>
+</tr>
+
+<tr id='ft7.1' class='none'>
+    <td class='errorCase'><div class='testcase'>test_01_Viewlivestreamdetails_correct</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_ft7.1')" >
+        error</a>
+
+    <div id='div_ft7.1' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_ft7.1').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+ft7.1: Traceback (most recent call last):
+  File "C:\Users\pengp\PycharmProjects\Interface_Test_CIBN\testCase\ams\test_stream.py", line 49, in test_01_Viewlivestreamdetails_correct
+    response_data = self.decrypt_to_dict(r_data, 2, '}]}]}')
+  File "C:\Users\pengp\PycharmProjects\Interface_Test_CIBN\testCase\ams\test_stream.py", line 38, in decrypt_to_dict
+    dict_decrypt = eval(str_decrypt)
+  File "&lt;string&gt;", line 1
+    id":160,"title":"CCTV1","description":"","sort":3,"icon":"http://res.starschina.com/res/2017/05/12/10/2415999/3df8ef19-2bea-11e7-8d04-00163e30def5.png","cp":"CNTV","thumb":"http://s2.starschinalive.com/thumb/48/thumb@240_180.jpg","thumb_ott":"http://s2.starschinalive.com/thumb/38/thumb@320_180.jpg","play_urls":[{"id":4530304,"stream_id":160,"title":"CCTV1","new_p2p_url3":"p2p://75","real_p2p_url":"p2p://579","bitrate":500,"quality":2,"vip_only":false,"sharable":false},{"id":4530303,"stream_id":160,"title":"CCTV1高清","new_p2p_url3":"p2p://56","bitrate":1200,"quality":3,"vip_only":false,"sharable":false}],"epgs":[{"stream_id":160,"epg_id":5263774317,"title":"西游记14","blocked":false},{"stream_id":160,"epg_id":5263774326,"title":"第一动画乐园:熊出没之熊熊乐园2","blocked":false},{"stream_id":160,"epg_id":5263774328,"title":"第一动画乐园:牛爷爷的书法","blocked":false}],"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"央视","online":true,"no_ad":false,"share":null,"play_urls_v2":[{"id":655860,"stream_id":160,"title":"","bitrate":500,"quality":2,"vip_only":false,"sharable":false,"urls":[{"id":4530304,"url":"N+HEi5QQvzApvDzx406Vog==","name":"默认P2P","vip_only":false,"sharable":false,"sort":0,"provider_id":1,"url_proto":3},{"id":4530304,"url":"EAC1NBbaI84SKw8sZUSuuA==","name":"Realp2p","vip_only":false,"sharable":false,"sort":1,"provider_id":7,"url_proto":2}]},{"id":656560,"stream_id":160,"title":"","bitrate":1200,"quality":3,"vip_only":false,"sharable":false,"urls":[{"id":4530303,"url":"LOhYspxgC5MpvDzx406Vog==","name":"默认P2P","vip_only":false,"sharable":false,"sort":0,"provider_id":1,"url_proto":3}]}],"provider_play_urls":[{"id":655860,"stream_id":160,"title":"","bitrate":500,"quality":2,"vip_only":false,"sharable":false,"urls":[{"id":381,"url":"N+HEi5QQvzApvDzx406Vog==","name":"默认P2P","vip_only":false,"sharable":false,"sort":1,"provider_id":1,"url_proto":3},{"id":1469,"url":"EAC1NBbaI84SKw8sZUSuuA==","name":"RealP2P","vip_only":false,"sharable":false,"sort":2,"provider_id":7,"url_proto":3}]},{"id":656560,"stream_id":160,"title":"","bitrate":1200,"quality":3,"vip_only":false,"sharable":false,"urls":[{"id":384,"url":"LOhYspxgC5MpvDzx406Vog==","name":"默认p2p","vip_only":false,"sharable":false,"sort":3,"provider_id":1,"url_proto":2}]}]}
+            ^
+SyntaxError: invalid syntax
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr id='pt7.2' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_02_Viewlivestreamdetails_error</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt7.2')" >
+        pass</a>
+
+    <div id='div_pt7.2' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_pt7.2').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+pt7.2: 403
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr id='pt7.3' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_03_Viewlivestreamdetails_null</div></td>
+    <td colspan='5' align='center'>pass</td>
+</tr>
+
+<tr class='errorClass'>
+    <td>ams.test_streamlist.test_streamlist: 测试获取直播列表接口</td>
+    <td>3</td>
+    <td>2</td>
+    <td>0</td>
+    <td>1</td>
+    <td><a href="javascript:showClassDetail('c8',3)">Detail</a></td>
+</tr>
+
+<tr id='ft8.1' class='none'>
+    <td class='errorCase'><div class='testcase'>test_01_getlivelist</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_ft8.1')" >
+        error</a>
+
+    <div id='div_ft8.1' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_ft8.1').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+ft8.1: id":160,"title":"CCTV1","description":"","sort":3,"icon":"http://res.starschina.com/res/2017/05/12/10/2415999/3df8ef19-2bea-11e7-8d04-00163e30def5.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/48/thumb@240_180.jpg","thumb_ott":"http://s2.starschinalive.com/thumb/38/thumb@320_180.jpg","play_urls":null,"epgs":[{"stream_id":160,"epg_id":5263774317,"title":"西游记14","blocked":false},{"stream_id":160,"epg_id":5263774326,"title":"第一动画乐园:熊出没之熊熊乐园2","blocked":false},{"stream_id":160,"epg_id":5263774328,"title":"第一动画乐园:牛爷爷的书法","blocked":false}],"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"央视","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null}
+Traceback (most recent call last):
+  File "C:\Users\pengp\PycharmProjects\Interface_Test_CIBN\testCase\ams\test_streamlist.py", line 48, in test_01_getlivelist
+    response_data = self.decrypt_to_dict(r_data, 3, '"provider_play_urls":null}')
+  File "C:\Users\pengp\PycharmProjects\Interface_Test_CIBN\testCase\ams\test_streamlist.py", line 36, in decrypt_to_dict
+    dict_decrypt = eval(str_decrypt)
+  File "&lt;string&gt;", line 1
+    id":160,"title":"CCTV1","description":"","sort":3,"icon":"http://res.starschina.com/res/2017/05/12/10/2415999/3df8ef19-2bea-11e7-8d04-00163e30def5.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/48/thumb@240_180.jpg","thumb_ott":"http://s2.starschinalive.com/thumb/38/thumb@320_180.jpg","play_urls":null,"epgs":[{"stream_id":160,"epg_id":5263774317,"title":"西游记14","blocked":false},{"stream_id":160,"epg_id":5263774326,"title":"第一动画乐园:熊出没之熊熊乐园2","blocked":false},{"stream_id":160,"epg_id":5263774328,"title":"第一动画乐园:牛爷爷的书法","blocked":false}],"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"央视","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null}
+            ^
+SyntaxError: invalid syntax
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr id='pt8.2' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_02_getlivelist_error</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt8.2')" >
+        pass</a>
+
+    <div id='div_pt8.2' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_pt8.2').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+pt8.2: 403
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr id='pt8.3' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_03_getlivelist_null</div></td>
+    <td colspan='5' align='center'>pass</td>
+</tr>
+
+<tr class='passClass'>
+    <td>ams.test_video.test_Video: 测试点播接口</td>
+    <td>3</td>
+    <td>3</td>
+    <td>0</td>
+    <td>0</td>
+    <td><a href="javascript:showClassDetail('c9',3)">Detail</a></td>
+</tr>
+
+<tr id='pt9.1' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_video_01: 正确的请求参数</div></td>
+    <td colspan='5' align='center'>pass</td>
+</tr>
+
+<tr id='pt9.2' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_video_02: 错误的请求参数</div></td>
+    <td colspan='5' align='center'>pass</td>
+</tr>
+
+<tr id='pt9.3' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_video_03: 参数为空</div></td>
+    <td colspan='5' align='center'>pass</td>
+</tr>
+
+<tr class='passClass'>
+    <td>cms.test_accesskey.funtv_accesskey: 测试风行缓存接口</td>
+    <td>3</td>
+    <td>3</td>
+    <td>0</td>
+    <td>0</td>
+    <td><a href="javascript:showClassDetail('c10',3)">Detail</a></td>
+</tr>
+
+<tr id='pt10.1' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_01_funtv_accesskey</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt10.1')" >
+        pass</a>
+
+    <div id='div_pt10.1' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_pt10.1').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+pt10.1: 接口https://apiv1.starschina.com/cms/v1.0/funtv/accesskey请求失败
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr id='pt10.2' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_02_funtv_accesskey_error</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt10.2')" >
+        pass</a>
+
+    <div id='div_pt10.2' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_pt10.2').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+pt10.2: 404
+接口https://apiv1.starschina.com/cms/v1.0/funtv/accesskey请求app_key参数值错误，返回的err_code应为500
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr id='pt10.3' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_03_funtv_accesskey_null</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt10.3')" >
+        pass</a>
+
+    <div id='div_pt10.3' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_pt10.3').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+pt10.3: 接口https://apiv1.starschina.com/cms/v1.0/funtv/accesskey缺失app_version和app_key参数，返回的状态码应为403
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr class='passClass'>
+    <td>cms.test_config.test_config: 测试app配置接口</td>
+    <td>3</td>
+    <td>3</td>
+    <td>0</td>
+    <td>0</td>
+    <td><a href="javascript:showClassDetail('c11',3)">Detail</a></td>
+</tr>
+
+<tr id='pt11.1' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_01_config: 正确的请求参数</div></td>
+    <td colspan='5' align='center'>pass</td>
+</tr>
+
+<tr id='pt11.2' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_02_config_error: 错误的请求参数</div></td>
+    <td colspan='5' align='center'>pass</td>
+</tr>
+
+<tr id='pt11.3' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_03_config_null: 请求参数为空</div></td>
+    <td colspan='5' align='center'>pass</td>
+</tr>
+
+<tr class='passClass'>
+    <td>cms.test_epg_list.test_epglist: 测试节目单列表接口</td>
+    <td>3</td>
+    <td>3</td>
+    <td>0</td>
+    <td>0</td>
+    <td><a href="javascript:showClassDetail('c12',3)">Detail</a></td>
+</tr>
+
+<tr id='pt12.1' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_01_epg_list: 正确的请求参数</div></td>
+    <td colspan='5' align='center'>pass</td>
+</tr>
+
+<tr id='pt12.2' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_02_epg_list_error: 错误的请求参数</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt12.2')" >
+        pass</a>
+
+    <div id='div_pt12.2' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_pt12.2').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+pt12.2: 403
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr id='pt12.3' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_03_epg_list_null: 请求参数为空</div></td>
+    <td colspan='5' align='center'>pass</td>
+</tr>
+
+<tr class='failClass'>
+    <td>cms.test_login.test_Login</td>
+    <td>3</td>
+    <td>2</td>
+    <td>1</td>
+    <td>0</td>
+    <td><a href="javascript:showClassDetail('c13',3)">Detail</a></td>
+</tr>
+
+<tr id='ft13.1' class='none'>
+    <td class='failCase'><div class='testcase'>test_login_01</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_ft13.1')" >
+        fail</a>
+
+    <div id='div_ft13.1' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_ft13.1').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+ft13.1: {'app_version': '8.0.6', 'access_token': '875d3f', 'os_type': 1, 'timestamp': 1564134253, 'open_id': '19991828757', 'provider': 1, 'app_key': 'xdThhy2239daax', 'device_id': '802ca0fba119ab0a', 'country_code': '+86', 'installation_id': 1904301718321742, 'longitude': 108.90823353286173, 'latitude': 34.21936825217505, 'sign': '99D1D6F9044891A8708B71B8C58034ECDBF4A665'}
+Traceback (most recent call last):
+  File "C:\Users\pengp\PycharmProjects\Interface_Test_CIBN\testCase\cms\test_login.py", line 51, in test_login_01
+    assert response_data['err_code'] == 0
+AssertionError
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr id='pt13.2' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_login_02</div></td>
+    <td colspan='5' align='center'>pass</td>
+</tr>
+
+<tr id='pt13.3' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_login_03</div></td>
+    <td colspan='5' align='center'>pass</td>
+</tr>
+
+<tr class='passClass'>
+    <td>cms.test_packagelist.config_app_scret_key: 测试视频包接口</td>
+    <td>3</td>
+    <td>3</td>
+    <td>0</td>
+    <td>0</td>
+    <td><a href="javascript:showClassDetail('c14',3)">Detail</a></td>
+</tr>
+
+<tr id='pt14.1' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_01_packagelist</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt14.1')" >
+        pass</a>
+
+    <div id='div_pt14.1' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_pt14.1').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+pt14.1: 接口https://apiv1.starschina.com/cms/v1.0/funtv/accesskey请求失败
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr id='pt14.2' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_02_packagelist_error</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt14.2')" >
+        pass</a>
+
+    <div id='div_pt14.2' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_pt14.2').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+pt14.2: 404
+接口https://apiv1.starschina.com/cms/v1.0/funtv/accesskey请求app_key参数值错误，返回的err_code应为500
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr id='pt14.3' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_03_packagelist_null</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt14.3')" >
+        pass</a>
+
+    <div id='div_pt14.3' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_pt14.3').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+pt14.3: 接口https://apiv1.starschina.com/cms/v1.0/funtv/accesskey缺失app_version和app_key参数，返回的状态码应为403
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr class='passClass'>
+    <td>cms.test_page.test_Page: 测试页面加载接口</td>
+    <td>3</td>
+    <td>3</td>
+    <td>0</td>
+    <td>0</td>
+    <td><a href="javascript:showClassDetail('c15',3)">Detail</a></td>
+</tr>
+
+<tr id='pt15.1' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_page_01: 正确的请求参数</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt15.1')" >
+        pass</a>
+
+    <div id='div_pt15.1' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_pt15.1').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+pt15.1: 请求失败
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr id='pt15.2' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_page_02: 错误的请求参数</div></td>
+    <td colspan='5' align='center'>pass</td>
+</tr>
+
+<tr id='pt15.3' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_page_03: 请求参数为空</div></td>
+    <td colspan='5' align='center'>pass</td>
+</tr>
+
+<tr class='passClass'>
+    <td>cms.test_randlist.test_randlist: 测试获取随机排序的直播列表接口</td>
+    <td>3</td>
+    <td>3</td>
+    <td>0</td>
+    <td>0</td>
+    <td><a href="javascript:showClassDetail('c16',3)">Detail</a></td>
+</tr>
+
+<tr id='pt16.1' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_01_getlivelist: 正确的请求参数</div></td>
+    <td colspan='5' align='center'>pass</td>
+</tr>
+
+<tr id='pt16.2' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_02_getlivelist_error: 错误的请求参数</div></td>
+    <td colspan='5' align='center'>pass</td>
+</tr>
+
+<tr id='pt16.3' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_03_getlivelist_null: 请求参数为空</div></td>
+    <td colspan='5' align='center'>pass</td>
+</tr>
+
+<tr class='passClass'>
+    <td>cms.test_search.test_Search: 测试搜索接口</td>
+    <td>4</td>
+    <td>4</td>
+    <td>0</td>
+    <td>0</td>
+    <td><a href="javascript:showClassDetail('c17',4)">Detail</a></td>
+</tr>
+
+<tr id='pt17.1' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_search_01: 正确的请求参数</div></td>
+    <td colspan='5' align='center'>pass</td>
+</tr>
+
+<tr id='pt17.2' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_search_02: 错误的请求参数</div></td>
+    <td colspan='5' align='center'>pass</td>
+</tr>
+
+<tr id='pt17.3' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_search_03: 错误的请求参数</div></td>
+    <td colspan='5' align='center'>pass</td>
+</tr>
+
+<tr id='pt17.4' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_search_04: os_type参数值为空</div></td>
+    <td colspan='5' align='center'>pass</td>
+</tr>
+
+<tr class='passClass'>
+    <td>cms.test_stream.test_stream: 测试查看直播详情接口</td>
+    <td>3</td>
+    <td>3</td>
+    <td>0</td>
+    <td>0</td>
+    <td><a href="javascript:showClassDetail('c18',3)">Detail</a></td>
+</tr>
+
+<tr id='pt18.1' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_01_Viewlivestreamdetails_correct: 正确的请求参数</div></td>
+    <td colspan='5' align='center'>pass</td>
+</tr>
+
+<tr id='pt18.2' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_02_Viewlivestreamdetails_error: 错误的请求参数</div></td>
+    <td colspan='5' align='center'>pass</td>
+</tr>
+
+<tr id='pt18.3' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_03_Viewlivestreamdetails_null: 请求参数为空</div></td>
+    <td colspan='5' align='center'>pass</td>
+</tr>
+
+<tr class='errorClass'>
+    <td>cms.test_streamlist.test_streamlist: 测试获取直播列表接口</td>
+    <td>3</td>
+    <td>2</td>
+    <td>0</td>
+    <td>1</td>
+    <td><a href="javascript:showClassDetail('c19',3)">Detail</a></td>
+</tr>
+
+<tr id='ft19.1' class='none'>
+    <td class='errorCase'><div class='testcase'>test_01_getlivelist: 正确的请求参数</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_ft19.1')" >
+        error</a>
+
+    <div id='div_ft19.1' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_ft19.1').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+ft19.1: [{"id":160,"title":"CCTV1","description":"","sort":3,"icon":"http://res.starschina.com/res/2017/05/12/10/2415999/3df8ef19-2bea-11e7-8d04-00163e30def5.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/48/thumb@240_180.jpg","thumb_ott":"http://s2.starschinalive.com/thumb/38/thumb@320_180.jpg","play_urls":null,"epgs":[{"stream_id":160,"epg_id":5263774317,"title":"西游记14","blocked":false},{"stream_id":160,"epg_id":5263774326,"title":"第一动画乐园:熊出没之熊熊乐园2","blocked":false},{"stream_id":160,"epg_id":5263774328,"title":"第一动画乐园:牛爷爷的书法","blocked":false}],"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"央视","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":315,"title":"CCTV2","description":"","sort":4,"icon":"http://res.starschina.com/res/2017/05/12/10/2419999/7d8c5c33-2bec-11e7-8d04-00163e30def5.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/123/thumb@240_180.jpg","thumb_ott":"http://s2.starschinalive.com/thumb/41/thumb@320_180.jpg","play_urls":null,"epgs":[{"stream_id":315,"epg_id":5263760689,"title":"精品财经纪录-老广的味道第三季5","blocked":false},{"stream_id":315,"epg_id":5263760709,"title":"回家吃饭","blocked":false},{"stream_id":315,"epg_id":5263760727,"title":"生财有道","blocked":false}],"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"央视","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":329,"title":"CCTV3","description":"","sort":3,"icon":"http://res.starschina.com/res/2017/05/12/10/2421999/65c1fd46-2bed-11e7-8d04-00163e30def5.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/54/thumb@240_180.jpg","thumb_ott":"http://s2.starschinalive.com/thumb/42/thumb@320_180.jpg","play_urls":null,"epgs":[{"stream_id":329,"epg_id":5263767612,"title":"天天把歌唱","blocked":false},{"stream_id":329,"epg_id":5263767602,"title":"综艺喜乐汇","blocked":false},{"stream_id":329,"epg_id":5263767591,"title":"黄金100秒","blocked":false}],"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"央视","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":162,"title":"CCTV4","description":"","sort":4,"icon":"http://res.starschina.com/res/2017/05/12/10/2419999/852461e7-2bec-11e7-8d04-00163e30def5.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/124/thumb@240_180.jpg","thumb_ott":"http://s2.starschinalive.com/thumb/43/thumb@320_180.jpg","play_urls":null,"epgs":[{"stream_id":162,"epg_id":5263737319,"title":"远方的家","blocked":false},{"stream_id":162,"epg_id":5263737323,"title":"中国新闻","blocked":false},{"stream_id":162,"epg_id":5263737311,"title":"中国文艺","blocked":false}],"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"央视","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":264,"title":"CCTV5","description":"","sort":6,"icon":"http://res.starschina.com/res/2017/05/12/10/2410999/dbc50bd7-2be6-11e7-8d04-00163e30def5.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/39/thumb@320_180.jpg","thumb_ott":"http://s2.starschinalive.com/thumb/39/thumb@320_180.jpg","play_urls":null,"epgs":[{"stream_id":264,"epg_id":5263753064,"title":"篮球公园","blocked":false},{"stream_id":264,"epg_id":5263753053,"title":"体育新闻","blocked":false},{"stream_id":264,"epg_id":5263753065,"title":"国际泳联世锦赛游泳-女子100米自由泳决赛、男子100米蝶泳半决赛、女子200米仰泳半决赛等","blocked":false}],"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"央视","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":250,"title":"CCTV5+","description":"","sort":6,"icon":"http://res.starschina.com/res/2017/05/12/10/2407999/c62e43b7-2be4-11e7-8d04-00163e30def5.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/121/thumb@240_180.jpg","thumb_ott":"http://s2.starschinalive.com/thumb/120/thumb@320_180.jpg","play_urls":null,"epgs":[{"stream_id":250,"epg_id":5263741837,"title":"国际泳联世锦赛水球-女子决赛","blocked":false},{"stream_id":250,"epg_id":5263741838,"title":"赛事集锦-环法自行车赛集锦","blocked":false},{"stream_id":250,"epg_id":5263741823,"title":"中国男篮系列赛之中喀国际男篮对抗赛-中国队VS喀麦隆队","blocked":false}],"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"央视","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":307,"title":"CCTV6","description":"","sort":2,"icon":"http://res.starschina.com/res/2017/05/12/10/2418999/84e92c1e-2beb-11e7-8d04-00163e30def5.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/50/thumb@240_180.jpg","thumb_ott":"http://s2.starschinalive.com/thumb/44/thumb@320_180.jpg","play_urls":null,"epgs":[{"stream_id":307,"epg_id":5263758880,"title":"大兵小将","blocked":false},{"stream_id":307,"epg_id":5263758862,"title":"脱贫攻坚战-星光行动","blocked":false},{"stream_id":307,"epg_id":5263758867,"title":"光影星播客","blocked":false}],"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"央视","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":330,"title":"CCTV7","description":"","sort":5,"icon":"http://res.starschina.com/res/2017/05/12/10/2421999/6c9843bf-2bed-11e7-8d04-00163e30def5.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/131/thumb@240_180.jpg","thumb_ott":"http://s2.starschinalive.com/thumb/131/thumb@320_180.jpg","play_urls":null,"epgs":[{"stream_id":330,"epg_id":5263768255,"title":"军旅人生","blocked":false},{"stream_id":330,"epg_id":5263768273,"title":"乡村法制剧场","blocked":false},{"stream_id":330,"epg_id":5263768268,"title":"农广天地","blocked":false}],"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"央视","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":261,"title":"CCTV8","description":"","sort":1,"icon":"http://res.starschina.com/res/2017/05/12/10/2409999/419d18bb-2be6-11e7-8d04-00163e30def5.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/46/thumb@240_180.jpg","thumb_ott":"http://s2.starschinalive.com/thumb/46/thumb@320_180.jpg","play_urls":null,"epgs":[{"stream_id":261,"epg_id":5263746843,"title":"木兰妈妈20","blocked":false},{"stream_id":261,"epg_id":5263746857,"title":"星推荐","blocked":false},{"stream_id":261,"epg_id":5263746868,"title":"木兰妈妈21","blocked":false}],"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"央视","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":299,"title":"CCTV9","description":"","sort":10,"icon":"http://res.starschina.com/res/2017/05/12/10/2417999/34f00d57-2beb-11e7-8d04-00163e30def5.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/52/thumb@240_180.jpg","thumb_ott":"http://s2.starschinalive.com/thumb/47/thumb@320_180.jpg","play_urls":null,"epgs":[{"stream_id":299,"epg_id":5263758404,"title":"人文地理:土司遗城-海龙屯2","blocked":false},{"stream_id":299,"epg_id":5263758418,"title":"自然:动物也疯狂5","blocked":false},{"stream_id":299,"epg_id":5263758410,"title":"万象:翻山涉水上学路第二季5","blocked":false}],"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"央视","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":251,"title":"CCTV10","description":"","sort":10,"icon":"http://res.starschina.com/res/2017/05/12/10/2408999/f1276726-2be4-11e7-8d04-00163e30def5.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/137/thumb@240_180.jpg","thumb_ott":"http://s2.starschinalive.com/thumb/137/thumb@320_180.jpg","play_urls":null,"epgs":[{"stream_id":251,"epg_id":5263742234,"title":"地理·中国","blocked":false},{"stream_id":251,"epg_id":5263742231,"title":"健康之路","blocked":false},{"stream_id":251,"epg_id":5263742219,"title":"我爱发明","blocked":false}],"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"央视","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":292,"title":"CCTV11","description":"","sort":3,"icon":"http://res.starschina.com/res/2017/05/12/10/2416999/fc31f470-2bea-11e7-8d04-00163e30def5.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/139/thumb@240_180.jpg","thumb_ott":"http://s2.starschinalive.com/thumb/139/thumb@320_180.jpg","play_urls":null,"epgs":[{"stream_id":292,"epg_id":5263754854,"title":"中国京剧像音像集萃-京剧佛手橘","blocked":false},{"stream_id":292,"epg_id":5263754851,"title":"青春戏苑-京韵芬芳","blocked":false},{"stream_id":292,"epg_id":5263754862,"title":"戏曲采风","blocked":false}],"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"央视","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":263,"title":"CCTV12","description":"","sort":4,"icon":"http://res.starschina.com/res/2017/05/12/10/2409999/685ca369-2be6-11e7-8d04-00163e30def5.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/143/thumb@240_180.jpg","thumb_ott":"http://s2.starschinalive.com/thumb/141/thumb@320_180.jpg","play_urls":null,"epgs":[{"stream_id":263,"epg_id":5263742701,"title":"天网","blocked":false},{"stream_id":263,"epg_id":5263742709,"title":"普法栏目剧","blocked":false},{"stream_id":263,"epg_id":5263742697,"title":"法律讲堂","blocked":false}],"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"央视","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":274,"title":"CCTV13","description":"","sort":4,"icon":"http://res.starschina.com/res/2017/05/12/10/2412999/f13b97d0-2be7-11e7-8d04-00163e30def5.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/40/thumb@240_180.jpg","thumb_ott":"http://s2.starschinalive.com/thumb/40/thumb@320_180.jpg","play_urls":null,"epgs":[{"stream_id":274,"epg_id":5263753912,"title":"新闻直播间","blocked":false},{"stream_id":274,"epg_id":5263753903,"title":"共同关注","blocked":false},{"stream_id":274,"epg_id":5263753933,"title":"新闻联播","blocked":false}],"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"央视","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":161,"title":"CCTV14","description":"","sort":7,"icon":"http://res.starschina.com/res/2017/05/12/10/2418999/3a6f8ab5-2bec-11e7-8d04-00163e30def5.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/152/thumb@240_180.jpg","thumb_ott":"http://s2.starschinalive.com/thumb/145/thumb@320_180.jpg","play_urls":null,"epgs":[{"stream_id":161,"epg_id":5263736060,"title":"动画大放映:天眼归来(198-202)","blocked":false},{"stream_id":161,"epg_id":5263736052,"title":"动画大放映:爆裂飞车第三季(42-46)","blocked":false},{"stream_id":161,"epg_id":5263736058,"title":"动画大放映:阿优的烦恼","blocked":false}],"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"央视","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":333,"title":"CCTV15","description":"","sort":3,"icon":"http://res.starschina.com/res/2017/05/12/10/2421999/9b7e4a33-2bed-11e7-8d04-00163e30def5.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/147/thumb@240_180.jpg","thumb_ott":"http://s2.starschinalive.com/thumb/147/thumb@320_180.jpg","play_urls":null,"epgs":[{"stream_id":333,"epg_id":5263767870,"title":"中国器乐电视大赛-复赛职业成年吹管组(下)","blocked":false},{"stream_id":333,"epg_id":5263767878,"title":"精彩音乐汇","blocked":false},{"stream_id":333,"epg_id":5263767871,"title":"一起音乐吧-绿色生活态度","blocked":false}],"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"央视","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":56,"title":"CCTVNEWS","description":"","sort":4,"icon":"http://res.starschina.com/res/2017/05/12/10/2412999/f9ae8227-2be7-11e7-8d04-00163e30def5.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/149/thumb@240_180.jpg","thumb_ott":"http://s2.starschinalive.com/thumb/149/thumb@320_180.jpg","play_urls":null,"epgs":[{"stream_id":56,"epg_id":5263734045,"title":"文化报道","blocked":false},{"stream_id":56,"epg_id":5263734062,"title":"非洲直播室","blocked":false},{"stream_id":56,"epg_id":5263734072,"title":"今日亚洲","blocked":false}],"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"央视","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":324,"title":"CCTV发现之旅","description":"","sort":0,"icon":"http://res.starschina.com/res/2019/02/26/16/4110/发现之旅.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/347/thumb@240_180.jpg","thumb_ott":"","play_urls":null,"epgs":[{"stream_id":324,"epg_id":5263763847,"title":"世界多美丽","blocked":false},{"stream_id":324,"epg_id":5263763858,"title":"大开眼界","blocked":false},{"stream_id":324,"epg_id":5263763859,"title":"美丽中华行","blocked":false}],"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"央视","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":321,"title":"CCTV女性时尚","description":"","sort":0,"icon":"http://res.starschina.com/res/2017/08/17/19/2708/女性时尚.png","cp":"","thumb":"http://s1.starschinalive.com/nvxingshishang.jpg","thumb_ott":"","play_urls":null,"epgs":[{"stream_id":321,"epg_id":5263762881,"title":"时尚秀场-","blocked":false},{"stream_id":321,"epg_id":5263762856,"title":"时尚秀场-","blocked":false},{"stream_id":321,"epg_id":5263762853,"title":"交换空间-","blocked":false}],"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"央视","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":175,"title":"浙江卫视","description":"","sort":3,"icon":"http://res.starschina.com/res/2017/05/12/10/2420999/54f7c5a9-2bed-11e7-8d04-00163e30def5.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/187/thumb@240_180.jpg","thumb_ott":"http://s2.starschinalive.com/thumb/58/thumb@320_180.jpg","play_urls":null,"epgs":[{"stream_id":175,"epg_id":5263738488,"title":"奔跑吧第三季1","blocked":false},{"stream_id":175,"epg_id":5263738485,"title":"浙江海洋预报","blocked":false},{"stream_id":175,"epg_id":5263738486,"title":"天气向导","blocked":false}],"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"卫视","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":179,"title":"湖南卫视","description":"","sort":0,"icon":"http://res.starschina.com/res/2017/05/12/10/2421999/d89ca52a-2bed-11e7-8d04-00163e30def5.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/184/thumb@240_180.jpg","thumb_ott":"http://s2.starschinalive.com/thumb/418/thumb@320_180.jpg","play_urls":null,"epgs":[{"stream_id":179,"epg_id":5263739084,"title":"快乐大本营","blocked":false},{"stream_id":179,"epg_id":5263739085,"title":"新闻大求真","blocked":false},{"stream_id":179,"epg_id":5263739072,"title":"湖南新闻联播","blocked":false}],"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"卫视","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":266,"title":"东方卫视","description":"","sort":3,"icon":"http://res.starschina.com/res/2017/05/12/10/2410999/014a4a8f-2be7-11e7-8d04-00163e30def5.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/181/thumb@240_180.jpg","thumb_ott":"http://s2.starschinalive.com/thumb/55/thumb@320_180.jpg","play_urls":null,"epgs":[{"stream_id":266,"epg_id":5263753443,"title":"诗书画","blocked":false},{"stream_id":266,"epg_id":5263753428,"title":"东方新闻","blocked":false},{"stream_id":266,"epg_id":5263753429,"title":"东方新气象","blocked":false}],"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"卫视","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":139,"title":"江苏卫视","description":"","sort":3,"icon":"http://res.starschina.com/res/2017/05/12/10/2420999/42bbb78e-2bed-11e7-8d04-00163e30def5.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/185/thumb@240_180.jpg","thumb_ott":"http://s2.starschinalive.com/thumb/57/thumb@320_180.jpg","play_urls":null,"epgs":[{"stream_id":139,"epg_id":5263734561,"title":"新相亲时代","blocked":false},{"stream_id":139,"epg_id":5263734580,"title":"新闻眼","blocked":false},{"stream_id":139,"epg_id":5263734573,"title":"江苏新时空","blocked":false}],"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"卫视","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":163,"title":"东南卫视","description":"","sort":3,"icon":"http://res.starschina.com/res/2017/05/12/10/2411999/acab5645-2be7-11e7-8d04-00163e30def5.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/64/thumb@240_180.jpg","thumb_ott":"http://s2.starschinalive.com/thumb/64/thumb@320_180.jpg","play_urls":null,"epgs":[{"stream_id":163,"epg_id":5263755254,"title":"电影:唐伯虎点秋香","blocked":false},{"stream_id":163,"epg_id":5263755277,"title":"动画片:小鸡彩虹第五季","blocked":false},{"stream_id":163,"epg_id":5263755283,"title":"娱乐乐翻天","blocked":false}],"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"卫视","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":319,"title":"山东卫视","description":"","sort":3,"icon":"http://res.starschina.com/res/2017/05/12/10/2419999/ada56b17-2bec-11e7-8d04-00163e30def5.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/216/thumb@240_180.jpg","thumb_ott":"http://s2.starschinalive.com/thumb/85/thumb@320_180.jpg","play_urls":null,"epgs":[{"stream_id":319,"epg_id":5263702134,"title":"爱家剧场:欢乐颂13","blocked":false},{"stream_id":319,"epg_id":5263702130,"title":"共产党员","blocked":false},{"stream_id":319,"epg_id":5263702101,"title":"山东新闻联播","blocked":false}],"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"卫视","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":167,"title":"河北卫视","description":"","sort":3,"icon":"http://res.starschina.com/res/2017/05/12/10/2410999/bb3f9c97-2be6-11e7-8d04-00163e30def5.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/419/thumb@240_180.jpg","thumb_ott":"http://s2.starschinalive.com/thumb/419/thumb@320_180.jpg","play_urls":null,"epgs":[{"stream_id":167,"epg_id":5263757226,"title":"生活服务","blocked":false},{"stream_id":167,"epg_id":5263757218,"title":"家政女皇","blocked":false},{"stream_id":167,"epg_id":5263757219,"title":"河北新闻联播","blocked":false}],"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"卫视","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":169,"title":"陕西卫视","description":"","sort":3,"icon":"http://res.starschina.com/res/2017/05/12/10/2412999/c15b0660-2be7-11e7-8d04-00163e30def5.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/83/thumb@240_180.jpg","thumb_ott":"http://s2.starschinalive.com/thumb/83/thumb@320_180.jpg","play_urls":null,"epgs":[{"stream_id":169,"epg_id":5263757854,"title":"生活服务","blocked":false},{"stream_id":169,"epg_id":5263757861,"title":"动画剧场:积高侠与阿里巴巴","blocked":false},{"stream_id":169,"epg_id":5263757855,"title":"旅游天气预报","blocked":false}],"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"卫视","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":171,"title":"湖北卫视","description":"","sort":3,"icon":"http://res.starschina.com/res/2017/05/12/10/2414999/e1fed733-2be9-11e7-8d04-00163e30def5.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/421/thumb@240_180.jpg","thumb_ott":"http://s2.starschinalive.com/thumb/74/thumb@320_180.jpg","play_urls":null,"epgs":[{"stream_id":171,"epg_id":5263759818,"title":"天生我财之吾股丰登","blocked":false},{"stream_id":171,"epg_id":5263759793,"title":"饮食养生汇","blocked":false},{"stream_id":171,"epg_id":5263759811,"title":"湖北新闻","blocked":false}],"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"卫视","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":615,"title":"天津卫视","description":"","sort":3,"icon":"http://res.starschina.com/res/2017/05/12/10/2414999/094467fd-2bea-11e7-8d04-00163e30def5.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/230/thumb@240_180.jpg","thumb_ott":"http://s2.starschinalive.com/thumb/80/thumb@320_180.jpg","play_urls":null,"epgs":[{"stream_id":615,"epg_id":5263724706,"title":"情感剧场:娘道37","blocked":false},{"stream_id":615,"epg_id":5263724712,"title":"生活服务","blocked":false},{"stream_id":615,"epg_id":5263724738,"title":"天津新闻","blocked":false}],"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"卫视","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":174,"title":"重庆卫视","description":"","sort":3,"icon":"http://res.starschina.com/res/2017/05/12/10/2416999/ec800efe-2bea-11e7-8d04-00163e30def5.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/317/thumb@240_180.jpg","thumb_ott":"http://s2.starschinalive.com/thumb/317/thumb@320_180.jpg","play_urls":null,"epgs":[{"stream_id":174,"epg_id":5263761343,"title":"第一眼新闻","blocked":false},{"stream_id":174,"epg_id":5263761356,"title":"财经壹资讯","blocked":false},{"stream_id":174,"epg_id":5263761332,"title":"天气预报","blocked":false}],"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"卫视","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":178,"title":"河南卫视","description":"","sort":3,"icon":"http://res.starschina.com/res/2017/05/12/10/2421999/8adc7b5d-2bed-11e7-8d04-00163e30def5.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/69/thumb@240_180.jpg","thumb_ott":"http://s2.starschinalive.com/thumb/69/thumb@320_180.jpg","play_urls":null,"epgs":[{"stream_id":178,"epg_id":5263761981,"title":"动画剧场:开心超人联盟之星际危机","blocked":false},{"stream_id":178,"epg_id":5263761971,"title":"聚焦","blocked":false},{"stream_id":178,"epg_id":5263761976,"title":"天气预报","blocked":false}],"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"卫视","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":180,"title":"广东卫视","description":"","sort":3,"icon":"http://res.starschina.com/res/2017/05/12/10/2410999/9bd477e3-2be6-11e7-8d04-00163e30def5.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/66/thumb@240_180.jpg","thumb_ott":"http://s2.starschinalive.com/thumb/66/thumb@320_180.jpg","play_urls":null,"epgs":[{"stream_id":180,"epg_id":5263763338,"title":"健康有道","blocked":false},{"stream_id":180,"epg_id":5263763343,"title":"老广的味道第三季","blocked":false},{"stream_id":180,"epg_id":5263763354,"title":"天气预报","blocked":false}],"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"卫视","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":181,"title":"黑龙江卫视","description":"","sort":3,"icon":"http://res.starschina.com/res/2017/05/12/10/2409999/89bed3b1-2be6-11e7-8d04-00163e30def5.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/203/thumb@240_180.jpg","thumb_ott":"http://s2.starschinalive.com/thumb/71/thumb@320_180.jpg","play_urls":null,"epgs":[{"stream_id":181,"epg_id":5263765336,"title":"传奇剧场:狙击部队36","blocked":false},{"stream_id":181,"epg_id":5263765358,"title":"新华视点","blocked":false},{"stream_id":181,"epg_id":5263765373,"title":"于硕说天气","blocked":false}],"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"卫视","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":260,"title":"四川卫视","description":"","sort":3,"icon":"http://res.starschina.com/res/2017/05/12/10/2409999/25651261-2be6-11e7-8d04-00163e30def5.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/81/thumb@240_180.jpg","thumb_ott":"http://s2.starschinalive.com/thumb/81/thumb@320_180.jpg","play_urls":null,"epgs":[{"stream_id":260,"epg_id":5263648187,"title":"生活服务","blocked":false},{"stream_id":260,"epg_id":5263648169,"title":"今日视点","blocked":false},{"stream_id":260,"epg_id":5263648152,"title":"四川新闻","blocked":false}],"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"卫视","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":244,"title":"深圳卫视","description":"","sort":3,"icon":"http://res.starschina.com/res/2017/05/12/10/2407999/561e3ff0-2be4-11e7-8d04-00163e30def5.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/82/thumb@240_180.jpg","thumb_ott":"http://s2.starschinalive.com/thumb/82/thumb@320_180.jpg","play_urls":null,"epgs":[{"stream_id":244,"epg_id":5263645473,"title":"热播剧场:凉生我们可不可以不忧伤57","blocked":false},{"stream_id":244,"epg_id":5263645495,"title":"生活服务","blocked":false},{"stream_id":244,"epg_id":5263645488,"title":"深视新闻","blocked":false}],"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"卫视","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":279,"title":"江西卫视","description":"","sort":3,"icon":"http://res.starschina.com/res/2017/05/12/10/2413999/7e3843a0-2be8-11e7-8d04-00163e30def5.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/76/thumb@240_180.jpg","thumb_ott":"http://s2.starschinalive.com/thumb/76/thumb@320_180.jpg","play_urls":null,"epgs":[{"stream_id":279,"epg_id":5263686079,"title":"下午剧场:飞哥大英雄9","blocked":false},{"stream_id":279,"epg_id":5263686044,"title":"社会传真","blocked":false},{"stream_id":279,"epg_id":5263686058,"title":"江西新闻联播","blocked":false}],"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"卫视","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":254,"title":"广西卫视","description":"","sort":3,"icon":"http://res.starschina.com/res/2017/05/12/10/2408999/791d9350-2be5-11e7-8d04-00163e30def5.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/67/thumb@240_180.jpg","thumb_ott":"http://s2.starschinalive.com/thumb/67/thumb@320_180.jpg","play_urls":null,"epgs":[{"stream_id":254,"epg_id":5263647564,"title":"经典剧场:地雷战7","blocked":false},{"stream_id":254,"epg_id":5263647554,"title":"海丝路","blocked":false},{"stream_id":254,"epg_id":5263647555,"title":"天气预报","blocked":false}],"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"卫视","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":164,"title":"云南卫视","description":"","sort":3,"icon":"http://res.starschina.com/res/2017/05/12/10/2406999/81132c53-2be2-11e7-a9e0-00163e30def5.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/77/thumb@240_180.jpg","thumb_ott":"","play_urls":null,"epgs":[{"stream_id":164,"epg_id":5263755863,"title":"炫酷剧场:战火连天10","blocked":false},{"stream_id":164,"epg_id":5263755869,"title":"诗的远方,梦的故乡","blocked":false},{"stream_id":164,"epg_id":5263755864,"title":"云南新闻联播","blocked":false}],"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"卫视","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":259,"title":"宁夏卫视","description":"","sort":3,"icon":"http://res.starschina.com/res/2017/05/12/10/2409999/049222b9-2be6-11e7-8d04-00163e30def5.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/319/thumb@240_180.jpg","thumb_ott":"http://s2.starschinalive.com/thumb/319/thumb@320_180.jpg","play_urls":null,"epgs":[{"stream_id":259,"epg_id":5263652747,"title":"动画片:小鸡彩虹第五季(15-16)","blocked":false},{"stream_id":259,"epg_id":5263652737,"title":"创富宁夏","blocked":false},{"stream_id":259,"epg_id":5263652732,"title":"天气预报","blocked":false}],"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"卫视","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":165,"title":"吉林卫视","description":"","sort":3,"icon":"http://res.starschina.com/res/2017/05/12/10/2407999/3c32caf6-2be4-11e7-8d04-00163e30def5.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/75/thumb@240_180.jpg","thumb_ott":"http://s2.starschinalive.com/thumb/75/thumb@320_180.jpg","play_urls":null,"epgs":[{"stream_id":165,"epg_id":5263756534,"title":"欢乐送","blocked":false},{"stream_id":165,"epg_id":5263756563,"title":"情动十分","blocked":false},{"stream_id":165,"epg_id":5263756569,"title":"天气预报","blocked":false}],"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"卫视","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":271,"title":"贵州卫视","description":"","sort":3,"icon":"http://res.starschina.com/res/2017/05/12/10/2411999/777e63f4-2be7-11e7-8d04-00163e30def5.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/68/thumb@240_180.jpg","thumb_ott":"http://s2.starschinalive.com/thumb/68/thumb@320_180.jpg","play_urls":null,"epgs":[{"stream_id":271,"epg_id":5263680433,"title":"超级美味","blocked":false},{"stream_id":271,"epg_id":5263680411,"title":"新闻延长线","blocked":false},{"stream_id":271,"epg_id":5263680428,"title":"贵州新闻联播","blocked":false}],"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"卫视","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":272,"title":"青海卫视","description":"","sort":3,"icon":"http://res.starschina.com/res/2017/05/12/10/2411999/b527430f-2be7-11e7-8d04-00163e30def5.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/241/thumb@240_180.jpg","thumb_ott":"","play_urls":null,"epgs":[{"stream_id":272,"epg_id":5263681087,"title":"龙斗天下","blocked":false},{"stream_id":272,"epg_id":5263681083,"title":"青海新闻联播","blocked":false},{"stream_id":272,"epg_id":5263681089,"title":"天气预报","blocked":false}],"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"卫视","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":273,"title":"山西卫视","description":"","sort":3,"icon":"http://res.starschina.com/res/2017/05/12/10/2411999/31eec8b2-2bbe-11e7-8e19-00163e30def5.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/84/thumb@240_180.jpg","thumb_ott":"http://s2.starschinalive.com/thumb/84/thumb@320_180.jpg","play_urls":null,"epgs":[{"stream_id":273,"epg_id":5263682055,"title":"热播剧场:神医喜来乐传奇12","blocked":false},{"stream_id":273,"epg_id":5263682048,"title":"山西新闻联播","blocked":false},{"stream_id":273,"epg_id":5263682049,"title":"天气预报","blocked":false}],"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"卫视","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":280,"title":"内蒙古卫视","description":"","sort":3,"icon":"http://res.starschina.com/res/2017/05/12/10/2413999/87182dee-2be8-11e7-8d04-00163e30def5.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/70/thumb@240_180.jpg","thumb_ott":"http://s2.starschinalive.com/thumb/70/thumb@320_180.jpg","play_urls":null,"epgs":[{"stream_id":280,"epg_id":5263686714,"title":"生活服务","blocked":false},{"stream_id":280,"epg_id":5263686695,"title":"欢乐驿站","blocked":false},{"stream_id":280,"epg_id":5263686692,"title":"内蒙古新闻联播","blocked":false}],"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"卫视","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":284,"title":"甘肃卫视","description":"","sort":3,"icon":"http://res.starschina.com/res/2017/05/12/10/2414999/d03edc88-2be9-11e7-8d04-00163e30def5.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/65/thumb@240_180.jpg","thumb_ott":"http://s2.starschinalive.com/thumb/65/thumb@320_180.jpg","play_urls":null,"epgs":[{"stream_id":284,"epg_id":5263687590,"title":"动画片:精诚的心40","blocked":false},{"stream_id":284,"epg_id":5263687609,"title":"今日聚焦","blocked":false},{"stream_id":284,"epg_id":5263687571,"title":"甘肃新闻","blocked":false}],"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"卫视","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":290,"title":"辽宁卫视","description":"","sort":3,"icon":"http://res.starschina.com/res/2017/05/12/10/2415999/6b216736-2bea-11e7-8d04-00163e30def5.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/213/thumb@240_180.jpg","thumb_ott":"http://s2.starschinalive.com/thumb/86/thumb@320_180.jpg","play_urls":null,"epgs":[{"stream_id":290,"epg_id":5263688252,"title":"欢乐集结号","blocked":false},{"stream_id":290,"epg_id":5263688233,"title":"风物辽宁","blocked":false},{"stream_id":290,"epg_id":5263688246,"title":"品牌辽宁","blocked":false}],"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"卫视","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":293,"title":"安徽卫视","description":"","sort":3,"icon":"http://res.starschina.com/res/2017/05/12/10/2416999/040eb1d3-2beb-11e7-8d04-00163e30def5.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/180/thumb@240_180.jpg","thumb_ott":"http://s2.starschinalive.com/thumb/63/thumb@320_180.jpg","play_urls":null,"epgs":[{"stream_id":293,"epg_id":5263688803,"title":"海豚真情剧场:大宅门17","blocked":false},{"stream_id":293,"epg_id":5263688792,"title":"每日新闻报","blocked":false},{"stream_id":293,"epg_id":5263688780,"title":"安徽新闻联播","blocked":false}],"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"卫视","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":296,"title":"新疆卫视","description":"","sort":3,"icon":"http://res.starschina.com/res/2017/05/12/10/2417999/1bd3de57-2beb-11e7-8d04-00163e30def5.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/78/thumb@240_180.jpg","thumb_ott":"http://s2.starschinalive.com/thumb/78/thumb@320_180.jpg","play_urls":null,"epgs":[{"stream_id":296,"epg_id":5263691325,"title":"生活服务","blocked":false},{"stream_id":296,"epg_id":5263691315,"title":"我们都是追梦人","blocked":false},{"stream_id":296,"epg_id":5263691292,"title":"雪莲花动漫城:中华廉政文化故事","blocked":false}],"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"卫视","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":249,"title":"西藏卫视","description":"","sort":3,"icon":"http://res.starschina.com/res/2017/05/12/10/2407999/b3706255-2be4-11e7-8d04-00163e30def5.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/79/thumb@240_180.jpg","thumb_ott":"http://s2.starschinalive.com/thumb/79/thumb@320_180.jpg","play_urls":null,"epgs":[{"stream_id":249,"epg_id":5263646060,"title":"雪莲剧场:康熙王朝32","blocked":false},{"stream_id":249,"epg_id":5263646039,"title":"生活服务","blocked":false},{"stream_id":249,"epg_id":5263646054,"title":"跟我学藏语","blocked":false}],"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"卫视","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":325,"title":"山东教育卫视","description":"","sort":0,"icon":"http://res.starschina.com/res/2018/06/14/15/3209/shandongjiaoyu.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/331/thumb@320_180.jpg","thumb_ott":"http://s2.starschinalive.com/thumb/331/thumb@320_180.jpg","play_urls":null,"epgs":[{"stream_id":325,"epg_id":5263706764,"title":"欢乐喜剧人","blocked":false},{"stream_id":325,"epg_id":5263706733,"title":"校园星播报","blocked":false},{"stream_id":325,"epg_id":5263706768,"title":"校园星力量","blocked":false}],"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"卫视","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":751,"title":"兵团卫视","description":"","sort":0,"icon":"http://res.starschina.com/res/2018/05/26/23/3707/兵团卫视.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/615/thumb@240_180.jpg","thumb_ott":"","play_urls":null,"epgs":[{"stream_id":751,"epg_id":5263654819,"title":"休闲剧场:黄河在咆哮19","blocked":false},{"stream_id":751,"epg_id":5263654838,"title":"生活服务","blocked":false},{"stream_id":751,"epg_id":5263654820,"title":"转播中央台新闻联播","blocked":false}],"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"地方台","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":363,"title":"BTV新闻","description":"","sort":0,"icon":"http://res.starschina.com/res/2018/05/17/18/2408/BTV.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/299/thumb@240_180.jpg","thumb_ott":"http://s2.starschinalive.com/thumb/299/thumb@320_180.jpg","play_urls":null,"epgs":[{"stream_id":363,"epg_id":5263705127,"title":"特别关注","blocked":false},{"stream_id":363,"epg_id":5263705160,"title":"红绿灯-平安行","blocked":false},{"stream_id":363,"epg_id":5263705138,"title":"北京新闻","blocked":false}],"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"地方台","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":170,"title":"BTV财经","description":"","sort":8,"icon":"http://res.starschina.com/res/2018/06/09/15/3645/BTV财经.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/357/thumb@240_180.jpg","thumb_ott":"http://s2.starschinalive.com/thumb/304/thumb@320_180.jpg","play_urls":null,"epgs":[{"stream_id":170,"epg_id":5263759273,"title":"天下财经","blocked":false},{"stream_id":170,"epg_id":5263759287,"title":"大家收藏","blocked":false},{"stream_id":170,"epg_id":5263759281,"title":"理财","blocked":false}],"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"地方台","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":613,"title":"BTV影视","description":"","sort":1,"icon":"http://res.starschina.com/res/2019/04/12/10/4435/BTV影视.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/302/thumb@240_180.jpg","thumb_ott":"http://s2.starschinalive.com/thumb/377/thumb@320_180.jpg","play_urls":null,"epgs":[{"stream_id":613,"epg_id":5263723869,"title":"英雄剧场:因法之名11","blocked":false},{"stream_id":613,"epg_id":5263723870,"title":"英雄剧场:因法之名12","blocked":false},{"stream_id":613,"epg_id":5263723865,"title":"气象星播报","blocked":false}],"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"地方台","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":267,"title":"BTV文艺","description":"","sort":3,"icon":"http://res.starschina.com/res/2018/06/09/16/1023/BTV文艺.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/375/thumb@240_180.jpg","thumb_ott":"http://s2.starschinalive.com/thumb/311/thumb@320_180.jpg","play_urls":null,"epgs":[{"stream_id":267,"epg_id":5263664705,"title":"笑动剧场","blocked":false},{"stream_id":267,"epg_id":5263664718,"title":"我看行","blocked":false},{"stream_id":267,"epg_id":5263664739,"title":"每日文娱播报","blocked":false}],"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"地方台","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":269,"title":"BTV科教","description":"","sort":10,"icon":"http://res.starschina.com/res/2018/06/09/16/1052/BTV科教.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/315/thumb@240_180.jpg","thumb_ott":"http://s2.starschinalive.com/thumb/314/thumb@320_180.jpg","play_urls":null,"epgs":[{"stream_id":269,"epg_id":5263679905,"title":"创新北京","blocked":false},{"stream_id":269,"epg_id":5263679906,"title":"奇趣大自然","blocked":false},{"stream_id":269,"epg_id":5263679897,"title":"健康北京","blocked":false}],"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"地方台","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":298,"title":"BTV青年","description":"","sort":3,"icon":"http://res.starschina.com/res/2017/05/12/10/2417999/2c97d335-2beb-11e7-8d04-00163e30def5.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/355/thumb@240_180.jpg","thumb_ott":"http://s2.starschinalive.com/thumb/305/thumb@320_180.jpg","play_urls":null,"epgs":[{"stream_id":298,"epg_id":5263697374,"title":"花样中国","blocked":false},{"stream_id":298,"epg_id":5263697373,"title":"国际双行线之完美行动","blocked":false},{"stream_id":298,"epg_id":5263697366,"title":"评书大会","blocked":false}],"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"地方台","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":304,"title":"BTV北京","description":"","sort":3,"icon":"http://res.starschina.com/res/2017/05/12/10/2417999/6c9aabb1-2beb-11e7-8d04-00163e30def5.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/361/thumb@240_180.jpg","thumb_ott":"","play_urls":null,"epgs":[{"stream_id":304,"epg_id":5263700383,"title":"养生堂","blocked":false},{"stream_id":304,"epg_id":5263700394,"title":"北京新闻","blocked":false},{"stream_id":304,"epg_id":5263700390,"title":"北京空气质量播报","blocked":false}],"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"卫视","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":360,"title":"BTV生活","description":"","sort":0,"icon":"http://res.starschina.com/res/2018/05/26/22/4225/BTV生活.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/301/thumb@240_180.jpg","thumb_ott":"http://s2.starschinalive.com/thumb/374/thumb@320_180.jpg","play_urls":null,"epgs":[{"stream_id":360,"epg_id":5263704261,"title":"快乐生活一点通","blocked":false},{"stream_id":360,"epg_id":5263704243,"title":"欢乐二打一","blocked":false},{"stream_id":360,"epg_id":5263704254,"title":"直播:生活这一刻","blocked":false}],"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"地方台","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":614,"title":"BTV KAKU","description":"","sort":0,"icon":"http://res.starschina.com/res/2019/04/12/10/4358/BTV+KAKU.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/309/thumb@240_180.jpg","thumb_ott":"http://s2.starschinalive.com/thumb/372/thumb@320_180.jpg","play_urls":null,"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"地方台","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":739,"title":"安徽公共","description":"","sort":0,"icon":"http://res.starschina.com/res/2018/05/26/23/3152/安徽公共.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/600/thumb@240_180.jpg","thumb_ott":"","play_urls":null,"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"地方台","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":654,"title":"安徽国际","description":"","sort":0,"icon":"http://res.starschina.com/res/2018/05/21/15/0350/安徽国际.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/500/thumb@240_180.jpg","thumb_ott":"","play_urls":null,"epgs":[{"stream_id":654,"epg_id":5263736840,"title":"精彩节目","blocked":false},{"stream_id":654,"epg_id":5263736850,"title":"精彩节目","blocked":false},{"stream_id":654,"epg_id":5263736837,"title":"精彩节目","blocked":false}],"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"国际","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":738,"title":"安徽经济","description":"","sort":0,"icon":"http://res.starschina.com/res/2018/05/26/23/3133/安徽经济生活.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/599/thumb@240_180.jpg","thumb_ott":"","play_urls":null,"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":735,"title":"安徽教育","description":"","sort":0,"icon":"http://res.starschina.com/res/2018/05/26/23/3104/安徽科教.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/598/thumb@240_180.jpg","thumb_ott":"","play_urls":null,"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"地方台","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":742,"title":"安徽人物","description":"","sort":0,"icon":"http://res.starschina.com/res/2018/06/28/15/4638/anhuirenwu.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/603/thumb@240_180.jpg","thumb_ott":"","play_urls":null,"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"地方台","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":741,"title":"安徽影视","description":"","sort":0,"icon":"http://res.starschina.com/res/2018/05/26/23/3251/安徽影视.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/602/thumb@240_180.jpg","thumb_ott":"","play_urls":null,"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"地方台","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":740,"title":"安徽综艺","description":"","sort":0,"icon":"http://res.starschina.com/res/2018/05/26/23/3234/安徽综艺.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/601/thumb@240_180.jpg","thumb_ott":"","play_urls":null,"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"地方台","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":698,"title":"北京朝阳","description":"","sort":0,"icon":"http://res.starschina.com/res/2018/05/26/23/1217/朝阳有线.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/556/thumb@240_180.jpg","thumb_ott":"","play_urls":null,"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"地方台","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":640,"title":"北京国际","description":"","sort":0,"icon":"http://res.starschina.com/res/2018/05/21/14/5320/北京国际频道.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/514/thumb@240_180.jpg","thumb_ott":"","play_urls":null,"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"国际","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":362,"title":"BTV冬奥纪实","description":"","sort":0,"icon":"http://res.starschina.com/res/2018/05/26/22/4245/BTV纪实高清.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/306/thumb@240_180.jpg","thumb_ott":"http://s2.starschinalive.com/thumb/306/thumb@320_180.jpg","play_urls":null,"epgs":[{"stream_id":362,"epg_id":5263704687,"title":"纪实公开课","blocked":false},{"stream_id":362,"epg_id":5263704661,"title":"系列昨天的故事","blocked":false},{"stream_id":362,"epg_id":5263704682,"title":"全景","blocked":false}],"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"地方台","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":870,"title":"CCTV老故事","description":"","sort":0,"icon":"http://res.starschina.com/res/2019/01/16/15/0321/CCTV老故事.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/675/thumb@240_180.jpg","thumb_ott":"","play_urls":null,"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"央视","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":759,"title":"CETV2","description":"","sort":0,"icon":"http://res.starschina.com/res/2018/06/09/16/4119/中国教育2.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/623/thumb@240_180.jpg","thumb_ott":"","play_urls":null,"epgs":[{"stream_id":759,"epg_id":5263656537,"title":"小学数学","blocked":false},{"stream_id":759,"epg_id":5263656533,"title":"农业新天地","blocked":false},{"stream_id":759,"epg_id":5263656542,"title":"农业新天地","blocked":false}],"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"地方台","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":761,"title":"CETV4","description":"","sort":0,"icon":"http://res.starschina.com/res/2018/06/09/16/4206/空中课堂.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/625/thumb@240_180.jpg","thumb_ott":"","play_urls":null,"epgs":[{"stream_id":761,"epg_id":5263657539,"title":"国家志","blocked":false},{"stream_id":761,"epg_id":5263657527,"title":"艺术志","blocked":false},{"stream_id":761,"epg_id":5263657545,"title":"科学志","blocked":false}],"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"地方台","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":268,"title":"CIBN财经","description":"","sort":8,"icon":"http://res.starschina.com/res/2017/05/12/10/2410999/1cf77905-2be7-11e7-8d04-00163e30def5.png","cp":"","thumb":"http://s1.starschinalive.com/stars_cibn_caijing.jpg","thumb_ott":"","play_urls":null,"epgs":[{"stream_id":268,"epg_id":5263747436,"title":"财金龙门阵  0626","blocked":false},{"stream_id":268,"epg_id":5263747420,"title":"持仓量的分析技巧 夜盘早知道：PTA、燃油 6.26","blocked":false},{"stream_id":268,"epg_id":5263747430,"title":"吾少也贱 老板们最头大的分家！6.26","blocked":false}],"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"CIBN","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":246,"title":"CIBN文化中国","description":"","sort":14,"icon":"http://res.starschina.com/res/2017/05/12/10/2406999/2485ce3c-2be4-11e7-8d04-00163e30def5.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/417/thumb@240_180.jpg","thumb_ott":"","play_urls":null,"epgs":[{"stream_id":246,"epg_id":5263744080,"title":"桃园三结义22","blocked":false},{"stream_id":246,"epg_id":5263744077,"title":"桃园三结义23","blocked":false},{"stream_id":246,"epg_id":5263744082,"title":"中华德育故事（第九部）12邓后克己","blocked":false}],"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"CIBN","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":245,"title":"CIBN炫佳动漫","description":"","sort":7,"icon":"http://res.starschina.com/res/2018/07/30/13/4153/CIBN旋佳卡通.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/408/thumb@240_180.jpg","thumb_ott":"","play_urls":null,"epgs":[{"stream_id":245,"epg_id":5263719793,"title":"24 全力冲线","blocked":false},{"stream_id":245,"epg_id":5263719829,"title":"25 魔龙觉醒","blocked":false},{"stream_id":245,"epg_id":5263719794,"title":"卡西龙之寻龙记21 兄弟间的误会","blocked":false}],"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"CIBN","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":326,"title":"CIBN电影","description":"","sort":0,"icon":"http://res.starschina.com/res/2017/05/12/10/2420999/24103f63-2bed-11e7-8d04-00163e30def5.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/430/thumb@240_180.jpg","thumb_ott":"","play_urls":null,"epgs":[{"stream_id":326,"epg_id":5263641542,"title":"遗弃","blocked":false},{"stream_id":326,"epg_id":5263641535,"title":"《跳舞吧大象》终极预告","blocked":false},{"stream_id":326,"epg_id":5263641548,"title":"《跳舞吧大象》终极预告","blocked":false}],"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"CIBN","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":404,"title":"CIBN钓鱼","description":"","sort":0,"icon":"http://res.starschina.com/res/2017/12/20/18/0835/140-统一频道icons--.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/426/thumb@240_180.jpg","thumb_ott":"","play_urls":null,"epgs":[{"stream_id":404,"epg_id":5263718664,"title":"《王牌驾到》第十六集 迪佳战斗手","blocked":false},{"stream_id":404,"epg_id":5263718645,"title":"第二十一集 狼王刀狼渔轮高性价比 全民享渔趣","blocked":false},{"stream_id":404,"epg_id":5263718613,"title":"《垂钓微讲堂》第十一期 （迪佳 第五期）迪佳GCB300水滴轮的内部保养与维护","blocked":false}],"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"CIBN","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":314,"title":"CIBN电影导视","description":"","sort":2,"icon":"http://res.starschina.com/res/2017/05/12/10/2419999/73dc8443-2bec-11e7-8d04-00163e30def5.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/396/thumb@240_180.jpg","thumb_ott":"","play_urls":null,"epgs":[{"stream_id":314,"epg_id":5263622047,"title":"小Q    预告片1","blocked":false},{"stream_id":314,"epg_id":5263622094,"title":"银河补习班    花絮1","blocked":false},{"stream_id":314,"epg_id":5263622055,"title":"银河补习班    花絮2","blocked":false}],"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"CIBN","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":300,"title":"CIBN风尚运动","description":"","sort":6,"icon":"http://res.starschina.com/res/2018/07/04/13/5208/CIBN风尚运动.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/405/thumb@240_180.jpg","thumb_ott":"","play_urls":null,"epgs":[{"stream_id":300,"epg_id":5263590974,"title":"旅游急先锋4新疆","blocked":false},{"stream_id":300,"epg_id":5263590881,"title":"文旅中国宣传片A","blocked":false},{"stream_id":300,"epg_id":5263590887,"title":"文旅中国宣传片B","blocked":false}],"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"CIBN","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":328,"title":"CIBN动作影院","description":"","sort":2,"icon":"http://res.starschina.com/res/2017/05/12/10/2420999/5bb1110a-2bed-11e7-8d04-00163e30def5.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/402/thumb@240_180.jpg","thumb_ott":"","play_urls":null,"epgs":[{"stream_id":328,"epg_id":5263641869,"title":"雪暴","blocked":false},{"stream_id":328,"epg_id":5263641870,"title":"怪人二十面相传","blocked":false},{"stream_id":328,"epg_id":5263641881,"title":"《跳舞吧大象》终极预告","blocked":false}],"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"CIBN","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":312,"title":"CIBN军事","description":"","sort":1,"icon":"http://res.starschina.com/res/2018/10/24/10/3743/CIBN军事.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/404/thumb@240_180.jpg","thumb_ott":"","play_urls":null,"epgs":[{"stream_id":312,"epg_id":5263615421,"title":"防弹狙击手1","blocked":false},{"stream_id":312,"epg_id":5263615412,"title":"防弹狙击手2","blocked":false},{"stream_id":312,"epg_id":5263615416,"title":"CIBN频道群宣传片","blocked":false}],"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"CIBN","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":332,"title":"CIBN嗨播","description":"","sort":13,"icon":"http://res.starschina.com/res/2017/05/12/10/2421999/836df689-2bed-11e7-8d04-00163e30def5.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/439/thumb@240_180.jpg","thumb_ott":"","play_urls":null,"epgs":[{"stream_id":332,"epg_id":5263699730,"title":"2018奥林匹克公园音乐季 《中国民族歌剧歌剧之夜》","blocked":false},{"stream_id":332,"epg_id":5263699731,"title":"“青春德意志”中国交响乐团音乐会","blocked":false},{"stream_id":332,"epg_id":5263699722,"title":"“我们来啊”中国交响乐团室内乐系列五M.E室内乐音乐会","blocked":false}],"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"CIBN","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":247,"title":"CIBN好莱坞","description":"","sort":2,"icon":"http://res.starschina.com/res/2017/05/12/10/2407999/6fe093ea-2be4-11e7-8d04-00163e30def5.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/401/thumb@240_180.jpg","thumb_ott":"","play_urls":null,"epgs":[{"stream_id":247,"epg_id":5263743527,"title":"动物世界","blocked":false},{"stream_id":247,"epg_id":5263743535,"title":"13朵玫瑰","blocked":false},{"stream_id":247,"epg_id":5263743536,"title":"《跳舞吧大象》终极预告","blocked":false}],"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"CIBN","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":339,"title":"CIBN华语影院","description":"","sort":11,"icon":"http://res.starschina.com/res/2018/03/01/10/4611/CIBN华语影院.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/409/thumb@240_180.jpg","thumb_ott":"","play_urls":null,"epgs":[{"stream_id":339,"epg_id":5263714537,"title":"步步惊心","blocked":false},{"stream_id":339,"epg_id":5263714538,"title":"《跳舞吧大象》终极预告","blocked":false},{"stream_id":339,"epg_id":5263714549,"title":"《跳舞吧大象》终极预告","blocked":false}],"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"CIBN","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":338,"title":"CIBN好享购","description":"","sort":0,"icon":"http://res.starschina.com/res/2017/08/17/15/1650/CIBN好享购.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/428/thumb@240_180.jpg","thumb_ott":"","play_urls":null,"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"CIBN","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":231,"title":"CIBN经典剧场","description":"","sort":0,"icon":"http://res.starschina.com/res/2017/07/25/16/3545/CIBN经典剧场.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/427/thumb@240_180.jpg","thumb_ott":"","play_urls":null,"epgs":[{"stream_id":231,"epg_id":5263736450,"title":"正午阳光13","blocked":false},{"stream_id":231,"epg_id":5263736430,"title":"正午阳光14","blocked":false},{"stream_id":231,"epg_id":5263736431,"title":"正午阳光15","blocked":false}],"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"CIBN","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":275,"title":"CIBN健康","description":"","sort":8,"icon":"http://res.starschina.com/res/2017/05/12/10/2412999/0a691b70-2be8-11e7-8d04-00163e30def5.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/414/thumb@240_180.jpg","thumb_ott":"","play_urls":null,"epgs":[{"stream_id":275,"epg_id":5263750628,"title":"《医路》","blocked":false},{"stream_id":275,"epg_id":5263750681,"title":"《4月25日》","blocked":false},{"stream_id":275,"epg_id":5263750693,"title":"《初心》","blocked":false}],"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"CIBN","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":291,"title":"CIBN纪录","description":"","sort":10,"icon":"http://res.starschina.com/res/2017/05/12/10/2416999/daca84dd-2bea-11e7-8d04-00163e30def5.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/412/thumb@240_180.jpg","thumb_ott":"","play_urls":null,"epgs":[{"stream_id":291,"epg_id":5263588986,"title":"丝绸之路上的黄河古渡02","blocked":false},{"stream_id":291,"epg_id":5263588987,"title":"留在姑苏-01","blocked":false},{"stream_id":291,"epg_id":5263588944,"title":"留在姑苏-02","blocked":false}],"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"CIBN","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":262,"title":"CIBN精品影院","description":"","sort":2,"icon":"http://res.starschina.com/res/2017/05/12/10/2409999/4a6641df-2be6-11e7-8d04-00163e30def5.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/398/thumb@240_180.jpg","thumb_ott":"","play_urls":null,"epgs":[{"stream_id":262,"epg_id":5263746439,"title":"顶级阴谋","blocked":false},{"stream_id":262,"epg_id":5263746441,"title":"走过冬季","blocked":false},{"stream_id":262,"epg_id":5263746458,"title":"午后乐事","blocked":false}],"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"CIBN","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":286,"title":"CIBN教育","description":"","sort":8,"icon":"http://res.starschina.com/res/2017/05/12/10/2414999/110a607e-2bea-11e7-8d04-00163e30def5.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/410/thumb@240_180.jpg","thumb_ott":"","play_urls":null,"epgs":[{"stream_id":286,"epg_id":5263770774,"title":"小兔子乖乖-童谣-贝瓦","blocked":false},{"stream_id":286,"epg_id":5263770782,"title":"小星星-贝瓦","blocked":false},{"stream_id":286,"epg_id":5263770750,"title":"小燕子-贝瓦","blocked":false}],"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"CIBN","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":270,"title":"CIBN骄阳剧场","description":"","sort":1,"icon":"http://res.starschina.com/res/2017/05/12/10/2411999/4fb5c675-2be7-11e7-8d04-00163e30def5.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/432/thumb@240_180.jpg","thumb_ott":"","play_urls":null,"epgs":[{"stream_id":270,"epg_id":5263748000,"title":"原谅-13","blocked":false},{"stream_id":270,"epg_id":5263747975,"title":"原谅-14","blocked":false},{"stream_id":270,"epg_id":5263747984,"title":"原谅-15","blocked":false}],"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"CIBN","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":340,"title":"CIBN旅游","description":"","sort":8,"icon":"http://res.starschina.com/res/2017/05/12/10/2407999/7e9fb56e-2be4-11e7-8d04-00163e30def5.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/413/thumb@240_180.jpg","thumb_ott":"","play_urls":null,"epgs":[{"stream_id":340,"epg_id":5263715601,"title":"《追梦中国》红木之缘 托起文化梦想（上）","blocked":false},{"stream_id":340,"epg_id":5263715579,"title":"《追梦中国》红木之缘 托起文化梦想（下）","blocked":false},{"stream_id":340,"epg_id":5263715580,"title":"《追梦中国 》美丽事业 精彩人生","blocked":false}],"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"CIBN","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":255,"title":"CIBN汽车","description":"","sort":9,"icon":"http://res.starschina.com/res/2017/05/12/10/2408999/8283b89b-2be5-11e7-8d04-00163e30def5.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/411/thumb@240_180.jpg","thumb_ott":"","play_urls":null,"epgs":[{"stream_id":255,"epg_id":5263740587,"title":"雪山花园盐湖城《自游观》美国西部03","blocked":false},{"stream_id":255,"epg_id":5263740660,"title":"韩贩 这是大众还是兰博基尼","blocked":false},{"stream_id":255,"epg_id":5263740549,"title":"30秒懂车 二十万级别最优大空间SUV","blocked":false}],"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"CIBN","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":281,"title":"CIBN情感影院","description":"","sort":2,"icon":"http://res.starschina.com/res/2017/05/12/10/2413999/a76b31a2-2be8-11e7-8d04-00163e30def5.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/399/thumb@240_180.jpg","thumb_ott":"","play_urls":null,"epgs":[{"stream_id":281,"epg_id":5263752724,"title":"义胆忠魂","blocked":false},{"stream_id":281,"epg_id":5263752725,"title":"诈骗犯","blocked":false},{"stream_id":281,"epg_id":5263752726,"title":"《跳舞吧大象》终极预告","blocked":false}],"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"CIBN","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":337,"title":"CIBN童学世界","description":"","sort":1,"icon":"http://res.starschina.com/res/2018/07/30/13/4227/CIBN童学世界.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/400/thumb@240_180.jpg","thumb_ott":"","play_urls":null,"epgs":[{"stream_id":337,"epg_id":5263708626,"title":"彩虹画堂189","blocked":false},{"stream_id":337,"epg_id":5263708635,"title":"彩虹画堂190","blocked":false},{"stream_id":337,"epg_id":5263708706,"title":"乐玩cake 41","blocked":false}],"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"CIBN","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":287,"title":"CIBN流金岁月","description":"","sort":8,"icon":"http://res.starschina.com/res/2018/01/02/12/3542/CIBN流金岁月.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/437/thumb@240_180.jpg","thumb_ott":"","play_urls":null,"epgs":[{"stream_id":287,"epg_id":5263583280,"title":"策马啸西风-15","blocked":false},{"stream_id":287,"epg_id":5263583273,"title":"钢的琴28","blocked":false},{"stream_id":287,"epg_id":5263583265,"title":"钢的琴29","blocked":false}],"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"CIBN","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":308,"title":"CIBN沙发院线","description":"","sort":2,"icon":"http://res.starschina.com/res/2017/05/12/10/2418999/91606e6d-2beb-11e7-8d04-00163e30def5.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/438/thumb@240_180.jpg","thumb_ott":"","play_urls":null,"epgs":[{"stream_id":308,"epg_id":5263595189,"title":"养老保险这么交，退休后每月能多拿500块！","blocked":false},{"stream_id":308,"epg_id":5263595180,"title":"养老金办理、领取手续终于改革了！","blocked":false},{"stream_id":308,"epg_id":5263595204,"title":"养老金验证正在进行，不知道的抓紧了！","blocked":false}],"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"CIBN","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":331,"title":"CIBN艺术院线","description":"","sort":12,"icon":"http://res.starschina.com/res/2019/05/22/18/2205/CIBN艺术院线.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/416/thumb@240_180.jpg","thumb_ott":"","play_urls":null,"epgs":[{"stream_id":331,"epg_id":5263689211,"title":"末世求生","blocked":false},{"stream_id":331,"epg_id":5263689207,"title":"《跳舞吧大象》终极预告","blocked":false},{"stream_id":331,"epg_id":5263689208,"title":"重组一家亲","blocked":false}],"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"CIBN","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":282,"title":"CIBN微电影","description":"","sort":2,"icon":"http://res.starschina.com/res/2017/05/12/10/2413999/b1b3e85e-2be8-11e7-8d04-00163e30def5.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/434/thumb@240_180.jpg","thumb_ott":"","play_urls":null,"epgs":[{"stream_id":282,"epg_id":5263766212,"title":"视野-08-俄罗斯之旅E03","blocked":false},{"stream_id":282,"epg_id":5263766262,"title":"梦断紫禁城-03","blocked":false},{"stream_id":282,"epg_id":5263766218,"title":"收藏大视野-08","blocked":false}],"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"CIBN","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":288,"title":"CIBN喜剧影院","description":"","sort":2,"icon":"http://res.starschina.com/res/2017/05/12/10/2415999/22bd87b3-2bea-11e7-8d04-00163e30def5.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/397/thumb@240_180.jpg","thumb_ott":"","play_urls":null,"epgs":[{"stream_id":288,"epg_id":5263583677,"title":"胖墩夏令营","blocked":false},{"stream_id":288,"epg_id":5263583679,"title":"天堂盛宴","blocked":false},{"stream_id":288,"epg_id":5263583680,"title":"真假英雄兄弟情","blocked":false}],"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"CIBN","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":229,"title":"CIBN综合","description":"","sort":0,"icon":"http://res.starschina.com/res/2018/01/02/12/3513/CIBN综合.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/407/thumb@240_180.jpg","thumb_ott":"","play_urls":null,"epgs":[{"stream_id":229,"epg_id":5263744619,"title":"少林寺传奇藏经阁 12","blocked":false},{"stream_id":229,"epg_id":5263744624,"title":"阿福哥的桃花运","blocked":false},{"stream_id":229,"epg_id":5263744623,"title":"行走的鸡毛掸子-12","blocked":false}],"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"CIBN","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":237,"title":"CIBN院线大片","description":"","sort":0,"icon":"http://res.starschina.com/res/2017/07/25/16/4230/CIBN院线大片.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/403/thumb@240_180.jpg","thumb_ott":"","play_urls":null,"epgs":[{"stream_id":237,"epg_id":5263744965,"title":"龙珠超：布罗利","blocked":false},{"stream_id":237,"epg_id":5263744978,"title":"如影随心","blocked":false},{"stream_id":237,"epg_id":5263744966,"title":"幸福马上来","blocked":false}],"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"CIBN","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":253,"title":"CIBN中国交通","description":"","sort":9,"icon":"http://res.starschina.com/res/2017/05/12/10/2408999/64d6768a-2be5-11e7-8d04-00163e30def5.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/435/thumb@240_180.jpg","thumb_ott":"","play_urls":null,"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"CIBN","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":230,"title":"CIBN真人秀","description":"","sort":0,"icon":"http://res.starschina.com/res/2017/07/24/18/2916/CIBN真人秀.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/406/thumb@240_180.jpg","thumb_ott":"","play_urls":null,"epgs":[{"stream_id":230,"epg_id":5263745690,"title":"燃烧吧脂肪君-10","blocked":false},{"stream_id":230,"epg_id":5263745709,"title":"旅游急先锋―09-泸沽湖","blocked":false},{"stream_id":230,"epg_id":5263745764,"title":"旅游急先锋-10-黄河系列之晋陕大峡谷","blocked":false}],"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"CIBN","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":350,"title":"CIBN古装剧场","description":"","sort":3,"icon":"http://res.starschina.com/res/2018/12/21/14/2959/古装剧场.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/431/thumb@240_180.jpg","thumb_ott":"","play_urls":null,"epgs":[{"stream_id":350,"epg_id":5263716812,"title":"美人如画-34","blocked":false},{"stream_id":350,"epg_id":5263716788,"title":"美人如画-35","blocked":false},{"stream_id":350,"epg_id":5263716789,"title":"美人如画-36","blocked":false}],"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"CIBN","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":265,"title":"车迷频道","description":"","sort":9,"icon":"http://res.starschina.com/res/2017/05/12/10/2410999/ef5c125b-2be6-11e7-8d04-00163e30def5.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/243/thumb@240_180.jpg","thumb_ott":"","play_urls":null,"epgs":[{"stream_id":265,"epg_id":5263653226,"title":"摩托范儿、养护宝典","blocked":false},{"stream_id":265,"epg_id":5263653219,"title":"车语、车迷演播室","blocked":false},{"stream_id":265,"epg_id":5263653227,"title":"酷车驾到、车迷会、车迷演播室","blocked":false}],"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"特色","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":257,"title":"动漫秀场","description":"","sort":0,"icon":"http://res.starschina.com/res/2017/05/12/10/2408999/b64a7233-2be5-11e7-8d04-00163e30def5.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/245/thumb@240_180.jpg","thumb_ott":"","play_urls":null,"epgs":[{"stream_id":257,"epg_id":5263650206,"title":"喜羊羊与灰太狼之嘻哈闯世界14","blocked":false},{"stream_id":257,"epg_id":5263650257,"title":"喜羊羊与灰太狼之嘻哈闯世界15","blocked":false},{"stream_id":257,"epg_id":5263650259,"title":"萌鸡小队Ⅱ9:安全驾驶很重要","blocked":false}],"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"特色","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":731,"title":"都市剧场","description":"","sort":0,"icon":"http://res.starschina.com/res/2018/05/26/23/2725/都市剧场高清.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/594/thumb@240_180.jpg","thumb_ott":"","play_urls":null,"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"地方台","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":692,"title":"第一财经","description":"","sort":0,"icon":"http://res.starschina.com/res/2018/05/26/23/4100/CBN.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/550/thumb@240_180.jpg","thumb_ott":"","play_urls":null,"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"地方台","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":625,"title":"CCTV第一剧场","description":"","sort":0,"icon":"http://res.starschina.com/res/2019/02/26/16/4244/第一剧场.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/384/thumb@240_180.jpg","thumb_ott":"http://s2.starschinalive.com/thumb/384/thumb@320_180.jpg","play_urls":null,"epgs":[{"stream_id":625,"epg_id":5263768677,"title":"守护丽人-25","blocked":false},{"stream_id":625,"epg_id":5263768668,"title":"守护丽人-26","blocked":false},{"stream_id":625,"epg_id":5263768686,"title":"央视风云新人名字幕-第一剧场","blocked":false}],"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"央视","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":327,"title":"点掌财经","description":"","sort":0,"icon":"http://res.starschina.com/res/2017/05/12/10/2420999/3ae2c0b5-2bed-11e7-8d04-00163e30def5.png","cp":"","thumb":"http://s1.starschinalive.com/dianzhang_caijing.jpg","thumb_ott":"","play_urls":null,"epgs":[{"stream_id":327,"epg_id":5263711005,"title":"重播","blocked":false},{"stream_id":327,"epg_id":5263711006,"title":"画说基本面","blocked":false},{"stream_id":327,"epg_id":5263710998,"title":"主题投资","blocked":false}],"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"特色","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":685,"title":"广东公共","description":"","sort":0,"icon":"http://res.starschina.com/res/2018/05/26/23/0736/广东公共.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/543/thumb@240_180.jpg","thumb_ott":"","play_urls":null,"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"地方台","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":634,"title":"广东嘉佳卡通","description":"","sort":0,"icon":"http://res.starschina.com/res/2018/05/26/22/4634/广东卡通.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/472/thumb@240_180.jpg","thumb_ott":"","play_urls":null,"epgs":[{"stream_id":634,"epg_id":5263732280,"title":"喜羊羊跨时空救兵","blocked":false},{"stream_id":634,"epg_id":5263732277,"title":"百变校巴","blocked":false},{"stream_id":634,"epg_id":5263732284,"title":"乐迪带我疯狂夺宝","blocked":false}],"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"地方台","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":668,"title":"广东南方卫视","description":"","sort":0,"icon":"http://res.starschina.com/res/2018/05/17/19/1557/广东.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/526/thumb@240_180.jpg","thumb_ott":"","play_urls":null,"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":636,"title":"广东少儿","description":"","sort":0,"icon":"http://res.starschina.com/res/2018/05/17/19/1659/广东.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/474/thumb@240_180.jpg","thumb_ott":"","play_urls":null,"epgs":[{"stream_id":636,"epg_id":5263732437,"title":"超级卡通剧场开心宝贝","blocked":false},{"stream_id":636,"epg_id":5263732430,"title":"合家欢西游记","blocked":false},{"stream_id":636,"epg_id":5263732444,"title":"午夜剧场放学我当家","blocked":false}],"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"地方台","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":686,"title":"广东体育","description":"","sort":0,"icon":"http://res.starschina.com/res/2018/05/26/23/0754/广东体育.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/544/thumb@240_180.jpg","thumb_ott":"","play_urls":null,"epgs":[{"stream_id":686,"epg_id":5263743178,"title":"2019年世界羽联世巡赛日本公开赛","blocked":false},{"stream_id":686,"epg_id":5263743179,"title":"体育世界","blocked":false},{"stream_id":686,"epg_id":5263743191,"title":"体育实况","blocked":false}],"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"地方台","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":684,"title":"广东新闻","description":"","sort":0,"icon":"http://res.starschina.com/res/2018/05/26/23/0709/广东新闻.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/542/thumb@240_180.jpg","thumb_ott":"","play_urls":null,"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"地方台","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":687,"title":"广东珠江","description":"","sort":0,"icon":"http://res.starschina.com/res/2018/05/26/23/0814/广东珠江.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/545/thumb@240_180.jpg","thumb_ott":"","play_urls":null,"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"地方台","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":623,"title":"高尔夫","description":"","sort":0,"icon":"http://res.starschina.com/res/2019/02/26/16/4343/高尔夫网球.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/390/thumb@240_180.jpg","thumb_ott":"http://s2.starschinalive.com/thumb/390/thumb@320_180.jpg","play_urls":null,"epgs":[{"stream_id":623,"epg_id":5263727761,"title":"美巡赛:2019年巴尔巴索锦标赛第四天","blocked":false},{"stream_id":623,"epg_id":5263727752,"title":"精彩一刻","blocked":false},{"stream_id":623,"epg_id":5263727753,"title":"走进美巡赛","blocked":false}],"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"特色","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":310,"title":"CCTV国防军事","description":"","sort":0,"icon":"http://res.starschina.com/res/2017/05/12/10/2418999/420e7e36-2bec-11e7-8d04-00163e30def5.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/343/thumb@240_180.jpg","thumb_ott":"","play_urls":null,"epgs":[{"stream_id":310,"epg_id":5263760267,"title":"军事全记录-","blocked":false},{"stream_id":310,"epg_id":5263760282,"title":"战争谜中谜-","blocked":false},{"stream_id":310,"epg_id":5263760283,"title":"精品典播-","blocked":false}],"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"央视","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":708,"title":"广西都市","description":"","sort":0,"icon":"http://res.starschina.com/res/2018/05/26/23/1620/广西都市.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/566/thumb@240_180.jpg","thumb_ott":"","play_urls":null,"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"地方台","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":710,"title":"广西公共","description":"","sort":0,"icon":"http://res.starschina.com/res/2018/05/26/23/1656/广西公共.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/568/thumb@240_180.jpg","thumb_ott":"","play_urls":null,"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"地方台","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":709,"title":"广西综艺","description":"","sort":0,"icon":"http://res.starschina.com/res/2018/05/26/23/1637/广西综艺.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/567/thumb@240_180.jpg","thumb_ott":"","play_urls":null,"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"地方台","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":664,"title":"广州经济","description":"","sort":0,"icon":"http://res.starschina.com/res/2018/05/26/23/0003/广州经济.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/522/thumb@240_180.jpg","thumb_ott":"","play_urls":null,"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":665,"title":"广州竞赛","description":"","sort":0,"icon":"http://res.starschina.com/res/2018/05/26/23/0023/广州竞赛.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/523/thumb@240_180.jpg","thumb_ott":"","play_urls":null,"epgs":[{"stream_id":665,"epg_id":5263738799,"title":"2018年帕克12联盟篮球赛","blocked":false},{"stream_id":665,"epg_id":5263738789,"title":"国际汽联电动方程式锦标赛","blocked":false},{"stream_id":665,"epg_id":5263738800,"title":"体坛点击","blocked":false}],"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":662,"title":"广州少儿","description":"","sort":0,"icon":"http://res.starschina.com/res/2018/05/26/22/5931/广州少儿.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/520/thumb@240_180.jpg","thumb_ott":"","play_urls":null,"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":663,"title":"广州生活","description":"","sort":0,"icon":"http://res.starschina.com/res/2018/05/19/11/2919/广州生活.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/521/thumb@240_180.jpg","thumb_ott":"","play_urls":null,"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":691,"title":"广州台","description":"","sort":0,"icon":"http://res.starschina.com/res/2018/05/26/23/0948/广州卫视.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/549/thumb@240_180.jpg","thumb_ott":"","play_urls":null,"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"地方台","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":667,"title":"广州新闻","description":"","sort":0,"icon":"http://res.starschina.com/res/2018/05/26/23/0110/广州新闻.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/525/thumb@240_180.jpg","thumb_ott":"","play_urls":null,"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":666,"title":"广州影视","description":"","sort":0,"icon":"http://res.starschina.com/res/2018/05/26/23/0048/广州影视.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/524/thumb@240_180.jpg","thumb_ott":"","play_urls":null,"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":637,"title":"河北都市","description":"","sort":0,"icon":"http://res.starschina.com/res/2018/05/26/22/4723/河北都市.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/475/thumb@240_180.jpg","thumb_ott":"","play_urls":null,"epgs":[{"stream_id":637,"epg_id":5263724192,"title":"名医来了","blocked":false},{"stream_id":637,"epg_id":5263724204,"title":"都市健康315","blocked":false},{"stream_id":637,"epg_id":5263724205,"title":"叶落长安(33)","blocked":false}],"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"地方台","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":669,"title":"河北经济","description":"","sort":0,"icon":"http://res.starschina.com/res/2018/05/26/23/0201/河北经济频道.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/527/thumb@240_180.jpg","thumb_ott":"","play_urls":null,"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"地方台","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":671,"title":"河北少儿","description":"","sort":0,"icon":"http://res.starschina.com/res/2018/05/26/23/0238/河北少儿.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/529/thumb@240_180.jpg","thumb_ott":"","play_urls":null,"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"地方台","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":670,"title":"河北影视","description":"","sort":0,"icon":"http://res.starschina.com/res/2018/05/26/23/0220/河北影视频道.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/528/thumb@240_180.jpg","thumb_ott":"","play_urls":null,"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"地方台","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":638,"title":"黄河","description":"","sort":0,"icon":"http://res.starschina.com/res/2018/05/17/19/1723/山西卫视.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/476/thumb@240_180.jpg","thumb_ott":"","play_urls":null,"epgs":[{"stream_id":638,"epg_id":5263732565,"title":"冷暖人生","blocked":false},{"stream_id":638,"epg_id":5263732566,"title":"小鹏吃货团","blocked":false},{"stream_id":638,"epg_id":5263732569,"title":"剧场:传奇英雄","blocked":false}],"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"地方台","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":743,"title":"黄河新闻","description":"","sort":0,"icon":"http://res.starschina.com/res/2018/05/26/23/3340/黄河新闻.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/604/thumb@240_180.jpg","thumb_ott":"","play_urls":null,"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"地方台","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":631,"title":"河南都市","description":"","sort":0,"icon":"http://res.starschina.com/res/2018/05/26/22/4437/河南都市频道.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/469/thumb@240_180.jpg","thumb_ott":"","play_urls":null,"epgs":[{"stream_id":631,"epg_id":5263731008,"title":"孟子约精编版","blocked":false},{"stream_id":631,"epg_id":5263731015,"title":"打鱼晒网","blocked":false},{"stream_id":631,"epg_id":5263731002,"title":"孟子约","blocked":false}],"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"地方台","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":711,"title":"湖南都市","description":"","sort":0,"icon":"http://res.starschina.com/res/2018/06/09/16/2523/湖南都市频道.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/581/thumb@240_180.jpg","thumb_ott":"","play_urls":null,"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"地方台","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":676,"title":"河南电视剧","description":"","sort":0,"icon":"http://res.starschina.com/res/2018/05/26/23/0417/河南电视剧频道.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/534/thumb@240_180.jpg","thumb_ott":"","play_urls":null,"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"地方台","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":728,"title":"湖南电视剧","description":"","sort":0,"icon":"http://res.starschina.com/res/2018/06/09/16/2956/湖南电视剧.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/586/thumb@240_180.jpg","thumb_ott":"","play_urls":null,"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"地方台","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":712,"title":"湖南公共","description":"","sort":0,"icon":"http://res.starschina.com/res/2018/05/26/23/4331/湖南公共.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/585/thumb@240_180.jpg","thumb_ott":"","play_urls":null,"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"地方台","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":651,"title":"河南国际","description":"","sort":0,"icon":"http://res.starschina.com/res/2018/05/21/15/0239/河南国际频道.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/503/thumb@240_180.jpg","thumb_ott":"","play_urls":null,"epgs":[{"stream_id":651,"epg_id":5263735392,"title":"纪录中国","blocked":false},{"stream_id":651,"epg_id":5263735379,"title":"功夫课堂","blocked":false},{"stream_id":651,"epg_id":5263735375,"title":"梨园春精华版","blocked":false}],"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"国际","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":646,"title":"湖南国际","description":"","sort":0,"icon":"http://res.starschina.com/res/2018/05/21/14/5956/湖南国际频道.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/508/thumb@240_180.jpg","thumb_ott":"","play_urls":null,"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"国际","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":715,"title":"湖南经济","description":"","sort":0,"icon":"http://res.starschina.com/res/2018/05/26/23/1720/湖南经济高清.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/569/thumb@240_180.jpg","thumb_ott":"","play_urls":null,"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"地方台","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":723,"title":"湖南纪实","description":"","sort":0,"icon":"http://res.starschina.com/res/2018/06/09/16/2838/金鹰纪实.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/583/thumb@240_180.jpg","thumb_ott":"","play_urls":null,"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"地方台","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":749,"title":"湖南卡通","description":"","sort":0,"icon":"http://res.starschina.com/res/2018/05/26/23/3619/金鹰卡通频道.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/616/thumb@240_180.jpg","thumb_ott":"","play_urls":null,"epgs":[{"stream_id":749,"epg_id":5263654028,"title":"麦咭首播剧场:喜羊羊与灰太狼之跨时空救兵","blocked":false},{"stream_id":749,"epg_id":5263654024,"title":"麦咭首播剧场:喜羊羊与灰太狼之跨时空救兵","blocked":false},{"stream_id":749,"epg_id":5263654025,"title":"布布奇趣剧场","blocked":false}],"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"地方台","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":725,"title":"湖南娱乐","description":"","sort":0,"icon":"http://res.starschina.com/res/2018/05/26/23/4312/湖南娱乐频道.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/587/thumb@240_180.jpg","thumb_ott":"","play_urls":null,"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"地方台","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":724,"title":"湖南影视","description":"","sort":0,"icon":"http://res.starschina.com/res/2018/05/26/23/2902/湖南电影.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/584/thumb@240_180.jpg","thumb_ott":"","play_urls":null,"epgs":[{"stream_id":724,"epg_id":5263767422,"title":"第一放映室","blocked":false},{"stream_id":724,"epg_id":5263767416,"title":"浴血重生(3)","blocked":false},{"stream_id":724,"epg_id":5263767417,"title":"浴血重生(4)","blocked":false}],"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"地方台","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":301,"title":"环球旅游","description":"","sort":8,"icon":"http://res.starschina.com/res/2017/05/12/10/2417999/4e363609-2beb-11e7-8d04-00163e30def5.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/247/thumb@240_180.jpg","thumb_ott":"http://s2.starschinalive.com/thumb/247/thumb@320_180.jpg","play_urls":null,"epgs":[{"stream_id":301,"epg_id":5263696921,"title":"环球揽胜","blocked":false},{"stream_id":301,"epg_id":5263696904,"title":"聚焦欧洲","blocked":false},{"stream_id":301,"epg_id":5263696898,"title":"DV放映厅","blocked":false}],"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"特色","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":294,"title":"环球奇观","description":"","sort":0,"icon":"http://res.starschina.com/res/2017/05/12/10/2416999/0b7bb34c-2beb-11e7-8d04-00163e30def5.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/341/thumb@240_180.jpg","thumb_ott":"http://s2.starschinalive.com/thumb/341/thumb@320_180.jpg","play_urls":null,"epgs":[{"stream_id":294,"epg_id":5263689979,"title":"艺铭东方闳约深美——崔开玺","blocked":false},{"stream_id":294,"epg_id":5263690005,"title":"赵功书法讲堂","blocked":false},{"stream_id":294,"epg_id":5263689980,"title":"世界美食之旅美食寻访","blocked":false}],"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"特色","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":732,"title":"欢笑剧场","description":"","sort":0,"icon":"http://res.starschina.com/res/2018/05/26/23/2621/欢笑剧场高清.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/595/thumb@240_180.jpg","thumb_ott":"","play_urls":null,"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"地方台","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":228,"title":"劲爆体育","description":"","sort":6,"icon":"http://res.starschina.com/res/2017/05/12/10/2421999/fb8bfdb6-2c02-11e7-8d04-00163e30def5.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/254/thumb@240_180.jpg","thumb_ott":"","play_urls":null,"epgs":[{"stream_id":228,"epg_id":5263645101,"title":"2018/2019CBA第轮:福建-上海","blocked":false},{"stream_id":228,"epg_id":5263645094,"title":"弈棋耍大牌","blocked":false},{"stream_id":228,"epg_id":5263645089,"title":"年ONE冠军赛新加坡站","blocked":false}],"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"特色","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":699,"title":"江苏城市","description":"","sort":0,"icon":"http://res.starschina.com/res/2018/05/26/23/1237/江苏城市频道.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/557/thumb@240_180.jpg","thumb_ott":"","play_urls":null,"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"地方台","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":702,"title":"江苏公共","description":"","sort":0,"icon":"http://res.starschina.com/res/2018/05/26/23/1409/公共新闻.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/560/thumb@240_180.jpg","thumb_ott":"","play_urls":null,"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"地方台","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":645,"title":"江苏国际","description":"","sort":0,"icon":"http://res.starschina.com/res/2018/05/21/14/5928/江苏国际频道.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/509/thumb@240_180.jpg","thumb_ott":"","play_urls":null,"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"国际","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":700,"title":"江苏教育","description":"","sort":0,"icon":"http://res.starschina.com/res/2018/05/26/23/1257/江苏教育.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/558/thumb@240_180.jpg","thumb_ott":"","play_urls":null,"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"地方台","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":697,"title":"极速汽车","description":"","sort":0,"icon":"http://res.starschina.com/res/2018/05/26/23/1153/极速汽车.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/555/thumb@240_180.jpg","thumb_ott":"","play_urls":null,"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"地方台","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":703,"title":"江苏体育","description":"","sort":0,"icon":"http://res.starschina.com/res/2018/05/26/23/1439/江苏体育.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/561/thumb@240_180.jpg","thumb_ott":"","play_urls":null,"epgs":[{"stream_id":703,"epg_id":5263754606,"title":"耍大牌","blocked":false},{"stream_id":703,"epg_id":5263754627,"title":"健康新7点","blocked":false},{"stream_id":703,"epg_id":5263754607,"title":"荔枝健身","blocked":false}],"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"地方台","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":701,"title":"江苏影视","description":"","sort":0,"icon":"http://res.starschina.com/res/2018/05/26/23/1316/江苏影视.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/559/thumb@240_180.jpg","thumb_ott":"","play_urls":null,"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"地方台","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":309,"title":"家庭健康","description":"","sort":8,"icon":"http://res.starschina.com/res/2017/05/12/10/2418999/997de2ec-2beb-11e7-8d04-00163e30def5.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/339/thumb@240_180.jpg","thumb_ott":"","play_urls":null,"epgs":[{"stream_id":309,"epg_id":5263694667,"title":"健康班的春天","blocked":false},{"stream_id":309,"epg_id":5263694650,"title":"京城名医","blocked":false},{"stream_id":309,"epg_id":5263694643,"title":"探秘中国民间医","blocked":false}],"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"特色","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":276,"title":"家庭理财","description":"","sort":8,"icon":"http://res.starschina.com/res/2017/05/12/10/2412999/2abe9007-2be8-11e7-8d04-00163e30def5.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/250/thumb@240_180.jpg","thumb_ott":"http://s2.starschinalive.com/thumb/249/thumb@320_180.jpg","play_urls":null,"epgs":[{"stream_id":276,"epg_id":5263683632,"title":"龙虎英雄","blocked":false},{"stream_id":276,"epg_id":5263683664,"title":"财经慧客厅","blocked":false},{"stream_id":276,"epg_id":5263683668,"title":"好股天天看","blocked":false}],"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"特色","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":695,"title":"江阴民生","description":"","sort":0,"icon":"http://res.starschina.com/res/2018/05/26/23/1115/江阴民生.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/553/thumb@240_180.jpg","thumb_ott":"","play_urls":null,"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"地方台","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":696,"title":"江阴新闻","description":"","sort":0,"icon":"http://res.starschina.com/res/2018/05/26/23/1136/江阴新闻频道.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/554/thumb@240_180.jpg","thumb_ott":"","play_urls":null,"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"地方台","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":311,"title":"靓妆","description":"","sort":0,"icon":"http://res.starschina.com/res/2017/05/12/10/2418999/491ef53b-2bec-11e7-8d04-00163e30def5.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/256/thumb@240_180.jpg","thumb_ott":"http://s2.starschinalive.com/thumb/256/thumb@320_180.jpg","play_urls":null,"epgs":[{"stream_id":311,"epg_id":5263695344,"title":"靓妆美人说","blocked":false},{"stream_id":311,"epg_id":5263695383,"title":"时段出让:厨房新主张","blocked":false},{"stream_id":311,"epg_id":5263695356,"title":"欧美流行","blocked":false}],"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"特色","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":754,"title":"康巴卫视","description":"","sort":0,"icon":"http://res.starschina.com/res/2018/05/26/23/3811/康巴卫视.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/611/thumb@240_180.jpg","thumb_ott":"","play_urls":null,"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":258,"title":"快乐宠物","description":"","sort":8,"icon":"http://res.starschina.com/res/2017/05/12/10/2409999/ece83bae-2be5-11e7-8d04-00163e30def5.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/337/thumb@240_180.jpg","thumb_ott":"http://s2.starschinalive.com/thumb/378/thumb@320_180.jpg","play_urls":null,"epgs":[{"stream_id":258,"epg_id":5263652119,"title":"报告狗班长","blocked":false},{"stream_id":258,"epg_id":5263652125,"title":"萌星人宠物厨房","blocked":false},{"stream_id":258,"epg_id":5263652143,"title":"小尾巴电影院","blocked":false}],"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"特色","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":726,"title":"快乐购","description":"","sort":0,"icon":"http://res.starschina.com/res/2018/06/09/16/2930/快乐购物.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/588/thumb@240_180.jpg","thumb_ott":"","play_urls":null,"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"地方台","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":277,"title":"海南卫视","description":"","sort":3,"icon":"http://res.starschina.com/res/2019/05/24/15/4437/海南卫视140.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/335/thumb@240_180.jpg","thumb_ott":"http://s2.starschinalive.com/thumb/387/thumb@320_180.jpg","play_urls":null,"epgs":[{"stream_id":277,"epg_id":5263684876,"title":"下午剧场:杉杉来了34","blocked":false},{"stream_id":277,"epg_id":5263684840,"title":"生活服务","blocked":false},{"stream_id":277,"epg_id":5263684856,"title":"海南新闻联播","blocked":false}],"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"卫视","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":733,"title":"魅力音乐","description":"","sort":0,"icon":"http://res.starschina.com/res/2018/05/26/23/2600/魅力音乐.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/596/thumb@240_180.jpg","thumb_ott":"","play_urls":null,"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"地方台","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":688,"title":"南方经济科教","description":"","sort":0,"icon":"http://res.starschina.com/res/2018/05/26/23/0834/南方经济.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/546/thumb@240_180.jpg","thumb_ott":"","play_urls":null,"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"地方台","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":689,"title":"南方影视","description":"","sort":0,"icon":"http://res.starschina.com/res/2018/05/26/23/0854/南方影视.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/547/thumb@240_180.jpg","thumb_ott":"","play_urls":null,"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"地方台","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":632,"title":"钱江都市","description":"","sort":0,"icon":"http://res.starschina.com/res/2018/06/09/16/2233/浙江城市频道.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/470/thumb@240_180.jpg","thumb_ott":"","play_urls":null,"epgs":[{"stream_id":632,"epg_id":5263731430,"title":"浙江名医馆","blocked":false},{"stream_id":632,"epg_id":5263731433,"title":"新闻速写","blocked":false},{"stream_id":632,"epg_id":5263731453,"title":"范大姐帮忙","blocked":false}],"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"地方台","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":302,"title":"全纪实","description":"","sort":0,"icon":"http://res.starschina.com/res/2017/05/12/10/2417999/55fc01f4-2beb-11e7-8d04-00163e30def5.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/258/thumb@240_180.jpg","thumb_ott":"http://s2.starschinalive.com/thumb/258/thumb@320_180.jpg","play_urls":null,"epgs":[{"stream_id":302,"epg_id":5263699268,"title":"漫步中国:牡丹-须是牡丹花盛发","blocked":false},{"stream_id":302,"epg_id":5263699301,"title":"空中浩劫:圣巴巴拉航空518号班机","blocked":false},{"stream_id":302,"epg_id":5263699308,"title":"游走世界:世界美食之旅-德国","blocked":false}],"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"特色","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":693,"title":"青浦有线","description":"","sort":0,"icon":"http://res.starschina.com/res/2018/05/26/23/1029/青浦卫视.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/551/thumb@240_180.jpg","thumb_ott":"","play_urls":null,"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"地方台","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":322,"title":"收藏天下","description":"","sort":8,"icon":"http://res.starschina.com/res/2017/05/12/10/2420999/d5c18679-2bec-11e7-8d04-00163e30def5.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/329/thumb@240_180.jpg","thumb_ott":"http://s2.starschinalive.com/thumb/382/thumb@320_180.jpg","play_urls":null,"epgs":[{"stream_id":322,"epg_id":5263703253,"title":"天下藏馆","blocked":false},{"stream_id":322,"epg_id":5263703265,"title":"天下藏馆","blocked":false},{"stream_id":322,"epg_id":5263703280,"title":"史说汉字","blocked":false}],"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"特色","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":642,"title":"上海东方国际","description":"","sort":0,"icon":"http://res.starschina.com/res/2018/05/21/14/5753/上海东方国际.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/512/thumb@240_180.jpg","thumb_ott":"","play_urls":null,"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"国际","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":719,"title":"上海电视剧","description":"","sort":0,"icon":"http://res.starschina.com/res/2018/05/26/23/1850/电视剧.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/576/thumb@240_180.jpg","thumb_ott":"","play_urls":null,"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"地方台","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":656,"title":"上海国际","description":"","sort":0,"icon":"http://res.starschina.com/res/2018/05/21/15/0534/ICS.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/498/thumb@240_180.jpg","thumb_ott":"","play_urls":null,"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"国际","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":713,"title":"上海纪实","description":"","sort":0,"icon":"http://res.starschina.com/res/2018/06/04/14/3826/纪实.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/572/thumb@240_180.jpg","thumb_ott":"","play_urls":null,"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"地方台","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":628,"title":"书画频道","description":"","sort":0,"icon":"http://res.starschina.com/res/2018/09/26/13/2253/书画频道.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/389/thumb@240_180.jpg","thumb_ott":"http://s2.starschinalive.com/thumb/388/thumb@320_180.jpg","play_urls":null,"epgs":[{"stream_id":628,"epg_id":5263730560,"title":"书法课堂欧阳询楷书教学卢中南主讲","blocked":false},{"stream_id":628,"epg_id":5263730550,"title":"名家推介","blocked":false},{"stream_id":628,"epg_id":5263730518,"title":"美术新闻","blocked":false}],"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"特色","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":364,"title":"生活时尚","description":"","sort":0,"icon":"http://res.starschina.com/res/2017/11/06/12/0000/生活时尚.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/271/thumb@240_180.jpg","thumb_ott":"http://s2.starschinalive.com/thumb/271/thumb@320_180.jpg","play_urls":null,"epgs":[{"stream_id":364,"epg_id":5263710144,"title":"宝宝养成记","blocked":false},{"stream_id":364,"epg_id":5263710114,"title":"求助西泽:松露问题多","blocked":false},{"stream_id":364,"epg_id":5263710134,"title":"舌尖上的上海","blocked":false}],"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"特色","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":718,"title":"上海体育","description":"","sort":0,"icon":"http://res.starschina.com/res/2018/06/09/16/2739/五星体育.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/575/thumb@240_180.jpg","thumb_ott":"","play_urls":null,"epgs":[{"stream_id":718,"epg_id":5263762447,"title":"阳光校园","blocked":false},{"stream_id":718,"epg_id":5263762462,"title":"弈棋耍大牌","blocked":false},{"stream_id":718,"epg_id":5263762441,"title":"体育新闻","blocked":false}],"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"地方台","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":694,"title":"上海新闻","description":"","sort":0,"icon":"http://res.starschina.com/res/2018/06/09/16/2410/新闻综合.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/552/thumb@240_180.jpg","thumb_ott":"","play_urls":null,"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"地方台","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":720,"title":"上海艺术","description":"","sort":0,"icon":"http://res.starschina.com/res/2018/05/26/23/1911/艺术人文.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/577/thumb@240_180.jpg","thumb_ott":"","play_urls":null,"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"地方台","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":627,"title":"CCTV世界地理","description":"","sort":0,"icon":"http://res.starschina.com/res/2019/02/26/16/4035/世界地理.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/385/thumb@240_180.jpg","thumb_ott":"http://s2.starschinalive.com/thumb/385/thumb@320_180.jpg","play_urls":null,"epgs":[{"stream_id":627,"epg_id":5263772518,"title":"世界地理50’-法兰西的碧海蓝天上","blocked":false},{"stream_id":627,"epg_id":5263772501,"title":"人名字幕-世界地理","blocked":false},{"stream_id":627,"epg_id":5263772486,"title":"世界地理50’-超级玩家的崛起","blocked":false}],"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"央视","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":655,"title":"厦门国际","description":"","sort":0,"icon":"http://res.starschina.com/res/2018/05/21/15/0416/厦门国际.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/499/thumb@240_180.jpg","thumb_ott":"","play_urls":null,"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"国际","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":683,"title":"数码时代","description":"","sort":0,"icon":"http://res.starschina.com/res/2018/06/02/22/4935/CYS.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/541/thumb@240_180.jpg","thumb_ott":"","play_urls":null,"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"地方台","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":752,"title":"厦门卫视","description":"","sort":0,"icon":"http://res.starschina.com/res/2018/05/26/23/3727/厦门卫视.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/610/thumb@240_180.jpg","thumb_ott":"","play_urls":null,"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":750,"title":"山西公共","description":"","sort":0,"icon":"http://res.starschina.com/res/2018/05/26/23/3643/山西公共频道.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/609/thumb@240_180.jpg","thumb_ott":"","play_urls":null,"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":748,"title":"山西经济","description":"","sort":0,"icon":"http://res.starschina.com/res/2018/05/26/23/3547/山西经济频道.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/608/thumb@240_180.jpg","thumb_ott":"","play_urls":null,"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"地方台","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":745,"title":"山西教育","description":"","sort":0,"icon":"http://res.starschina.com/res/2018/05/26/23/3444/山西科教频道.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/606/thumb@240_180.jpg","thumb_ott":"","play_urls":null,"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"地方台","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":756,"title":"陕西农林","description":"","sort":0,"icon":"http://res.starschina.com/res/2018/06/28/15/4617/shanxinonglin.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/613/thumb@240_180.jpg","thumb_ott":"","play_urls":null,"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"地方台","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":744,"title":"山西少儿","description":"","sort":0,"icon":"http://res.starschina.com/res/2018/05/26/23/3419/山西少儿频道.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/605/thumb@240_180.jpg","thumb_ott":"","play_urls":null,"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"地方台","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":746,"title":"山西影视","description":"","sort":0,"icon":"http://res.starschina.com/res/2018/05/26/23/3504/山西影视频道.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/607/thumb@240_180.jpg","thumb_ott":"","play_urls":null,"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"地方台","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":649,"title":"深圳国际","description":"","sort":0,"icon":"http://res.starschina.com/res/2018/05/21/15/0112/深圳国际.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/505/thumb@240_180.jpg","thumb_ott":"","play_urls":null,"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"国际","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":643,"title":"泰山国际","description":"","sort":0,"icon":"http://res.starschina.com/res/2018/05/21/14/5815/泰山频道.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/511/thumb@240_180.jpg","thumb_ott":"","play_urls":null,"epgs":[{"stream_id":643,"epg_id":5263732926,"title":"民生实验室","blocked":false},{"stream_id":643,"epg_id":5263732927,"title":"非尝不可","blocked":false},{"stream_id":643,"epg_id":5263732957,"title":"山东新闻联播","blocked":false}],"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"国际","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":295,"title":"天元围棋","description":"","sort":0,"icon":"http://res.starschina.com/res/2017/05/12/10/2416999/13d97bed-2beb-11e7-8d04-00163e30def5.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/325/thumb@240_180.jpg","thumb_ott":"","play_urls":null,"epgs":[{"stream_id":295,"epg_id":5263690747,"title":"赛事直播女子围甲名人战","blocked":false},{"stream_id":295,"epg_id":5263690734,"title":"信息窗口","blocked":false},{"stream_id":295,"epg_id":5263690740,"title":"初级课堂30天围棋入门4","blocked":false}],"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"特色","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":303,"title":"网络棋牌","description":"","sort":6,"icon":"http://res.starschina.com/res/2017/05/12/10/2417999/5d4d30a5-2beb-11e7-8d04-00163e30def5.png","cp":"","thumb":"http://s1.starschinalive.com/wangluoqipai.jpg","thumb_ott":"http://s1.starschinalive.com/ottimage/wangluoqipai_2500.jpg","play_urls":null,"epgs":[{"stream_id":303,"epg_id":5263698290,"title":"象棋故事会","blocked":false},{"stream_id":303,"epg_id":5263698291,"title":"全民斗地主","blocked":false},{"stream_id":303,"epg_id":5263698307,"title":"棋侠英雄传","blocked":false}],"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"特色","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":706,"title":"无锡都市","description":"","sort":0,"icon":"http://res.starschina.com/res/2018/05/26/23/1542/无锡都市资讯.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/564/thumb@240_180.jpg","thumb_ott":"","play_urls":null,"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"地方台","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":705,"title":"无锡经济","description":"","sort":0,"icon":"http://res.starschina.com/res/2018/05/26/23/1516/无锡经济频道.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/563/thumb@240_180.jpg","thumb_ott":"","play_urls":null,"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"地方台","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":704,"title":"无锡教育","description":"","sort":0,"icon":"http://res.starschina.com/res/2018/05/26/23/1458/无锡教育.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/562/thumb@240_180.jpg","thumb_ott":"","play_urls":null,"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"地方台","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":707,"title":"无锡新闻","description":"","sort":0,"icon":"http://res.starschina.com/res/2018/05/26/23/1601/无锡新闻频道.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/565/thumb@240_180.jpg","thumb_ott":"","play_urls":null,"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"地方台","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":736,"title":"哈哈炫动","description":"","sort":0,"icon":"http://res.starschina.com/res/2019/01/04/12/0636/哈哈炫动.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/621/thumb@240_180.jpg","thumb_ott":"","play_urls":null,"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"地方台","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":721,"title":"幸福彩","description":"","sort":0,"icon":"http://res.starschina.com/res/2018/05/26/23/1950/幸福彩.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/578/thumb@240_180.jpg","thumb_ott":"","play_urls":null,"epgs":[{"stream_id":721,"epg_id":5263764773,"title":"彩票讲堂(2027)","blocked":false},{"stream_id":721,"epg_id":5263764709,"title":"彩势分析(2261)","blocked":false},{"stream_id":721,"epg_id":5263764735,"title":"新彩民问答(718)","blocked":false}],"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"地方台","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":747,"title":"新疆少儿","description":"","sort":0,"icon":"http://res.starschina.com/res/2018/05/26/23/3524/新疆少儿频道.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/617/thumb@240_180.jpg","thumb_ott":"","play_urls":null,"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"地方台","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":734,"title":"新视觉","description":"","sort":0,"icon":"http://res.starschina.com/res/2018/05/26/23/3044/新视觉高清.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/597/thumb@240_180.jpg","thumb_ott":"","play_urls":null,"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"地方台","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":753,"title":"延边卫视","description":"","sort":0,"icon":"http://res.starschina.com/res/2018/05/26/23/4225/CYS.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/614/thumb@240_180.jpg","thumb_ott":"","play_urls":null,"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"地方台","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":366,"title":"央广购物","description":"","sort":0,"icon":"http://res.starschina.com/res/2018/06/28/15/4731/yangguanggouwu.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/448/thumb@240_180.jpg","thumb_ott":"http://s2.starschinalive.com/thumb/370/thumb@320_180.jpg","play_urls":null,"epgs":[{"stream_id":366,"epg_id":5263710613,"title":"私房话时尚","blocked":false},{"stream_id":366,"epg_id":5263710631,"title":"黄金一刻","blocked":false},{"stream_id":366,"epg_id":5263710612,"title":"生活加点糖","blocked":false}],"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"购物","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":323,"title":"优购物","description":"","sort":11,"icon":"http://res.starschina.com/res/2018/06/28/15/4700/yougouwu.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/263/thumb@240_180.jpg","thumb_ott":"http://s2.starschinalive.com/thumb/262/thumb@320_180.jpg","play_urls":null,"epgs":[{"stream_id":323,"epg_id":5263706400,"title":"特惠买专场","blocked":false},{"stream_id":323,"epg_id":5263706389,"title":"特惠买专场","blocked":false},{"stream_id":323,"epg_id":5263706397,"title":"特惠买专场","blocked":false}],"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"特色","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":661,"title":"云南公共","description":"","sort":0,"icon":"http://res.starschina.com/res/2018/05/31/18/0502/云南公共.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/519/thumb@240_180.jpg","thumb_ott":"","play_urls":null,"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":652,"title":"云南国际","description":"","sort":0,"icon":"http://res.starschina.com/res/2018/05/21/15/0255/云南国际.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/502/thumb@240_180.jpg","thumb_ott":"","play_urls":null,"epgs":[{"stream_id":652,"epg_id":5263735746,"title":"消费栏目","blocked":false},{"stream_id":652,"epg_id":5263735724,"title":"宣传片","blocked":false},{"stream_id":652,"epg_id":5263735740,"title":"宣传片","blocked":false}],"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"国际","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":660,"title":"云南影视","description":"","sort":0,"icon":"http://res.starschina.com/res/2018/05/26/22/5354/云南影视.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/518/thumb@240_180.jpg","thumb_ott":"","play_urls":null,"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":641,"title":"央视电影国际","description":"","sort":0,"icon":"http://res.starschina.com/res/2018/05/21/14/5648/CCTV6国际.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/513/thumb@240_180.jpg","thumb_ott":"","play_urls":null,"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"国际","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":648,"title":"央视纪录国际","description":"","sort":0,"icon":"http://res.starschina.com/res/2018/05/21/15/0042/CCTV9国际.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/506/thumb@240_180.jpg","thumb_ott":"","play_urls":null,"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"国际","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":306,"title":"游戏风云","description":"","sort":0,"icon":"http://res.starschina.com/res/2017/05/12/10/2418999/7cb313e0-2beb-11e7-8d04-00163e30def5.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/265/thumb@240_180.jpg","thumb_ott":"","play_urls":null,"epgs":[{"stream_id":306,"epg_id":5263700935,"title":"休闲街区:王国之心","blocked":false},{"stream_id":306,"epg_id":5263700948,"title":"每日游报","blocked":false},{"stream_id":306,"epg_id":5263700936,"title":"每日游报","blocked":false}],"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"特色","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":305,"title":"中华美食","description":"","sort":0,"icon":"http://res.starschina.com/res/2017/05/12/10/2418999/7480d5ee-2beb-11e7-8d04-00163e30def5.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/269/thumb@240_180.jpg","thumb_ott":"http://s2.starschinalive.com/thumb/269/thumb@320_180.jpg","play_urls":null,"epgs":[{"stream_id":305,"epg_id":5263694020,"title":"消费大参考","blocked":false},{"stream_id":305,"epg_id":5263694040,"title":"烘焙连连看","blocked":false},{"stream_id":305,"epg_id":5263694018,"title":"消费大参考","blocked":false}],"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"特色","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":681,"title":"浙江公共新闻","description":"","sort":0,"icon":"http://res.starschina.com/res/2018/05/26/23/0609/浙江公共.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/539/thumb@240_180.jpg","thumb_ott":"","play_urls":null,"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"地方台","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":653,"title":"浙江国际","description":"","sort":0,"icon":"http://res.starschina.com/res/2018/05/21/15/0327/浙江国际.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/501/thumb@240_180.jpg","thumb_ott":"","play_urls":null,"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"国际","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":679,"title":"浙江经济生活","description":"","sort":0,"icon":"http://res.starschina.com/res/2018/05/26/23/0524/浙江经济.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/537/thumb@240_180.jpg","thumb_ott":"","play_urls":null,"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"地方台","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":677,"title":"浙江教育科技","description":"","sort":0,"icon":"http://res.starschina.com/res/2018/05/26/23/0446/浙江科教频道.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/535/thumb@240_180.jpg","thumb_ott":"","play_urls":null,"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"地方台","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":771,"title":"浙江留学世界","description":"","sort":0,"icon":"http://res.starschina.com/res/2018/07/08/14/0434/浙江留学世界140.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/649/thumb@240_180.jpg","thumb_ott":"","play_urls":null,"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"地方台","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":680,"title":"浙江民生休闲","description":"","sort":0,"icon":"http://res.starschina.com/res/2018/05/26/23/0544/浙江民生休闲.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/538/thumb@240_180.jpg","thumb_ott":"","play_urls":null,"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"地方台","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":770,"title":"浙江少儿","description":"","sort":0,"icon":"http://res.starschina.com/res/2018/07/08/14/0045/浙江少儿140.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/648/thumb@240_180.jpg","thumb_ott":"","play_urls":null,"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"地方台","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":678,"title":"浙江影视娱乐","description":"","sort":0,"icon":"http://res.starschina.com/res/2018/05/26/23/0506/浙江影视.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/536/thumb@240_180.jpg","thumb_ott":"","play_urls":null,"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"地方台","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":644,"title":"重庆国际","description":"","sort":0,"icon":"http://res.starschina.com/res/2018/05/21/14/5840/重庆国际频道.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/510/thumb@240_180.jpg","thumb_ott":"","play_urls":null,"epgs":[{"stream_id":644,"epg_id":5263733490,"title":"拍案说法","blocked":false},{"stream_id":644,"epg_id":5263733472,"title":"动画片","blocked":false},{"stream_id":644,"epg_id":5263733481,"title":"爱尚健康","blocked":false}],"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"国际","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":730,"title":"长沙互动","description":"","sort":0,"icon":"http://res.starschina.com/res/2018/05/26/23/2756/长沙互动.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/590/thumb@240_180.jpg","thumb_ott":"","play_urls":null,"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"地方台","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":729,"title":"长沙经济","description":"","sort":0,"icon":"http://res.starschina.com/res/2018/05/26/23/2824/长沙经贸.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/589/thumb@240_180.jpg","thumb_ott":"","play_urls":null,"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"地方台","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":722,"title":"长沙女性","description":"","sort":0,"icon":"http://res.starschina.com/res/2018/05/26/23/2033/长沙女性.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/579/thumb@240_180.jpg","thumb_ott":"","play_urls":null,"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"地方台","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":727,"title":"长沙新闻","description":"","sort":0,"icon":"http://res.starschina.com/res/2017/05/12/10/2420999/1ad4e103-2bed-11e7-8d04-00163e30def5.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/591/thumb@240_180.jpg","thumb_ott":"","play_urls":null,"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"地方台","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":714,"title":"长沙政法","description":"","sort":0,"icon":"http://res.starschina.com/res/2018/06/09/16/2603/长沙政法.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/580/thumb@240_180.jpg","thumb_ott":"","play_urls":null,"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"地方台","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null},{"id":320,"title":"休闲指南","description":"","sort":8,"icon":"http://res.starschina.com/res/2019/01/04/12/0505/休闲指南.png","cp":"","thumb":"http://s2.starschinalive.com/thumb/321/thumb@240_180.jpg","thumb_ott":"http://s2.starschinalive.com/thumb/321/thumb@320_180.jpg","play_urls":null,"epgs":[{"stream_id":320,"epg_id":5263702799,"title":"营销吃天下","blocked":false},{"stream_id":320,"epg_id":5263702809,"title":"职场渔乐圈","blocked":false},{"stream_id":320,"epg_id":5263702819,"title":"企管天下","blocked":false}],"vip_only":false,"vip_levels":0,"commentable":false,"limited_free":false,"released_at":null,"expired_at":null,"blocked":false,"bind_id":"","category":"特色","online":false,"no_ad":false,"share":null,"play_urls_v2":null,"provider_play_urls":null}]
+Traceback (most recent call last):
+  File "C:\Users\pengp\PycharmProjects\Interface_Test_CIBN\testCase\cms\test_streamlist.py", line 47, in test_01_getlivelist
+    response_data = self.decrypt_to_dict(response, 1, '"provider_play_urls":null}')
+  File "C:\Users\pengp\PycharmProjects\Interface_Test_CIBN\testCase\cms\test_streamlist.py", line 32, in decrypt_to_dict
+    decrypt = aes.decrypt(text, 'r')[split_num:].split(str_split)
+  File "C:\Users\pengp\PycharmProjects\Interface_Test_CIBN\common\AES_CBC.py", line 134, in decrypt
+    encrypt_bytes = base64.b64decode(content)
+  File "D:\Tools\python36\lib\base64.py", line 80, in b64decode
+    s = _bytes_from_decode_data(s)
+  File "D:\Tools\python36\lib\base64.py", line 46, in _bytes_from_decode_data
+    "string, not %r" % s.__class__.__name__) from None
+TypeError: argument should be a bytes-like object or ASCII string, not 'Response'
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr id='pt19.2' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_02_getlivelist_error: 错误的请求参数</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt19.2')" >
+        pass</a>
+
+    <div id='div_pt19.2' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_pt19.2').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+pt19.2: 403
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr id='pt19.3' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_03_getlivelist_null: 请求参数为空</div></td>
+    <td colspan='5' align='center'>pass</td>
+</tr>
+
+<tr class='errorClass'>
+    <td>cms.test_video.test_Video: 测试点播接口</td>
+    <td>3</td>
+    <td>0</td>
+    <td>0</td>
+    <td>3</td>
+    <td><a href="javascript:showClassDetail('c20',3)">Detail</a></td>
+</tr>
+
+<tr id='ft20.1' class='none'>
+    <td class='errorCase'><div class='testcase'>test_video_01: 正确的请求参数</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_ft20.1')" >
+        error</a>
+
+    <div id='div_ft20.1' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_ft20.1').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+ft20.1: Traceback (most recent call last):
+  File "C:\Users\pengp\PycharmProjects\Interface_Test_CIBN\testCase\cms\test_video.py", line 38, in test_video_01
+    response = requests.post(self.url, data=json.dumps(form), headers=self.headers)
+AttributeError: 'test_Video' object has no attribute 'headers'
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr id='ft20.2' class='none'>
+    <td class='errorCase'><div class='testcase'>test_video_02: 错误的请求参数</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_ft20.2')" >
+        error</a>
+
+    <div id='div_ft20.2' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_ft20.2').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+ft20.2: Traceback (most recent call last):
+  File "C:\Users\pengp\PycharmProjects\Interface_Test_CIBN\testCase\cms\test_video.py", line 53, in test_video_02
+    response = requests.post(self.url, data=json.dumps(form), headers=self.headers)
+AttributeError: 'test_Video' object has no attribute 'headers'
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr id='ft20.3' class='none'>
+    <td class='errorCase'><div class='testcase'>test_video_03: 参数为空</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_ft20.3')" >
+        error</a>
+
+    <div id='div_ft20.3' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_ft20.3').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+ft20.3: Traceback (most recent call last):
+  File "C:\Users\pengp\PycharmProjects\Interface_Test_CIBN\testCase\cms\test_video.py", line 67, in test_video_03
+    response = requests.post(self.url, data=json.dumps(form), headers=self.headers)
+AttributeError: 'test_Video' object has no attribute 'headers'
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr class='failClass'>
+    <td>ims.test_login.test_Login</td>
+    <td>1</td>
+    <td>0</td>
+    <td>1</td>
+    <td>0</td>
+    <td><a href="javascript:showClassDetail('c21',1)">Detail</a></td>
+</tr>
+
+<tr id='ft21.1' class='none'>
+    <td class='failCase'><div class='testcase'>test_login_01: 正确的请求参数</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_ft21.1')" >
+        fail</a>
+
+    <div id='div_ft21.1' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_ft21.1').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+ft21.1: 1564134000edeac39d37f25c04020b9e6aa4802965500c26ea1564134000
+875d3f
+{'app_version': '8.0.6', 'access_token': '875d3f', 'os_type': 1, 'timestamp': 1564134255, 'open_id': '19991828757', 'provider': 1, 'app_key': 'xdThhy2239daax', 'device_id': '802ca0fba119ab0a', 'country_code': '+86', 'installation_id': 1904301718321742, 'longitude': 108.90823353286173, 'latitude': 34.21936825217505, 'sign': 'C49D3FF65940667235E4B9AE49209EF811E6819F'}
+Traceback (most recent call last):
+  File "C:\Users\pengp\PycharmProjects\Interface_Test_CIBN\testCase\ims\test_login.py", line 50, in test_login_01
+    assert response_errcode == 0
+AssertionError
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr class='passClass'>
+    <td>ims.test_packagelist.config_app_scret_key: 测试视频包接口</td>
+    <td>3</td>
+    <td>3</td>
+    <td>0</td>
+    <td>0</td>
+    <td><a href="javascript:showClassDetail('c22',3)">Detail</a></td>
+</tr>
+
+<tr id='pt22.1' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_01_packagelist</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt22.1')" >
+        pass</a>
+
+    <div id='div_pt22.1' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_pt22.1').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+pt22.1: 接口https://apiv1.starschina.com/cms/v1.0/funtv/accesskey请求失败
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr id='pt22.2' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_02_packagelist_error</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt22.2')" >
+        pass</a>
+
+    <div id='div_pt22.2' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_pt22.2').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+pt22.2: 404
+接口https://apiv1.starschina.com/cms/v1.0/funtv/accesskey请求app_key参数值错误，返回的err_code应为500
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr id='pt22.3' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_03_packagelist_null</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt22.3')" >
+        pass</a>
+
+    <div id='div_pt22.3' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_pt22.3').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+pt22.3: 接口https://apiv1.starschina.com/cms/v1.0/funtv/accesskey缺失app_version和app_key参数，返回的状态码应为403
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr id='total_row'>
+    <td>Total</td>
+    <td>66</td>
+    <td>57</td>
+    <td>3</td>
+    <td>6</td>
+    <td>&nbsp;</td>
+</tr>
+</table>
+
+<div id='ending'>&nbsp;</div>
+
+</body>
+</html>

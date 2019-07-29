@@ -80,6 +80,15 @@ class RunMain():
                         'Content-Length': '732',
                         # 'Host': 'test.ams.starschina.com',
                         'Host': 'apiv1.starschina.com',
+                        'Accept-Encoding': 'gzip'
+                        }
+        return self.headers
+
+    def headers_token(self):
+        self.headers = {'Content-Type': 'application/json;charset=UTF-8',
+                        'Content-Length': '732',
+                        # 'Host': 'test.ams.starschina.com',
+                        'Host': 'apiv1.starschina.com',
                         'Accept-Encoding': 'gzip',
                         'token': self.get_login_token()
                         }

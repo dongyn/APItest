@@ -14,6 +14,7 @@ global false, true, null
 baseurl = ReadConfig().get_http('baseurl')
 version = ReadConfig().get_app('version')
 app_key = ReadConfig().get_app('app_key')
+telephone = ReadConfig().get_app('telephone')
 headers = RunMain().headers()
 md5 = timeStamp_md5()
 
@@ -31,7 +32,7 @@ class test_Login(unittest.TestCase):
                '"access_token":"%(access_token)s",' \
                '"os_type":1,' \
                '"timestamp":%(timeStamp)d,' \
-               '"open_id":"19991828757",' \
+               '"open_id":"%(telephone)s",' \
                '"provider":1,' \
                '"app_key":"%(app_key)s",' \
                '"device_id":"802ca0fba119ab0a",' \
@@ -43,7 +44,8 @@ class test_Login(unittest.TestCase):
                    'version': version,
                    'app_key' : app_key,
                    'access_token': self.access_token,
-                   'timeStamp': self.timeStamp}
+                   'timeStamp': self.timeStamp,
+                   'telephone':telephone}
         data = get_Sign().encrypt(data)
         response = requests.post(self.url, data=json.dumps(data), headers=headers)
         if response.status_code == 200:
@@ -68,9 +70,9 @@ class test_Login(unittest.TestCase):
                         '"latitude":34.21936825217505,' \
                         '}' % {
                             'version': version,
-                            'app_key' : app_key,
                             'access_token': self.access_token,
-                            'timeStamp': self.timeStamp}
+                            'timeStamp': self.timeStamp,
+                            'app_key': app_key}
              response = requests.post(self.url, data=json.dumps(data), headers=headers)
              if response.status_code == 403:
                  err_code = response.json()['err_code']

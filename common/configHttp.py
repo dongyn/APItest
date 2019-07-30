@@ -90,7 +90,7 @@ class RunMain():
                         # 'Host': 'test.ams.starschina.com',
                         'Host': 'apiv1.starschina.com',
                         'Accept-Encoding': 'gzip',
-                        'token': self.get_login_token()
+                        'Authorization': self.get_login_token()
                         }
         return self.headers
 
@@ -108,6 +108,6 @@ class RunMain():
             logger.info("method值错误！！！")
         return result
 
-if __name__ == '__main__':#通过写死参数，来验证我们写的请求是否正确
-    result = RunMain().run_main('post', 'http://127.0.0.1:8888/login', 'name=xiaoming&pwd=')
-    print(result)
+# if __name__ == '__main__':#通过写死参数，来验证我们写的请求是否正确
+# #     result = RunMain().run_main('post', '', 'name=xiaoming&pwd=')
+# #     print(result)

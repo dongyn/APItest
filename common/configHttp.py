@@ -31,6 +31,15 @@ class RunMain():
         self.timeStamp = int(time.mktime(datetime.now().timetuple()))
         self.access_token = md5.encrypt_md5(self.timeStamp)
 
+    def headers(self):
+        self.headers = {'Content-Type': 'application/json;charset=UTF-8',
+                        'Content-Length': '732',
+                        # 'Host': 'test.ams.starschina.com',
+                        'Host': 'apiv1.starschina.com',
+                        'Accept-Encoding': 'gzip'
+                        }
+        return self.headers
+
     # 将解密后的字符串转为字典
     def decrypt_to_dict(self, text, key_type):
         r_data = text.json()['data']
@@ -75,22 +84,13 @@ class RunMain():
         response = requests.post(self.url, data=json.dumps(data), headers=self.headers())
         return response.json()['data']['token'] if response.status_code == 200 else "登录失败"
 
-    def headers(self):
-        self.headers = {'Content-Type': 'application/json;charset=UTF-8',
-                        'Content-Length': '732',
-                        # 'Host': 'test.ams.starschina.com',
-                        'Host': 'apiv1.starschina.com',
-                        'Accept-Encoding': 'gzip'
-                        }
-        return self.headers
-
     def headers_token(self):
         self.headers = {'Content-Type': 'application/json;charset=UTF-8',
                         'Content-Length': '732',
                         # 'Host': 'test.ams.starschina.com',
                         'Host': 'apiv1.starschina.com',
                         'Accept-Encoding': 'gzip',
-                        'token': self.get_login_token()
+                        'Authorization': self.get_login_token()
                         }
         return self.headers
 

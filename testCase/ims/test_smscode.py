@@ -20,39 +20,41 @@ md5 = timeStamp_md5()
 
 
 class test_Smscode(unittest.TestCase):
+    """测试获取验证码"""
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.url = baseurl + '/ims/v1.0/user/smscode'
         self.timeStamp = int(time.mktime(datetime.now().timetuple()))
 
-    # def test_smscode_01(self):
-    #     '''正确的参数'''
-    #     timeStamp = int(time.mktime(datetime.now().timetuple()))
-    #     access_token = md5.encrypt_md5(timeStamp)
-    #     data = '{"app_version":"%(version)s",' \
-    #            '"access_token":"%(access_token)s",' \
-    #            '"os_type":1,' \
-    #            '"timestamp":%(timeStamp)d,' \
-    #            '"mobile":"%(telephone)s",' \
-    #            '"provider":1,' \
-    #            '"app_key":"%(app_key)s",' \
-    #            '"device_id":"802ca0fba119ab0a",' \
-    #            '"country_code":"+86",' \
-    #            '"installation_id":1904301718321742,' \
-    #            '"longitude":108.90823353286173,' \
-    #            '"latitude":34.21936825217505,' \
-    #            '}' % {
-    #                'version': version,
-    #                'app_key': app_key,
-    #                'access_token': access_token,
-    #                'timeStamp': self.timeStamp,
-    #                'telephone': telephone}
-    #     data = get_Sign().encrypt(data)
-    #     response = requests.post(self.url, data=json.dumps(data), headers=headers)
-    #     if response.status_code == 200:
-    #         assert response.json()['err_code'] == 0
-    #     else:
-    #         print("获取%s接口返回的参数错误" % self.url)
+    def test_smscode_01(self):
+        '''正确的参数'''
+        timeStamp = int(time.mktime(datetime.now().timetuple()))
+        access_token = md5.encrypt_md5(timeStamp)
+        data = '{"app_version":"%(version)s",' \
+               '"access_token":"%(access_token)s",' \
+               '"os_type":1,' \
+               '"timestamp":%(timeStamp)d,' \
+               '"mobile":"%(telephone)s",' \
+               '"provider":1,' \
+               '"app_key":"%(app_key)s",' \
+               '"device_id":"802ca0fba119ab0a",' \
+               '"country_code":"+86",' \
+               '"installation_id":1904301718321742,' \
+               '"longitude":108.90823353286173,' \
+               '"latitude":34.21936825217505,' \
+               '}' % {
+                   'version': version,
+                   'app_key': app_key,
+                   'access_token': access_token,
+                   'timeStamp': self.timeStamp,
+                   'telephone': telephone}
+        data = get_Sign().encrypt(data)
+        response = requests.post(self.url, data=json.dumps(data), headers=headers)
+        if response.status_code == 200:
+            assert response.json()['err_code'] == 0
+        else:
+            print("获取%s接口返回的参数错误" % self.url)
 
     def test_smscode_02(self):
         '''错误的参数'''
@@ -81,16 +83,15 @@ class test_Smscode(unittest.TestCase):
         else:
             print("接口%s请求os_type参数值错误，返回的err_code应为500" % self.url)
 
-    #
-    # def test_smscode_03(self):
-    #     '''参数为空'''
-    #     data = ''
-    #     response = requests.post(self.url, data=json.dumps(data), headers=headers)
-    #     if response.status_code == 403:
-    #         err_code = response.json()['err_code']
-    #         assert err_code == 500
-    #     else:
-    #         print("接口%s请求os_type参数值错误，返回的err_code应为500" % self.url)
+    def test_smscode_03(self):
+        '''参数为空'''
+        data = ''
+        response = requests.post(self.url, data=json.dumps(data), headers=headers)
+        if response.status_code == 403:
+            err_code = response.json()['err_code']
+            assert err_code == 500
+        else:
+            print("接口%s请求os_type参数值错误，返回的err_code应为500" % self.url)
 
 # if __name__ == "__main__":
 #     test_Smscode().test_smscode_01()

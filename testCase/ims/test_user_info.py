@@ -19,6 +19,7 @@ headers = RunMain().headers()
 md5 = timeStamp_md5()
 
 class test_Userinfo(unittest.TestCase):
+    """测试用户信息"""
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.url = baseurl + '/ims/v1.0/user/info'

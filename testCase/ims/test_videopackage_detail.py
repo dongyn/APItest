@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 #@Time  : 2019/7/23 17:05
 #@Author: dongyani
-#@interfacetest: http://apiv1.starschina.com
+#@interfacetest: http://apiv1.starschina.com/cms/v1.2/videopackage/detail
 
 import unittest,json,requests,time
 from datetime import datetime
@@ -34,7 +34,6 @@ class videopackage_detail(unittest.TestCase):
         dict_decrypt = eval(decrypt)
         return dict_decrypt
 
-    '''
     def test_01_videopackage_detail(self):
         """正确的会员套餐视频包详情参数"""
         data = '{"bssid":"4c:e9:e4:7d:41:d0",' \
@@ -84,7 +83,7 @@ class videopackage_detail(unittest.TestCase):
             assert err_code == 500
         else:
             print("接口%s请求app_key参数值错误，返回的err_code应为500" %self.url)
-'''
+
     def test_03_videopackage_detail(self):
         data = 'aaaa'
         crypt_data = aes.encrypt(data, 'c_q')

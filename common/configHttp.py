@@ -47,13 +47,13 @@ class RunMain():
 
 
     def headers(self):
-        self.headers = {'Content-Type': 'application/json;charset=UTF-8',
+        headers = {'Content-Type': 'application/json;charset=UTF-8',
                         'Content-Length': '732',
                         # 'Host': 'test.ams.starschina.com',
                         'Host': 'apiv1.starschina.com',
                         'Accept-Encoding': 'gzip'
                         }
-        return self.headers
+        return headers
 
     # 将解密后的字符串转为字典
     def decrypt_to_dict(self, text, key_type):
@@ -75,7 +75,7 @@ class RunMain():
         res = json.dumps(result, ensure_ascii=False, sort_keys=True, indent=2)
         return res
 
-    def get_login_token(self, timeStamp):
+    def login(self, timeStamp):
         '''获取登录接口的token'''
         data = '{"app_version":"%(version)s",' \
                '"access_token":"%(access_token)s",' \
@@ -97,17 +97,22 @@ class RunMain():
                    'telephone':telephone}
         data = get_Sign().encrypt(data)
         response = requests.post(self.url, data=json.dumps(data), headers=self.headers())
-        return response.json()['data']['token'] if response.status_code == 200 else "登录失败"
+        return response
+
+    def get_login_token(self, timeStamp):
+        response = self.login(timeStamp)
+        while response.status_code != 200 : response = self.login(timeStamp)
+        return response.json()['data']['token']
 
     def headers_token(self, timeStamp):
-        self.headers = {'Content-Type': 'application/json;charset=UTF-8',
+        headers = {'Content-Type': 'application/json;charset=UTF-8',
                         'Content-Length': '732',
                         # 'Host': 'test.ams.starschina.com',
                         'Host': 'apiv1.starschina.com',
                         'Accept-Encoding': 'gzip',
                         'Authorization': self.get_login_token(timeStamp=timeStamp)
                         }
-        return self.headers
+        return headers
 
     def run_main(self, method, url=None, data=None):#定义一个run_main函数，通过传过来的method来进行不同的get或post请求
         result = None

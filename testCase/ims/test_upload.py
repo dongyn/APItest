@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 #@Time  : 2019/7/30 10:22
 #@Author: pengjuan
-#@interfacetest: http://apiv1.starschina.com/ims/v1.0/user/upload
+#@interfacetest: http://apiv1.starschina.com/ims/v1.0/upload
 
 
 from requests_toolbelt import MultipartEncoder
@@ -10,8 +10,6 @@ from common.getSign import get_Sign
 from common.md5_sms import timeStamp_md5
 from readConfig import ReadConfig
 from datetime import datetime
-from collections import OrderedDict
-from urllib3 import encode_multipart_formdata
 import requests, unittest, json, time, os, uuid
 
 global false, true, null
@@ -21,6 +19,7 @@ app_key = ReadConfig().get_app('app_key')
 md5 = timeStamp_md5()
 
 class test_Upload(unittest.TestCase):
+    '''用户上传头像接口'''
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -50,20 +49,39 @@ class test_Upload(unittest.TestCase):
         return RunMain().get_url_params(params, self.url)
 
     def test_upload_01(self):
+        '''正确的参数'''
         timeStamp_login = int(time.mktime(datetime.now().timetuple()))
         headers = RunMain().headers_token(timeStamp_login)
-        params = '{"Content-Disposition": "form-data","name":"file","filename":"blob.png","Content-Type":"image/png","Content-Length": 6569}'
+        params = '{"Content-Disposition": "form-data",' \
+                 '"name":"file",' \
+                 '"filename":"blob.png",' \
+                 '"Content-Type":"image/png",' \
+                 '"Content-Length": 6569}'
         m = MultipartEncoder(fields={params : json.dumps(params),'file': ('file', open(self.file, 'rb'), 'application/octet-stream')}, boundary=self.boundary)
         headers['Content-Type'] = m.content_type
         response = requests.post(self.get_url_params(),
                                  data=m,
                                  headers=headers)
-        print(response)
         if response.status_code == 200:
             assert response.json()["err_code"] == 0
         else:
             print("接口%s请求失败" % self.url)
 
+    def test_upload_02(self):
+        '''参数为空'''
+        timeStamp_login = int(time.mktime(datetime.now().timetuple()))
+        headers = RunMain().headers_token(timeStamp_login)
+        params = '{"Content-Disposition": "form-data",' \
+                 '"name":"file",' \
+                 '"filename":"blob.png",' \ 
+                 '"Content-Type":"image/png",' \
+                 '"Content-Length": 6569}'
+        m = MultipartEncoder(fields={params : json.dumps(params),'file': ('file', open(self.file, 'rb'), 'application/octet-stream')}, boundary=self.boundary)
+        headers['Content-Type'] = m.content_type
+        response = requests.post(self.url,
+                                 data=m,
+                                 headers=headers)
+        assert response.status_code == 403
 
 
 

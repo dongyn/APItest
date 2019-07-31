@@ -20,7 +20,7 @@ app_key = ReadConfig().get_app('app_key')
 md5 = timeStamp_md5()
 headers = RunMain().headers()
 class test_Upload(unittest.TestCase):
-    '''视频包接口'''
+    '''获取套餐列表接口'''
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

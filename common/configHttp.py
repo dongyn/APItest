@@ -60,7 +60,7 @@ class RunMain():
         res = json.dumps(result, ensure_ascii=False, sort_keys=True, indent=2)
         return res
 
-    def get_login_token(self):
+    def get_login_token(self, timeStamp):
         '''获取登录接口的token'''
         data = '{"app_version":"%(version)s",' \
                '"access_token":"%(access_token)s",' \
@@ -78,19 +78,19 @@ class RunMain():
                    'version': version,
                    'app_key' : app_key,
                    'access_token': self.access_token,
-                   'timeStamp': self.timeStamp,
+                   'timeStamp': timeStamp,
                    'telephone':telephone}
         data = get_Sign().encrypt(data)
         response = requests.post(self.url, data=json.dumps(data), headers=self.headers())
         return response.json()['data']['token'] if response.status_code == 200 else "登录失败"
 
-    def headers_token(self):
+    def headers_token(self, timeStamp):
         self.headers = {'Content-Type': 'application/json;charset=UTF-8',
                         'Content-Length': '732',
                         # 'Host': 'test.ams.starschina.com',
                         'Host': 'apiv1.starschina.com',
                         'Accept-Encoding': 'gzip',
-                        'Authorization': self.get_login_token()
+                        'Authorization': self.get_login_token(timeStamp=timeStamp)
                         }
         return self.headers
 

@@ -47,13 +47,7 @@ class test_Upload(unittest.TestCase):
                          'app_key': app_key,
                          'timeStamp': timeStamp}
         params = get_Sign().encrypt(url_params)
-        results = ""
-        keys = list(params.keys())
-        for key in keys:
-            format_param = results + key + "=" + str(params[key])
-            results = format_param if key == keys[-1] else format_param + "&"
-        url = self.url + '?'+ results
-        return url
+        return RunMain().get_url_params(params, self.url)
 
     def test_upload_01(self):
         timeStamp_login = int(time.mktime(datetime.now().timetuple()))

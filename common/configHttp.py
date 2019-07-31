@@ -31,6 +31,21 @@ class RunMain():
         self.timeStamp = int(time.mktime(datetime.now().timetuple()))
         self.access_token = md5.encrypt_md5(self.timeStamp)
 
+    def get_url_params(self, params, url):
+        """
+        :param params: type: dict, 要拼接到url后面的所有参数
+        :param url: type: str, http问号之前的那部分url地址
+        :return: type:str, 拼接后的完整的url
+        """
+        results = ""
+        keys = list(params.keys())
+        for key in keys:
+            format_param = results + key + "=" + str(params[key])
+            results = format_param if key == keys[-1] else format_param + "&"
+        url = url + '?' + results
+        return url
+
+
     def headers(self):
         self.headers = {'Content-Type': 'application/json;charset=UTF-8',
                         'Content-Length': '732',

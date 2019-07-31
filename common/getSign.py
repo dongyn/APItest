@@ -31,13 +31,12 @@ class get_Sign():
         dict_sign = {"sign": sign_hmac}
         #把sign添加到参数列表中
         resultParams.update(dict_sign)
-        print(resultParams)
         return resultParams
 
-if __name__ == "__main__":
-    a = "a"
-    b = "b"
-    print(type(a) == type(b))
+# if __name__ == "__main__":
+#     a = "a"
+#     b = "b"
+#     print(type(a) == type(b))
     # str_dict = {"device_id":"40439d078e887033","os_version":"8.1.0","app_version":"8.0.6","gcid":"63b9d926f335078d837240764f120aa7","country_code":"+86","channel":"vivo","open_id":"18192873108","os_type":1,"imei":"A000008D9CEF1C","bssid":"02:00:00:00:00:00","access_token":"907303","timestamp":1563950104,"installation_id":1901231425555756,"app_key":"xdThhy2239daax","mac_address":"02:00:00:00:00:00","provider":1 }
     # encrypt(str_dict)
 

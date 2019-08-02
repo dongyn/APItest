@@ -44,31 +44,21 @@ class test_Orderstatus(unittest.TestCase):
         """正确的参数"""
         url = self.get_url_params()
         response = requests.get(url, headers=headers)
-        if response.status_code == 200:
-            data = response.json()['data']
-            assert data['category_id'] == 1
-            assert data['properties'][0]['name'] == '地域'
-        else:
-            print("获取%s接口返回的参数错误" % self.url)
+        data = response.json()['data']
+        assert data['category_id'] == 1
+        assert data['properties'][0]['name'] == '地域'
+
 
     def test_orderstatus_02(self):
         """错误的参数"""
         url = self.get_url_params().replace("category_id=1", "category_id=a")
         response = requests.get(url, headers=headers)
-        if response.status_code == 400:
-            err_code = response.json()['err_code']
-            assert err_code == 500
-        else:
-            print("接口%s请求os_type参数值错误，返回的err_code应为500" % self.url)
+        assert response.json()['err_code']==500
 
     def test_orderstatus_03(self):
         """参数为空"""
         response = requests.get(self.url, headers=headers)
-        if response.status_code == 403:
-            err_code = response.json()['err_code']
-            assert err_code == 500
-        else:
-            print("接口%s请求os_type参数值错误，返回的err_code应为500" % self.url)
+        assert response.json()['err_code']==500
 
-if __name__ == "__main__":
-    test_Orderstatus().test_orderstatus_01()
+# if __name__ == "__main__":
+#     test_Orderstatus().test_orderstatus_01()

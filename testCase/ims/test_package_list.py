@@ -51,10 +51,7 @@ class test_Upload(unittest.TestCase):
         headers['Cookie'] = 'sessionid=%s' %token
         url = self.get_url_params()
         response = requests.get(url=url, headers=headers)
-        if response.status_code == 200:
-            assert int(response.json()['count']) >= 1
-        else:
-            print("接口%s请求失败" % self.url)
+        assert int(response.json()['count']) >= 1
 
     def test_upload_02(self):
         '''参数为空'''

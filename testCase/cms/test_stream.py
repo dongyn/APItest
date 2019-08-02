@@ -30,11 +30,8 @@ class test_stream(unittest.TestCase):
         crypt_data = aes.encrypt(data, 'c_q')
         form = {"data":crypt_data,"encode":"v1"}
         response = requests.post(url = self.url, data = json.dumps(form), headers = headers)
-        if (response.status_code == 200):
-            response_data = RunMain().decrypt_to_dict(response, 'r')
-            assert  response_data['title'] == "CCTV1"
-        else:
-            print("接口%s返回的节目名称title错误" %self.url)
+        response_data = RunMain().decrypt_to_dict(response, 'r')
+        assert response_data['title'] == "CCTV1"
 
     def test_02_Viewlivestreamdetails_error(self):
         """错误的请求参数"""
@@ -42,24 +39,16 @@ class test_stream(unittest.TestCase):
         crypt_data = aes.encrypt(data, 'c_q')
         form = {"data": crypt_data, "encode": "v1"}
         response = requests.post(url=self.url, data=json.dumps(form), headers=headers)
-        if (response.status_code == 403):
-            err_code = response.json()['err_code']
-            assert err_code == 500
-        else:
-            print("接口%s请求app_key参数值错误，返回的err_code应为500" %self.url)
+        assert response.json()['err_code'] == 500
 
     def test_03_Viewlivestreamdetails_null(self):
         """请求参数为空"""
         crypt_data = aes.encrypt('', 'c_q')
         form = {"data": crypt_data, "encode": "v1"}
         response = requests.post(url=self.url, data=json.dumps(form), headers=headers)
-        if (response.status_code == 403):
-            err_code = response.json()['err_code']
-            assert err_code == 500
-        else:
-            print("接口%s缺失app_version和app_key参数，返回的状态码应为403" %self.url)
+        assert response.json()['err_code'] == 500
 
-if __name__ == "__main__":
+# if __name__ == "__main__":
 #     suite = unittest.TestLoader().loadTestsFromTestCase(test_stream)
 #     suite.TextTestsRunner().run(suite)
-    test_stream().test_01_Viewlivestreamdetails_correct()
+#     test_stream().test_01_Viewlivestreamdetails_correct()

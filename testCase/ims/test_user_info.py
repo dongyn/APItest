@@ -50,22 +50,14 @@ class test_Userinfo(unittest.TestCase):
         timeStamp_login = int(time.mktime(datetime.now().timetuple()))
         headers = RunMain().headers_token(timeStamp_login)
         response = requests.get(self.get_url_params(), headers=headers)
-        if response.status_code == 200:
-            response_data = response.json()
-            assert response_data['data']['nickname'][0:2] == '星星'
-        else:
-            print("获取%s接口返回的参数错误" % self.url)
+        assert response.json()['data']['nickname'][0:2] == '星星'
 
     def test_userinfo_02(self):
         '''参数为空'''
         timeStamp_login = int(time.mktime(datetime.now().timetuple()))
         headers = RunMain().headers_token(timeStamp_login)
         response = requests.get(self.url, headers=headers)
-        if response.status_code == 403:
-            err_code = response.json()['err_code']
-            assert err_code == 500
-        else:
-            print("接口%s请求os_type参数值错误，返回的err_code应为500" % self.url)
+        assert response.json()['err_code'] == 500
 
 
 # if __name__ == "__main__":

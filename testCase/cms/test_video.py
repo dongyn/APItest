@@ -36,11 +36,8 @@ class test_Video(unittest.TestCase):
         crypt_data = aes.encrypt(data, 'c_q')
         form = {"data": crypt_data, "encode" : "v1"}
         response = requests.post(self.url, data=json.dumps(form), headers=headers)
-        if response.status_code == 200:
-            response_data = RunMain().decrypt_to_dict(response, 'r')
-            assert response_data['id'] == self.content_id
-        else:
-            print("获取%s接口返回的content_id错误" %self.url)
+        response_data = RunMain().decrypt_to_dict(response, 'r')
+        assert response_data['id'] == self.content_id
 
     def test_video_02(self):
         """错误的请求参数"""
@@ -49,11 +46,7 @@ class test_Video(unittest.TestCase):
         crypt_data = aes.encrypt(data, 'c_q')
         form = {"data": crypt_data, "encode" : "v1"}
         response = requests.post(self.url, data=json.dumps(form), headers=headers)
-        if response.status_code == 403:
-            err_code = response.json()['err_code']
-            assert err_code == 500
-        else:
-            print("接口%s请求os_type参数值错误，返回的err_code应为500" % self.url)
+        assert response.json()['err_code'] == 500
 
 
     def test_video_03(self):
@@ -63,11 +56,7 @@ class test_Video(unittest.TestCase):
         crypt_data = aes.encrypt(data, 'c_q')
         form = {"data": crypt_data, "encode" : "v1"}
         response = requests.post(self.url, data=json.dumps(form), headers=headers)
-        if response.status_code == 403:
-            err_code = response.json()['err_code']
-            assert err_code == 500
-        else:
-            print("接口%s请求os_type参数值错误，返回的err_code应为500" % self.url)
+        assert response.json()['err_code'] == 500
 
 # if __name__ == 'main':
 

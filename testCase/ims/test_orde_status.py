@@ -21,34 +21,31 @@ class test_Orderstatus(unittest.TestCase):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.url = baseurl + '/ims/v1.0/user/order/create'
-        self.timeStamp = int(time.mktime(datetime.now().timetuple()))
+        self.url = baseurl + '/ims/v1.0/user/order/status'
 
-    def test_orderstatus_01(self):
-        """正确的参数"""
-        timeStamp_login = int(time.mktime(datetime.now().timetuple()))
-        headers = RunMain().headers_token(timeStamp_login)
+    def get_url_params(self):
         timeStamp = int(time.mktime(datetime.now().timetuple()))
-        access_token = md5.encrypt_md5(timeStamp)
         # order_id 必填, 订单id
         data = '{"app_version":"%(version)s",' \
-               '"access_token":"%(access_token)s",' \
                '"os_type":1,' \
                '"timestamp":%(timeStamp)d,' \
-               '"order_id":116592,'\
-               '"app_key":"%(app_key)s",' \
-               '"device_id":"802ca0fba119ab0a",' \
-               '"country_code":"+86",' \
-               '"installation_id":1904301718321742,' \
-               '"longitude":108.90823353286173,' \
-               '"latitude":34.21936825217505,' \
+               '"order_id":116592,' \
+               '"app_key":"%(app_key)s"' \
                '}' % {
                    'version': version,
                    'app_key': app_key,
-                   'access_token': access_token,
                    'timeStamp': timeStamp}
         data = get_Sign().encrypt(data)
-        response = requests.post(self.url, data=json.dumps(data), headers=headers)
+        return RunMain().get_url_params(data, self.url)
+
+    def test_orderstatus_01(self):
+        """正确的参数"""
+        # timeStamp_login = int(time.mktime(datetime.now().timetuple()))
+        # headers = RunMain().headers_token(timeStamp_login)
+        headers= RunMain().headers()
+        url = self.get_url_params()
+        response = requests.get(url, headers=headers)
+        print(response.status_code)
         if response.status_code == 200:
             assert response.json()['data']['source_id'] == 1
         else:
@@ -56,26 +53,7 @@ class test_Orderstatus(unittest.TestCase):
 
     def test_orderstatus_02(self):
         """headers没有token"""
-        timeStamp = int(time.mktime(datetime.now().timetuple()))
-        access_token = md5.encrypt_md5(timeStamp)
-        data = '{"app_version":"%(version)s",' \
-               '"access_token":"%(access_token)s",' \
-               '"os_type":1,' \
-               '"timestamp":%(timeStamp)d,' \
-               '"order_id":116592,' \
-               '"app_key":"%(app_key)s",' \
-               '"device_id":"802ca0fba119ab0a",' \
-               '"country_code":"+86",' \
-               '"installation_id":1904301718321742,' \
-               '"longitude":108.90823353286173,' \
-               '"latitude":34.21936825217505,' \
-               '}' % {
-                   'version': version,
-                   'app_key': app_key,
-                   'access_token': access_token,
-                   'timeStamp': timeStamp}
-        data = get_Sign().encrypt(data)
-        response = requests.post(self.url, data=json.dumps(data), headers=RunMain().headers())
+        response = requests.get(self.get_url_params(), headers=RunMain().headers())
         if response.status_code == 403:
             err_code = response.json()['err_code']
             assert err_code == 500
@@ -84,8 +62,7 @@ class test_Orderstatus(unittest.TestCase):
 
     def test_orderstatus_03(self):
         """参数为空"""
-        data = {}
-        response = requests.post(self.url, data=json.dumps(data), headers=RunMain().headers())
+        response = requests.get(self.url, headers=RunMain().headers())
         if response.status_code == 403:
             err_code = response.json()['err_code']
             assert err_code == 500

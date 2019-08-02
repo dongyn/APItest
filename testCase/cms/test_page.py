@@ -31,12 +31,9 @@ class test_Page(unittest.TestCase):
         crypt_data = aes.encrypt(data, 'c_q')
         form = {'data': crypt_data, 'encode': 'v1'}
         response = requests.post(self.url, data=json.dumps(form), headers=headers)
-        if response.status_code == 200:
-            r_data = response.json()['data']
-            response_data = RunMain().decrypt_to_json(r_data, 'r')[0]
-            assert response_data['id'] == 119639
-        else:
-            print('请求失败')
+        r_data = response.json()['data']
+        response_data = RunMain().decrypt_to_dict(r_data, 'r')[0]
+        assert response_data['id'] == 119639
 
     def test_page_02(self):
         """错误的请求参数"""
@@ -44,15 +41,15 @@ class test_Page(unittest.TestCase):
         crypt_data = aes.encrypt(data, 'c_q')
         form = {'data': crypt_data, 'encode': 'v1'}
         response = requests.post(self.url, data=json.dumps(form), headers=headers)
-        assert response.status_code == 403
+        assert response.json()['err_code']==500
 
     def test_page_03(self):
         """请求参数为空"""
-        data = '{"id" : [119639], "os_type" : , "app_version": "%(verison)s", "app_key":"%(app_key)s"}'%{'verison': version, 'app_key': app_key}
+        data = ''
         crypt_data = aes.encrypt(data, 'c_q')
         form = {'data': crypt_data, 'encode': 'v1'}
         response = requests.post(self.url, data=json.dumps(form), headers=headers)
-        assert response.status_code == 403
+        assert response.json()['err_code']==500
 
 
 if __name__ == '__main__':

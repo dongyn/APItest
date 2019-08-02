@@ -76,11 +76,7 @@ class test_Login(unittest.TestCase):
                    'telephone': telephone}
         data = get_Sign().encrypt(data)
         response = requests.post(self.url, data=json.dumps(data), headers=headers)
-        if response.status_code == 403:
-            err_code = response.json()['err_code']
-            assert err_code == 500
-        else:
-            print("接口%s请求os_type参数值错误，返回的err_code应为500" % self.url)
+        assert response.json()['err_code'] == 500
 
 
 #  参数为空的登录参数
@@ -88,11 +84,7 @@ def test_login_03(self):
     '''参数为空'''
     data = ''
     response = requests.post(self.url, data=json.dumps(data), headers=headers)
-    if response.status_code == 403:
-        err_code = response.json()['err_code']
-        assert err_code == 500
-    else:
-        print("接口%s请求os_type参数值错误，返回的err_code应为500" % self.url)
+    assert response.json()['err_code'] == 500
 
 # if __name__ == "__main__":
 #     test_Login().test_login_01()

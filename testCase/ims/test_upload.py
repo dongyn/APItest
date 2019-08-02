@@ -58,10 +58,7 @@ class test_Upload(unittest.TestCase):
         response = requests.post(self.get_url_params(),
                                  data=m,
                                  headers=headers)
-        if response.status_code == 200:
-            assert response.json()["err_code"] == 0
-        else:
-            print("接口%s请求失败" % self.url)
+        assert response.json()["err_code"] == 0
 
     def test_upload_02(self):
         '''参数为空'''

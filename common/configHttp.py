@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
-#@Time  : 2019/5/27 16:52
-#@Author: dongyani 
-#@File  : configHttp.py
+# @Time  : 2019/5/27 16:52
+# @Author: dongyani
+# @File  : configHttp.py
 """
 这个文件主要来通过get、post、put、delete等方法来进行http请求，并拿到请求响应。
 """
@@ -13,7 +13,7 @@ from common.Log import logger
 from common.md5_sms import timeStamp_md5
 from datetime import datetime
 from common.getSign import get_Sign
-import json,requests,time
+import json, requests, time
 
 logger = logger
 baseurl = ReadConfig().get_http('baseurl')
@@ -23,6 +23,8 @@ telephone = ReadConfig().get_app('telephone')
 md5 = timeStamp_md5()
 global false, null, true
 aes = AES_CBC()
+
+
 class RunMain():
 
     def __init__(self, *args, **kwargs):
@@ -38,6 +40,7 @@ class RunMain():
         :return: type:str, 拼接后的完整的url
         """
         results = ""
+        if type(params) == type('a'): params = eval(params)
         keys = list(params.keys())
         for key in keys:
             format_param = results + key + "=" + str(params[key])
@@ -45,14 +48,13 @@ class RunMain():
         url = url + '?' + results
         return url
 
-
     def headers(self):
         headers = {'Content-Type': 'application/json;charset=UTF-8',
-                        'Content-Length': '732',
-                        # 'Host': 'test.ams.starschina.com',
-                        'Host': 'apiv1.starschina.com',
-                        'Accept-Encoding': 'gzip'
-                        }
+                   'Content-Length': '732',
+                   # 'Host': 'test.ams.starschina.com',
+                   'Host': 'apiv1.starschina.com',
+                   'Accept-Encoding': 'gzip'
+                   }
         return headers
 
     # 将解密后的字符串转为字典
@@ -64,9 +66,9 @@ class RunMain():
         response_data = eval(str_decrypt)
         return response_data
 
-    def send_post(self, url, data):# 定义一个方法，传入需要的参数url和data
+    def send_post(self, url, data):  # 定义一个方法，传入需要的参数url和data
         # 参数必须按照url、data顺序传入
-        result = requests.post(url=url, data=data).json()# 因为这里要封装post方法，所以这里的url和data值不能写死
+        result = requests.post(url=url, data=data).json()  # 因为这里要封装post方法，所以这里的url和data值不能写死
         res = json.dumps(result, ensure_ascii=False, sort_keys=True, indent=2)
         return res
 
@@ -91,30 +93,30 @@ class RunMain():
                '"latitude":34.21936825217505,' \
                '}' % {
                    'version': version,
-                   'app_key' : app_key,
+                   'app_key': app_key,
                    'access_token': self.access_token,
                    'timeStamp': timeStamp,
-                   'telephone':telephone}
+                   'telephone': telephone}
         data = get_Sign().encrypt(data)
         response = requests.post(self.url, data=json.dumps(data), headers=self.headers())
         return response
 
     def get_login_token(self, timeStamp):
         response = self.login(timeStamp)
-        while response.status_code != 200 : response = self.login(timeStamp)
+        while response.status_code != 200: response = self.login(timeStamp)
         return response.json()['data']['token']
 
     def headers_token(self, timeStamp):
         headers = {'Content-Type': 'application/json;charset=UTF-8',
-                        'Content-Length': '732',
-                        # 'Host': 'test.ams.starschina.com',
-                        'Host': 'apiv1.starschina.com',
-                        'Accept-Encoding': 'gzip',
-                        'Authorization': self.get_login_token(timeStamp=timeStamp)
-                        }
+                   'Content-Length': '732',
+                   # 'Host': 'test.ams.starschina.com',
+                   'Host': 'apiv1.starschina.com',
+                   'Accept-Encoding': 'gzip',
+                   'Authorization': self.get_login_token(timeStamp=timeStamp)
+                   }
         return headers
 
-    def run_main(self, method, url=None, data=None):#定义一个run_main函数，通过传过来的method来进行不同的get或post请求
+    def run_main(self, method, url=None, data=None):  # 定义一个run_main函数，通过传过来的method来进行不同的get或post请求
         result = None
         if method == 'post':
             result = self.send_post(url, data)

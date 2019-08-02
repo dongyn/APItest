@@ -57,14 +57,10 @@ class test_epglist(unittest.TestCase):
         crypt_data = aes.encrypt(data, 'c_q')
         form = {"data": crypt_data, "encode": "v1"}
         response = requests.post(url=self.url, data=json.dumps(form), headers=headers)
-        if response.status_code == 200:
-            r_data = response.json()['data']
-            data = aes.decrypt(r_data, 'r')
-            global false, null, true
-            false = null = true = ""
-            assert self.stream_id == list(eval(data))[0]["epg"][0]["stream_id"]
-        else:
-            print("获取%s接口返回的stream_id错误" %self.url)
+        data = aes.decrypt(response.json()['data'], 'r')
+        global false, null, true
+        false = null = true = ""
+        assert self.stream_id == list(eval(data))[0]["epg"][0]["stream_id"]
 
     def test_02_epg_list_error(self):
         """错误的请求参数"""
@@ -72,25 +68,15 @@ class test_epglist(unittest.TestCase):
         crypt_data = aes.encrypt(data, 'c_q')
         form = {"data": crypt_data, "encode": "v1"}
         response = requests.post(url=self.url, data=json.dumps(form), headers=headers)
-        print(response.status_code)
-        if (response.status_code == 403):
-            err_code = response.json()['err_code']
-            assert err_code == 500
-        else:
-            print("接口%s请求id和app_key参数值错误，返回的err_code应为500" %self.url)
+        assert response.json()['err_code'] == 500
+
 
     def test_03_epg_list_null(self):
         """请求参数为空"""
         crypt_data = aes.encrypt('', 'c_q')
         form = {"data": crypt_data, "encode": "v1"}
         response = requests.post(url=self.url, data=json.dumps(form), headers=headers)
-        if (response.status_code == 403):
-            err_code = response.json()['err_code']
-            assert err_code == 500
-        else:
-            print("接口%s缺失app_version和app_key参数，返回的状态码应为403" %self.url)
-
-
+        assert response.json()['err_code'] == 500
 
 # if __name__ == "__main__":
 #     test_epglist().test_01_epg_list()

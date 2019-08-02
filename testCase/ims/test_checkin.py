@@ -45,11 +45,8 @@ class test_Checkin(unittest.TestCase):
                    'timeStamp': self.timeStamp}
         data = get_Sign().encrypt(data)
         response = requests.post(self.url, data=json.dumps(data), headers=headers)
-        if response.status_code == 200:
-            response_data = response.json()
-            assert response_data['err_code'] == 0 and response_data['data']['already_checkin'] == True
-        else:
-            print("获取%s接口返回的参数错误" % self.url)
+        response_data = response.json()
+        assert response_data['err_code'] == 0 and response_data['data']['already_checkin'] == True
 
     def test_checkin_02(self):
         """错误的签到参数"""
@@ -69,11 +66,7 @@ class test_Checkin(unittest.TestCase):
                    'timeStamp': self.timeStamp}
         data = get_Sign().encrypt(data)
         response = requests.post(self.url, data=json.dumps(data), headers=headers)
-        if response.status_code == 403:
-            err_code = response.json()['err_code']
-            assert err_code == 500
-        else:
-            print("接口%s请求os_type参数值错误，返回的err_code应为500" % self.url)
+        assert response.json()['err_code'] == 500
 
     def test_checkin_03(self):
         """空的签到参数"""
@@ -92,11 +85,7 @@ class test_Checkin(unittest.TestCase):
                    'timeStamp': self.timeStamp}
         data = get_Sign().encrypt(data)
         response = requests.post(self.url, data=json.dumps(data), headers=headers)
-        if response.status_code == 403:
-            err_code = response.json()['err_code']
-            assert err_code == 500
-        else:
-            print("接口%s请求os_type参数值错误，返回的err_code应为500" % self.url)
+        assert response.json()['err_code'] == 500
 
 
 if __name__ == "__main__":

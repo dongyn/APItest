@@ -43,11 +43,8 @@ class test_streamlist(unittest.TestCase):
         crypt_data = aes.encrypt(data, 'c_q')
         form = {"data": crypt_data, "encode": "v1"}
         response = requests.post(url=self.url, data=json.dumps(form), headers=headers)
-        if (response.status_code == 200):
-            response_data = self.decrypt_to_dict(response, 1, '"provider_play_urls":null}')
-            assert response_data['id'] != "" and  response_data['title'] != ""
-        else:
-            print("接口%s返回的节目名称title错误" %self.url)
+        response_data = self.decrypt_to_dict(response, 1, '"provider_play_urls":null}')
+        assert response_data['id'] != "" and response_data['title'] != ""
 
     def test_02_getlivelist_error(self):
         """错误的请求参数"""
@@ -55,22 +52,14 @@ class test_streamlist(unittest.TestCase):
         crypt_data = aes.encrypt(data, 'c_q')
         form = {"data": crypt_data, "encode": "v1"}
         response = requests.post(url=self.url, data=json.dumps(form), headers=headers)
-        if (response.status_code == 403):
-            err_code = response.json()['err_code']
-            assert err_code == 500
-        else:
-            print("接口%s请求app_key参数值错误，返回的err_code应为500" %self.url)
+        assert response.json()['err_code'] == 500
 
     def test_03_getlivelist_null(self):
         """请求参数为空"""
         crypt_data = aes.encrypt('', 'c_q')
         form = {"data": crypt_data, "encode": "v1"}
         response = requests.post(url=self.url, data=json.dumps(form), headers=headers)
-        if (response.status_code == 403):
-            err_code = response.json()['err_code']
-            assert err_code == 500
-        else:
-            print("接口%s缺失app_version和app_key参数，返回的状态码应为403"%self.url)
+        assert response.json()['err_code'] == 500
 
 
 

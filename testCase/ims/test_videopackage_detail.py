@@ -1,9 +1,9 @@
 # -*- coding:utf-8 -*-
-#@Time  : 2019/7/23 17:05
-#@Author: dongyani
-#@interfacetest: http://apiv1.starschina.com/cms/v1.2/videopackage/detail
+# @Time  : 2019/7/23 17:05
+# @Author: dongyani
+# @interfacetest: http://apiv1.starschina.com/cms/v1.2/videopackage/detail
 
-import unittest,json,requests,time
+import unittest, json, requests, time
 from datetime import datetime
 from common.AES_CBC import AES_CBC
 from common.configHttp import RunMain
@@ -53,13 +53,10 @@ class videopackage_detail(unittest.TestCase):
                    'version': version,
                    'app_key': app_key}
         crypt_data = aes.encrypt(str(data), 'c_q')
-        form = {"data":crypt_data,"encode":"v1"}
-        response = requests.post(url = self.url, data = json.dumps(form), headers = headers)
-        if response.status_code == 200:
-            response_data = self.decrypt_to_dict(response, 1, -1)
-            assert response_data["description"] == "会员专享,老的VIP用户升级专用"
-        else:
-            print("接口%s请求失败" %self.url)
+        form = {"data": crypt_data, "encode": "v1"}
+        response = requests.post(url=self.url, data=json.dumps(form), headers=headers)
+        response_data = self.decrypt_to_dict(response, 1, -1)
+        assert response_data["description"] == "会员专享,老的VIP用户升级专用"
 
     def test_02_videopackage_detail(self):
         """错误的会员套餐视频包详情参数"""
@@ -78,26 +75,16 @@ class videopackage_detail(unittest.TestCase):
         crypt_data = aes.encrypt(data, 'c_q')
         form = {"data": crypt_data, "encode": "v1"}
         response = requests.post(url=self.url, data=json.dumps(form), headers=headers)
-        if (response.status_code == 403):
-            err_code = response.json()['err_code']
-            assert err_code == 500
-        else:
-            print("接口%s请求app_key参数值错误，返回的err_code应为500" %self.url)
+        assert response.json()['err_code'] == 500
 
     def test_03_videopackage_detail(self):
         data = 'aaaa'
         crypt_data = aes.encrypt(data, 'c_q')
         form = {"data": crypt_data, "encode": "v1"}
         response = requests.post(url=self.url, data=json.dumps(form), headers=headers)
-        if (response.status_code == 403):
-            err_code = response.json()['err_code']
-            assert err_code == 500
-        else:
-            print("接口%s缺失app_version和app_key参数，返回的状态码应为403" %self.url)
+        assert response.json()['err_code'] == 500
 
-# if __name__ == "__main__":
-#     videopackage_detail().test_01_videopackage_detail()
-    # a = '[{"aa":a, "bb":[{"cc":c}]}]'
-    # print(a[1:][-1:])
-
-
+if __name__ == "__main__":
+    videopackage_detail().test_01_videopackage_detail()
+# a = '[{"aa":a, "bb":[{"cc":c}]}]'
+# print(a[1:][-1:])

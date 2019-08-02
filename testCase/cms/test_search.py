@@ -35,11 +35,8 @@ class test_Search(unittest.TestCase):
         crypt_data = aes.encrypt(data, 'c_q')
         form = {"data":crypt_data, 'encode':"v1"}
         response = requests.post(self.url, data=json.dumps(form), headers=headers)
-        if response.status_code == 200:
-            response_data = RunMain().decrypt_to_dict(response, 'r')['result'][0]['title']
-            assert response_data == self.title
-        else:
-            print("请求失败")
+        response_data = RunMain().decrypt_to_dict(response, 'r')['result'][0]['title']
+        assert response_data == self.title
 
     def test_search_02(self):
         """错误的请求参数"""
@@ -47,11 +44,8 @@ class test_Search(unittest.TestCase):
         crypt_data = aes.encrypt(data, 'c_q')
         form = {"data": crypt_data, 'encode': "v1"}
         response = requests.post(self.url, data=json.dumps(form), headers=headers)
-        if response.status_code == 200:
-            response_data = RunMain().decrypt_to_dict(response,'r')['result'][0]['title']
-            assert response_data != '集体么去impose'
-        else:
-            print("请求失败")
+        response_data = RunMain().decrypt_to_dict(response, 'r')['result'][0]['title']
+        assert response_data != '集体么去impose'
 
     def test_search_03(self):
         """错误的请求参数"""

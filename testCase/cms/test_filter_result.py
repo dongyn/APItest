@@ -27,8 +27,7 @@ class test_Filterresult(unittest.TestCase):
         self.url = baseurl + "/cms/v1.2/filter/result"
 
     def decrypt_to_dict(self, text, split_num, split_str):
-        data = text.json()["data"]
-        decrypt = aes.decrypt(str(data), 'r')[split_num:][split_str][0] + split_str
+        decrypt = aes.decrypt(text, 'r')[split_num:].split(split_str)[0] + split_str
         global false, null, true
         false = null = true = ""
         dict_decrypt = eval(decrypt)
@@ -48,7 +47,7 @@ class test_Filterresult(unittest.TestCase):
         crypt_data = aes.encrypt(data, 'c_q')
         form = {'data': crypt_data, 'encode': 'v1'}
         response = requests.post(self.url, data=json.dumps(form), headers=headers)
-        response_data = self.decrypt_to_dict(response.json()['data'], 'r', 1, '"expired_at":null}')[0]
+        response_data = self.decrypt_to_dict(response.json()['data'], 1, '"expired_at":null}')
         assert response_data['title'] == '剧场'
 
 

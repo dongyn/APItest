@@ -22,7 +22,6 @@ class test_Ordercreate(unittest.TestCase):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.url = baseurl + '/ims/v1.0/user/order/create'
-        self.timeStamp = int(time.mktime(datetime.now().timetuple()))
 
     def test_ordercreate_01(self):
         """正确的参数"""
@@ -81,8 +80,7 @@ class test_Ordercreate(unittest.TestCase):
 
     def test_ordercreate_03(self):
         """参数为空"""
-        data = {}
-        response = requests.post(self.url, data=json.dumps(data), headers=RunMain().headers())
+        response = requests.post(self.url, data='', headers=RunMain().headers())
         assert response.json()['err_code'] == 500
 
 # if __name__ == "__main__":

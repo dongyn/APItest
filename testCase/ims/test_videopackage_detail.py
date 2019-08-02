@@ -24,7 +24,6 @@ class videopackage_detail(unittest.TestCase):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.url = baseurl + '/cms/v1.2/videopackage/detail'
-        self.timeStamp = int(time.mktime(datetime.now().timetuple()))
 
     def decrypt_to_dict(self, text, split_star_num, split_end_num):
         data = text.json()["data"]
@@ -84,7 +83,8 @@ class videopackage_detail(unittest.TestCase):
         response = requests.post(url=self.url, data=json.dumps(form), headers=headers)
         assert response.json()['err_code'] == 500
 
-if __name__ == "__main__":
-    videopackage_detail().test_01_videopackage_detail()
+
+# if __name__ == "__main__":
+#     videopackage_detail().test_01_videopackage_detail()
 # a = '[{"aa":a, "bb":[{"cc":c}]}]'
 # print(a[1:][-1:])

@@ -79,12 +79,11 @@ class test_Login(unittest.TestCase):
         assert response.json()['err_code'] == 500
 
 
-#  参数为空的登录参数
-def test_login_03(self):
-    '''参数为空'''
-    data = ''
-    response = requests.post(self.url, data=json.dumps(data), headers=headers)
-    assert response.json()['err_code'] == 500
+    #  参数为空的登录参数
+    def test_login_03(self):
+        '''参数为空'''
+        response = requests.post(self.url, data='', headers=headers)
+        assert response.json()['err_code'] == 500
 
 # if __name__ == "__main__":
 #     test_Login().test_login_01()

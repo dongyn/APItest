@@ -79,8 +79,7 @@ class test_Smscode(unittest.TestCase):
 
     def test_smscode_03(self):
         '''参数为空'''
-        data = ''
-        response = requests.post(self.url, data=json.dumps(data), headers=headers)
+        response = requests.post(self.url, data='', headers=headers)
         assert response.json()['err_code'] == 500
 
 # if __name__ == "__main__":

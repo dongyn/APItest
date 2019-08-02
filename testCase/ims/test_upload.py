@@ -48,12 +48,12 @@ class test_Upload(unittest.TestCase):
         '''正确的参数'''
         timeStamp_login = int(time.mktime(datetime.now().timetuple()))
         headers = RunMain().headers_token(timeStamp_login)
-        params = '{"Content-Disposition": "form-data",' \
-                 '"name":"file",' \
-                 '"filename":"blob.png",' \
-                 '"Content-Type":"image/png",' \
+        params = '{"Content-Disposition": "form-data","name":"file","filename":"blob.png","Content-Type":"image/png",' \
                  '"Content-Length": 6569}'
-        m = MultipartEncoder(fields={params : json.dumps(params),'file': ('file', open(self.file, 'rb'), 'application/octet-stream')}, boundary=self.boundary)
+        m = MultipartEncoder(fields={params : json.dumps(params),
+                                     'file': ('file', open(self.file, 'rb'),
+                                              'application/octet-stream')},
+                             boundary=self.boundary)
         headers['Content-Type'] = m.content_type
         response = requests.post(self.get_url_params(),
                                  data=m,
@@ -64,12 +64,12 @@ class test_Upload(unittest.TestCase):
         '''参数为空'''
         timeStamp_login = int(time.mktime(datetime.now().timetuple()))
         headers = RunMain().headers_token(timeStamp_login)
-        params = '{"Content-Disposition": "form-data",' \
-                 '"name":"file",' \
-                 '"filename":"blob.png",' \ 
-                 '"Content-Type":"image/png",' \
+        params = '{"Content-Disposition": "form-data","name":"file","filename":"blob.png","Content-Type":"image/png",' \
                  '"Content-Length": 6569}'
-        m = MultipartEncoder(fields={params : json.dumps(params),'file': ('file', open(self.file, 'rb'), 'application/octet-stream')}, boundary=self.boundary)
+        m = MultipartEncoder(fields={params : json.dumps(params),
+                                     'file': ('file', open(self.file, 'rb'),
+                                              'application/octet-stream')},
+                             boundary=self.boundary)
         headers['Content-Type'] = m.content_type
         response = requests.post(self.url,
                                  data=m,

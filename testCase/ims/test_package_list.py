@@ -19,7 +19,7 @@ version = ReadConfig().get_app('version')
 app_key = ReadConfig().get_app('app_key')
 md5 = timeStamp_md5()
 headers = RunMain().headers()
-class test_Upload(unittest.TestCase):
+class test_Packagelist(unittest.TestCase):
     '''获取套餐列表接口'''
 
     def __init__(self, *args, **kwargs):
@@ -44,7 +44,7 @@ class test_Upload(unittest.TestCase):
         params = get_Sign().encrypt(url_params)
         return RunMain().get_url_params(params, self.url)
 
-    def test_upload_01(self):
+    def test_packagelist_01(self):
         '''正确的参数'''
         timeStamp_login = int(time.mktime(datetime.now().timetuple()))
         token = RunMain().get_login_token(timeStamp_login)
@@ -53,10 +53,9 @@ class test_Upload(unittest.TestCase):
         response = requests.get(url=url, headers=headers)
         assert int(response.json()['count']) >= 1
 
-    def test_upload_02(self):
+    def test_packagelist_02(self):
         '''参数为空'''
-        response = requests.get(self.url,
-                                headers=headers)
+        response = requests.get(self.url,headers=headers)
         assert response.status_code == 403
 
 

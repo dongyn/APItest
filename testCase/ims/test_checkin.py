@@ -14,7 +14,6 @@ global false, true, null
 baseurl = ReadConfig().get_http('baseurl')
 version = ReadConfig().get_app('version')
 app_key = ReadConfig().get_app('app_key')
-headers = RunMain().headers_token()
 md5 = timeStamp_md5()
 
 class test_Checkin(unittest.TestCase):
@@ -28,6 +27,10 @@ class test_Checkin(unittest.TestCase):
 
     def test_checkin_01(self):
         """正确的签到参数"""
+        timeStamp_login = int(time.mktime(datetime.now().timetuple()))
+        headers = RunMain().headers_token(timeStamp_login)
+        timeStamp = int(time.mktime(datetime.now().timetuple()))
+        access_token = md5.encrypt_md5(timeStamp)
         data = '{"app_version":"%(version)s",' \
                '"access_token":"%(access_token)s",' \
                '"os_type":1,' \
@@ -41,8 +44,8 @@ class test_Checkin(unittest.TestCase):
                '}' % {
                    'version': version,
                    'app_key': app_key,
-                   'access_token': self.access_token,
-                   'timeStamp': self.timeStamp}
+                   'access_token': access_token,
+                   'timeStamp': timeStamp}
         data = get_Sign().encrypt(data)
         response = requests.post(self.url, data=json.dumps(data), headers=headers)
         response_data = response.json()
@@ -50,46 +53,35 @@ class test_Checkin(unittest.TestCase):
 
     def test_checkin_02(self):
         """错误的签到参数"""
+        timeStamp = int(time.mktime(datetime.now().timetuple()))
+        access_token = md5.encrypt_md5(timeStamp)
         data = '{"app_version":"%(version)s",' \
                '"access_token":"%(access_token)s",' \
                '"os_type":1,' \
                '"timestamp":%(timeStamp)d,' \
                '"provider":1,' \
-               '"app_key":"ffdsggsfar",' \
+               '"app_key":"%(app_key)s",' \
                '"device_id":"802ca0fba119ab0a",' \
                '"installation_id":1904301718321742,' \
                '"longitude":108.90823353286173,' \
                '"latitude":34.21936825217505,' \
                '}' % {
                    'version': version,
-                   'access_token': self.access_token,
-                   'timeStamp': self.timeStamp}
+                   'app_key': app_key,
+                   'access_token': access_token,
+                   'timeStamp': timeStamp}
         data = get_Sign().encrypt(data)
-        response = requests.post(self.url, data=json.dumps(data), headers=headers)
+        response = requests.post(self.url, data=json.dumps(data), headers=RunMain().headers())
         assert response.json()['err_code'] == 500
 
     def test_checkin_03(self):
         """空的签到参数"""
-        data = '{"app_version":"%(version)s",' \
-               '"access_token":"%(access_token)s",' \
-               '"os_type":1,' \
-               '"timestamp":%(timeStamp)d,' \
-               '"provider":1,' \
-               '"device_id":"802ca0fba119ab0a",' \
-               '"installation_id":1904301718321742,' \
-               '"longitude":108.90823353286173,' \
-               '"latitude":34.21936825217505,' \
-               '}' % {
-                   'version': version,
-                   'access_token': self.access_token,
-                   'timeStamp': self.timeStamp}
-        data = get_Sign().encrypt(data)
-        response = requests.post(self.url, data=json.dumps(data), headers=headers)
+        response = requests.post(self.url, data='', headers=RunMain().headers())
         assert response.json()['err_code'] == 500
 
 
-if __name__ == "__main__":
-
-    test_Checkin().test_checkin_01()
-    test_Checkin().test_checkin_02()
-    test_Checkin().test_checkin_03()
+# if __name__ == "__main__":
+#
+#     test_Checkin().test_checkin_01()
+#     test_Checkin().test_checkin_02()
+#     test_Checkin().test_checkin_03()

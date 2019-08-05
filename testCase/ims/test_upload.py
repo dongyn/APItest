@@ -70,7 +70,7 @@ class test_Upload(unittest.TestCase):
                                      'file': ('file', open(self.file, 'rb'),
                                               'application/octet-stream')},
                              boundary=self.boundary)
-        warnings.simplefilter("ignore", ResourceWarning)
+        # warnings.simplefilter("ignore", ResourceWarning)
         headers['Content-Type'] = m.content_type
         response = requests.post(self.url,
                                  data=m,
@@ -78,6 +78,6 @@ class test_Upload(unittest.TestCase):
         assert response.status_code == 403
 
 
-# if __name__ == '__main__':
-#     test_Upload().test_upload_01()
-#     test_Upload().test_upload_02()
+if __name__ == '__main__':
+    test_Upload().test_upload_01()
+    test_Upload().test_upload_02()

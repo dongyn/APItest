@@ -52,7 +52,6 @@ class test_Checkin(unittest.TestCase):
         assert response_data['err_code'] == 0 and response_data['data']['already_checkin'] == True
 
     def test_checkin_02(self):
-        """错误的签到参数"""
         timeStamp = int(time.mktime(datetime.now().timetuple()))
         access_token = md5.encrypt_md5(timeStamp)
         data = '{"app_version":"%(version)s",' \
@@ -78,6 +77,7 @@ class test_Checkin(unittest.TestCase):
         """空的签到参数"""
         response = requests.post(self.url, data='', headers=RunMain().headers())
         assert response.json()['err_code'] == 500
+
 
 
 # if __name__ == "__main__":

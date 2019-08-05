@@ -14,7 +14,7 @@ global false, null, true
 baseurl = ReadConfig().get_http("baseurl")
 version = ReadConfig().get_app("version")
 app_key = ReadConfig().get_app("app_key")
-headers = RunMain().headers()
+headers = RunMain().headers_get()
 aes = AES_CBC()
 
 class funtv_accesskey(unittest.TestCase):
@@ -24,30 +24,42 @@ class funtv_accesskey(unittest.TestCase):
         super().__init__(*args, **kwargs)
         self.url = baseurl + "/cms/v1.0/funtv/accesskey"
 
+    def get_url_param(self):
+        #cp: fiag64t; secret_key: !N6nYXm9i@V 这两个参数是必传的
+        data = '{"cp":"fiag64t",' \
+               '"secret_key":"!N6nYXm9i@V",' \
+               '"app_version":"%(version)s",' \
+               '"app_key":"%(app_key)s", ' \
+               '"os_type":1}' % {
+                   'version': version,
+                   'app_key': app_key}
+        return RunMain().get_url_params(data, self.url)
+
+
     def test_01_funtv_accesskey(self):
         '''正确的请求参数'''
-        data = '{"cp":,"app_key":"%(app_key)s"}' % {'app_key':app_key}
-        crypt_data = aes.encrypt(data, 'c_q')
-        form = {"data":crypt_data,"encode":"v1"}
-        response = requests.post(url = self.url, data = json.dumps(form), headers = headers)
-        response_data = RunMain().decrypt_to_dict(response)
-        assert response_data['access_key'] == "Zno2djRmbiwxNTU5MTgzMjA3LDhhOTYyNWJlZTBmNWM1NzZiZjU4M2RkOTQ5NTNmNWQ5"
+        response = requests.get(url = self.get_url_param(), headers = headers)
+        assert response['err_code'] == 0
+        assert response['data']['access_key'] == "ZmlhZzY0dCwxNTY0Mzk0MjY1LGIzZjBhOTllNDZjOWMxZTNkMDI0NmUwMWQxNjUzNDgz"
 
-    def test_02_funtv_accesskey_error(self):
-        '''错误的请求参数'''
-        data = '{"cp":,"app_key":"%(app_key)s"}' % {'app_key':app_key}
-        crypt_data = aes.encrypt(data, 'c_q')
-        form = {"data": crypt_data, "encode": "v1"}
-        response = requests.post(url=self.url, data=json.dumps(form), headers=headers)
+    def test_02_funtv_accesskey_cp_error(self):
+        '''请求参数cp的值错误'''
+        url = self.get_url_param().replace('cp=fiag64t', 'cp=fiag32taaa')
+        response = requests.get(url=url, headers=headers)
         assert response.json()['err_code'] == 500
 
-    def test_03_funtv_accesskey_null(self):
-        '''请求参数为空'''
-        data = ''
-        crypt_data = aes.encrypt(data, 'c_q')
-        form = {"data": crypt_data, "encode": "v1"}
-        response = requests.post(url=self.url, data=json.dumps(form), headers=headers)
+    def test_03_funtv_accesskey_secret_key_error(self):
+        '''请求参数secret_key的值错误'''
+        url = self.get_url_param().replace('secret_key=!N6nYXm9i@V', 'secret_key=!N6nYXm9iaaa')
+        response = requests.get(url=url, headers=headers)
         assert response.json()['err_code'] == 500
+
+    def test_04_funtv_accesskey_null(self):
+        '''请求参数cp与secret_key值为空'''
+        url = self.get_url_param().replace('cp=fiag64t', 'cp=')
+        url = url.replace('secret_key=!N6nYXm9i@V', 'secret_key=')
+        response = requests.post(url=url, headers=headers)
+        assert response.status_code == 404
 
 # if __name__ == "__main__":
 #     config_app_scret_key().test_01_config_correct()

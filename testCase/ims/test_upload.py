@@ -9,7 +9,7 @@ from common.configHttp import RunMain
 from common.getSign import get_Sign
 from readConfig import ReadConfig
 from datetime import datetime
-import requests, unittest, json, time, os, uuid
+import requests, unittest, json, time, os, uuid, warnings
 
 global false, true, null
 baseurl = ReadConfig().get_http('baseurl')
@@ -24,6 +24,7 @@ class test_Upload(unittest.TestCase):
         self.url = baseurl + '/ims/v1.0/upload'
         self.boundary = '--'+ str(uuid.uuid1())
         self.file = os.path.abspath(os.path.join(os.getcwd(), "../..")) + '\\files\\Avatar.png'
+
 
     def get_url_params(self):
         timeStamp = int(time.mktime(datetime.now().timetuple()))
@@ -53,6 +54,7 @@ class test_Upload(unittest.TestCase):
                                      'file': ('file', open(self.file, 'rb'),
                                               'application/octet-stream')},
                              boundary=self.boundary)
+        warnings.simplefilter("ignore", ResourceWarning)
         headers['Content-Type'] = m.content_type
         response = requests.post(self.get_url_params(),
                                  data=m,
@@ -68,6 +70,7 @@ class test_Upload(unittest.TestCase):
                                      'file': ('file', open(self.file, 'rb'),
                                               'application/octet-stream')},
                              boundary=self.boundary)
+        warnings.simplefilter("ignore", ResourceWarning)
         headers['Content-Type'] = m.content_type
         response = requests.post(self.url,
                                  data=m,
@@ -77,3 +80,4 @@ class test_Upload(unittest.TestCase):
 
 # if __name__ == '__main__':
 #     test_Upload().test_upload_01()
+#     test_Upload().test_upload_02()

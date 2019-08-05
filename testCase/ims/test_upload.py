@@ -48,8 +48,7 @@ class test_Upload(unittest.TestCase):
         '''正确的参数'''
         timeStamp_login = int(time.mktime(datetime.now().timetuple()))
         headers = RunMain().headers_token(timeStamp_login)
-        params = '{"Content-Disposition": "form-data","name":"file","filename":"blob.png","Content-Type":"image/png",' \
-                 '"Content-Length": 6569}'
+        params = '{"Content-Disposition": "form-data","name":"file","filename":"blob.png","Content-Type":"image/png","Content-Length": 6569}'
         m = MultipartEncoder(fields={params : json.dumps(params),
                                      'file': ('file', open(self.file, 'rb'),
                                               'application/octet-stream')},
@@ -61,11 +60,10 @@ class test_Upload(unittest.TestCase):
         assert response.json()["err_code"] == 0
 
     def test_upload_02(self):
-        '''参数为空'''
+        """参数为空"""
         timeStamp_login = int(time.mktime(datetime.now().timetuple()))
         headers = RunMain().headers_token(timeStamp_login)
-        params = '{"Content-Disposition": "form-data","name":"file","filename":"blob.png","Content-Type":"image/png",' \
-                 '"Content-Length": 6569}'
+        params = '{"Content-Disposition": "form-data","name":"file","filename":"blob.png","Content-Type":"image/png","Content-Length": 6569}'
         m = MultipartEncoder(fields={params : json.dumps(params),
                                      'file': ('file', open(self.file, 'rb'),
                                               'application/octet-stream')},
@@ -75,7 +73,6 @@ class test_Upload(unittest.TestCase):
                                  data=m,
                                  headers=headers)
         assert response.status_code == 403
-
 
 
 # if __name__ == '__main__':

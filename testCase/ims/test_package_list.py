@@ -1,6 +1,6 @@
 # -*- coding:utf-8 -*-
 #@Time  : 2019/7/30 10:22
-#@Author: pengjuan
+#@Author: dongyn
 #@interfacetest: http://apiv1.starschina.com/ims/v1.0/package/list
 
 
@@ -18,7 +18,7 @@ baseurl = ReadConfig().get_http('baseurl')
 version = ReadConfig().get_app('version')
 app_key = ReadConfig().get_app('app_key')
 md5 = timeStamp_md5()
-headers = RunMain().headers()
+headers = RunMain().headers_get()
 class test_Packagelist(unittest.TestCase):
     '''获取套餐列表接口'''
 

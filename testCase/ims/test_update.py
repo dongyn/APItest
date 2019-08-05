@@ -87,12 +87,6 @@ class test_Update(unittest.TestCase):
         response = requests.post(self.url, data=json.dumps(data), headers=headers)
         assert response.json()['err_code'] == 500
 
-    def test_update_03(self):
-        """空的请求参数"""
-        timeStamp_login = int(time.mktime(datetime.now().timetuple()))
-        headers = RunMain().headers_token(timeStamp_login)
-        response = requests.post(self.url, data='', headers=headers)
-        assert response.json()['err_code'] == 500
 
 # if __name__ == "__main__":
 #     test_Update().test_update_01()

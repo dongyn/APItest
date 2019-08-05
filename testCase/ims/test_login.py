@@ -23,44 +23,70 @@ class test_Login(unittest.TestCase):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.url = baseurl + '/ims/v1.0/user/login'
-        self.timeStamp = int(time.mktime(datetime.now().timetuple()))
-        self.access_token = md5.encrypt_md5(self.timeStamp)
 
-    def test_login_01(self):
-        '''正确的参数'''
+
+    # def test_login_01(self):
+    #     '''正确的参数'''
+    #     timeStamp = int(time.mktime(datetime.now().timetuple()))
+    #     access_token = md5.encrypt_md5(timeStamp)
+    #     data = '{"app_version":"%(version)s",' \
+    #            '"access_token":"%(access_token)s",' \
+    #            '"os_type":1,' \
+    #            '"timestamp":%(timeStamp)d,' \
+    #            '"open_id":"%(telephone)s",' \
+    #            '"provider":1,' \
+    #            '"app_key":"%(app_key)s",' \
+    #            '"device_id":"802ca0fba119ab0a",' \
+    #            '"country_code":"+86",' \
+    #            '"installation_id":1904301718321742,' \
+    #            '"longitude":108.90823353286173,' \
+    #            '"latitude":34.21936825217505,' \
+    #            '}' % {
+    #                'version': version,
+    #                'app_key': app_key,
+    #                'access_token': access_token,
+    #                'timeStamp': timeStamp,
+    #                'telephone': telephone}
+    #     data = get_Sign().encrypt(data)
+    #     response = requests.post(self.url, data=json.dumps(data), headers=headers)
+    #     assert response.json()['err_code'] == 0
+    #
+    # def test_login_02(self):
+    #     '''错误的参数'''
+    #     timeStamp = int(time.mktime(datetime.now().timetuple()))
+    #     access_token = md5.encrypt_md5(timeStamp)
+    #     data = '{"app_version":"%(version)s",' \
+    #            '"access_token":"%(access_token)s",' \
+    #            '"os_type":3,' \
+    #            '"timestamp":%(timeStamp)d,' \
+    #            '"open_id":"%(telephone)s",' \
+    #            '"provider":1,' \
+    #            '"app_key":"%(app_key)s",' \
+    #            '"device_id":"802ca0fba119ab0a",' \
+    #            '"country_code":"+86",' \
+    #            '"installation_id":1904301718321742,' \
+    #            '"longitude":108.90823353286173,' \
+    #            '"latitude":34.21936825217505' \
+    #            '}' % {
+    #                'version': version,
+    #                'access_token': access_token,
+    #                'timeStamp': timeStamp,
+    #                'app_key': app_key,
+    #                'telephone': telephone}
+    #     data = get_Sign().encrypt(data)
+    #     response = requests.post(self.url, data=json.dumps(data), headers=headers)
+    #     assert response.json()['err_code'] == 500
+
+
+    def test_login_03(self):
+        '''参数为空'''
+        timeStamp = int(time.mktime(datetime.now().timetuple()))
+        access_token = md5.encrypt_md5(timeStamp)
         data = '{"app_version":"%(version)s",' \
                '"access_token":"%(access_token)s",' \
                '"os_type":1,' \
                '"timestamp":%(timeStamp)d,' \
-               '"open_id":"%(telephone)s",' \
-               '"provider":1,' \
-               '"app_key":"%(app_key)s",' \
-               '"device_id":"802ca0fba119ab0a",' \
-               '"country_code":"+86",' \
-               '"installation_id":1904301718321742,' \
-               '"longitude":108.90823353286173,' \
-               '"latitude":34.21936825217505,' \
-               '}' % {
-                   'version': version,
-                   'app_key': app_key,
-                   'access_token': self.access_token,
-                   'timeStamp': self.timeStamp,
-                   'telephone': telephone}
-        data = get_Sign().encrypt(data)
-        response = requests.post(self.url, data=json.dumps(data), headers=headers)
-        if response.status_code == 200:
-            response_data = response.json()
-            assert response_data['err_code'] == 0
-        else:
-            print("获取%s接口返回的参数错误" % self.url)
-
-    def test_login_02(self):
-        '''错误的参数'''
-        data = '{"app_version":"%(version)s",' \
-               '"access_token":"%(access_token)s",' \
-               '"os_type":3,' \
-               '"timestamp":%(timeStamp)d,' \
-               '"open_id":"%(telephone)s",' \
+               '"open_id":"",' \
                '"provider":1,' \
                '"app_key":"%(app_key)s",' \
                '"device_id":"802ca0fba119ab0a",' \
@@ -70,19 +96,13 @@ class test_Login(unittest.TestCase):
                '"latitude":34.21936825217505' \
                '}' % {
                    'version': version,
-                   'access_token': self.access_token,
-                   'timeStamp': self.timeStamp,
+                   'access_token': '',
+                   'timeStamp': timeStamp,
                    'app_key': app_key,
                    'telephone': telephone}
         data = get_Sign().encrypt(data)
-        response = requests.post(self.url, data=json.dumps(data), headers=headers)
-        assert response.json()['err_code'] == 500
-
-
-    #  参数为空的登录参数
-    def test_login_03(self):
-        '''参数为空'''
         response = requests.post(self.url, data='', headers=headers)
+        print(response.status_code)
         assert response.json()['err_code'] == 500
 
 # if __name__ == "__main__":

@@ -15,6 +15,7 @@ baseurl = ReadConfig().get_http('baseurl')
 version = ReadConfig().get_app('version')
 app_key = ReadConfig().get_app('app_key')
 md5 = timeStamp_md5()
+headers = RunMain().headers_get()
 
 class test_Orderstatus(unittest.TestCase):
     """测试订单状态"""
@@ -40,13 +41,13 @@ class test_Orderstatus(unittest.TestCase):
 
     def test_orderstatus_01(self):
         """正确的参数"""
-        # timeStamp_login = int(time.mktime(datetime.now().timetuple()))
-        # headers = RunMain().headers_token(timeStamp_login)
-        headers= RunMain().headers()
         url = self.get_url_params()
         response = requests.get(url, headers=headers)
+        print(response.status_code)
+        print(response.json()['data'])
         assert response.json()['data']['source_id'] == 1
 
+'''
     def test_orderstatus_02(self):
         """headers没有token"""
         response = requests.get(self.get_url_params(), headers=RunMain().headers())
@@ -56,6 +57,6 @@ class test_Orderstatus(unittest.TestCase):
         """参数为空"""
         response = requests.get(self.url, headers=RunMain().headers())
         assert response.json()['err_code'] == 500
-
+'''
 # if __name__ == "__main__":
 #     test_Orderstatus().test_orderstatus_01()

@@ -15,7 +15,7 @@ baseurl = ReadConfig().get_http('baseurl')
 version = ReadConfig().get_app('version')
 app_key = ReadConfig().get_app('app_key')
 telephone = ReadConfig().get_app('telephone')
-headers = RunMain().headers()
+headers = RunMain().headers_get()
 md5 = timeStamp_md5()
 
 class test_Userinfo(unittest.TestCase):
@@ -46,16 +46,16 @@ class test_Userinfo(unittest.TestCase):
 
 
     def test_userinfo_01(self):
-        '''正确的参数'''
-        timeStamp_login = int(time.mktime(datetime.now().timetuple()))
-        headers = RunMain().headers_token(timeStamp_login)
+        """正确的参数"""
+        timeStamp = int(time.mktime(datetime.now().timetuple()))
+        headers = RunMain().headers_get_token(timeStamp)
         response = requests.get(self.get_url_params(), headers=headers)
         assert response.json()['data']['nickname'][0:2] == '星星'
 
     def test_userinfo_02(self):
-        '''参数为空'''
-        timeStamp_login = int(time.mktime(datetime.now().timetuple()))
-        headers = RunMain().headers_token(timeStamp_login)
+        """参数为空"""
+        timeStamp = int(time.mktime(datetime.now().timetuple()))
+        headers = RunMain().headers_get_token(timeStamp)
         response = requests.get(self.url, headers=headers)
         assert response.json()['err_code'] == 500
 

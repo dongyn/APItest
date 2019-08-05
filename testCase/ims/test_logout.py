@@ -14,7 +14,6 @@ global false, true, null
 baseurl = ReadConfig().get_http('baseurl')
 version = ReadConfig().get_app('version')
 app_key = ReadConfig().get_app('app_key')
-
 md5 = timeStamp_md5()
 
 
@@ -57,6 +56,7 @@ class test_Logout(unittest.TestCase):
         """headers中不包含token"""
         timeStamp = int(time.mktime(datetime.now().timetuple()))
         access_token = md5.encrypt_md5(self.timeStamp)
+        headers = RunMain.headers(self)
         data = '{"app_version":"%(version)s",' \
                '"access_token":"%(access_token)s",' \
                '"os_type":1,' \
@@ -73,12 +73,13 @@ class test_Logout(unittest.TestCase):
                    'access_token': access_token,
                    'timeStamp': timeStamp}
         data = get_Sign().encrypt(data)
-        response = requests.post(self.url, data=json.dumps(data), headers=RunMain.headers())
+        response = requests.post(self.url, data=json.dumps(data), headers=headers)
         assert response.json()['err_code'] == 500
 
     def test_logout_03(self):
         """空的退出登录参数"""
-        response = requests.post(self.url, data='', headers=RunMain.headers())
+        headers = RunMain.headers(self)
+        response = requests.post(self.url, data='', headers=headers())
         assert response.json()['err_code'] == 500
 
 

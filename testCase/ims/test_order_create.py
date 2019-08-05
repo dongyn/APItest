@@ -24,67 +24,73 @@ class test_Ordercreate(unittest.TestCase):
         super().__init__(*args, **kwargs)
         self.url = baseurl + '/ims/v1.0/user/order/create'
 
-    # def test_ordercreate_01(self):
-    #     """正确的参数"""
-    #     timeStamp_login = int(time.mktime(datetime.now().timetuple()))
-    #     headers = RunMain().headers_token(timeStamp_login)
-    #     timeStamp = int(time.mktime(datetime.now().timetuple()))
-    #     access_token = md5.encrypt_md5(timeStamp)
-    #     # source_type 必填, 1是商品, 2是套餐;source_id 必填, 商品或者套餐id;pay_method 必填, 支付方式
-    #     data = '{"app_version":"%(version)s",' \
-    #            '"access_token":"%(access_token)s",' \
-    #            '"os_type":1,' \
-    #            '"timestamp":%(timeStamp)d,' \
-    #            '"source_id":1,'\
-    #            '"source_type":2,'\
-    #            '"pay_method":3,'\
-    #            '"app_key":"%(app_key)s",' \
-    #            '"device_id":"802ca0fba119ab0a",' \
-    #            '"country_code":"+86",' \
-    #            '"installation_id":1904301718321742,' \
-    #            '"longitude":108.90823353286173,' \
-    #            '"latitude":34.21936825217505,' \
-    #            '}' % {
-    #                'version': version,
-    #                'app_key': app_key,
-    #                'access_token': access_token,
-    #                'timeStamp': timeStamp}
-    #     data = get_Sign().encrypt(data)
-    #     response = requests.post(self.url, data=json.dumps(data), headers=headers)
-    #     assert response.json()['data']['source_id'] == 1
-    #
-    # def test_ordercreate_02(self):
-    #     """headers没有token"""
-    #     timeStamp = int(time.mktime(datetime.now().timetuple()))
-    #     access_token = md5.encrypt_md5(timeStamp)
-    #     data = '{"app_version":"%(version)s",' \
-    #            '"access_token":"%(access_token)s",' \
-    #            '"os_type":1,' \
-    #            '"timestamp":%(timeStamp)d,' \
-    #            '"source_id":1,' \
-    #            '"source_type":2,' \
-    #            '"pay_method":3,' \
-    #            '"app_key":"%(app_key)s",' \
-    #            '"device_id":"802ca0fba119ab0a",' \
-    #            '"country_code":"+86",' \
-    #            '"installation_id":1904301718321742,' \
-    #            '"longitude":108.90823353286173,' \
-    #            '"latitude":34.21936825217505,' \
-    #            '}' % {
-    #                'version': version,
-    #                'app_key': app_key,
-    #                'access_token': access_token,
-    #                'timeStamp': timeStamp}
-    #     data = get_Sign().encrypt(data)
-    #     response = requests.post(self.url, data=json.dumps(data), headers=headers)
-    #     assert response.json()['err_code'] == 500
+    def test_ordercreate_01(self):
+        """正确的参数"""
+        timeStamp_login = int(time.mktime(datetime.now().timetuple()))
+        headers = RunMain().headers_token(timeStamp_login)
+        timeStamp = int(time.mktime(datetime.now().timetuple()))
+        access_token = md5.encrypt_md5(timeStamp)
+        # source_type 必填, 1是商品, 2是套餐;source_id 必填, 商品或者套餐id;pay_method 必填, 支付方式
+        data = '{"app_version":"%(version)s",' \
+               '"access_token":"%(access_token)s",' \
+               '"os_type":1,' \
+               '"timestamp":%(timeStamp)d,' \
+               '"source_id":1,'\
+               '"source_type":2,'\
+               '"pay_method":3,'\
+               '"app_key":"%(app_key)s"' \
+               '}' % {
+                   'version': version,
+                   'app_key': app_key,
+                   'access_token': access_token,
+                   'timeStamp': timeStamp}
+        data = get_Sign().encrypt(data)
+        response = requests.post(self.url, data=json.dumps(data), headers=headers)
+        assert response.json()['data']['source_id'] == 1
+
+    def test_ordercreate_02(self):
+        """headers没有token"""
+        timeStamp = int(time.mktime(datetime.now().timetuple()))
+        access_token = md5.encrypt_md5(timeStamp)
+        data = '{"app_version":"%(version)s",' \
+               '"access_token":"%(access_token)s",' \
+               '"os_type":1,' \
+               '"timestamp":%(timeStamp)d,' \
+               '"source_id":1,' \
+               '"source_type":2,' \
+               '"pay_method":3,' \
+               '"app_key":"%(app_key)s",' \
+               '}' % {
+                   'version': version,
+                   'app_key': app_key,
+                   'access_token': access_token,
+                   'timeStamp': timeStamp}
+        data = get_Sign().encrypt(data)
+        response = requests.post(self.url, data=json.dumps(data), headers=RunMain().headers())
+        assert response.json()['err_code'] == 500
 
     def test_ordercreate_03(self):
-        """参数为空"""
-
-        response = requests.post(self.url, data={}, headers=RunMain().headers_get_token())
-        print(response)
-        assert response.json()['err_code'] == 500
+        """source_id参数值错误"""
+        timeStamp_login = int(time.mktime(datetime.now().timetuple()))
+        headers = RunMain().headers_token(timeStamp_login)
+        timeStamp = int(time.mktime(datetime.now().timetuple()))
+        access_token = md5.encrypt_md5(timeStamp)
+        data = '{"app_version":"%(version)s",' \
+               '"access_token":"%(access_token)s",' \
+               '"os_type":1,' \
+               '"timestamp":%(timeStamp)d,' \
+               '"source_id":"a",' \
+               '"source_type":2,' \
+               '"pay_method":3,' \
+               '"app_key":"%(app_key)s",' \
+               '}' % {
+                   'version': version,
+                   'app_key': app_key,
+                   'access_token': access_token,
+                   'timeStamp': timeStamp}
+        data = get_Sign().encrypt(data)
+        response = requests.post(self.url, data=json.dumps(data), headers=headers)
+        assert response.status_code == 400
 
 # if __name__ == "__main__":
 #     test_Ordercreate().test_ordercreate_02()

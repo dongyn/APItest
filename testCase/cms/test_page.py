@@ -27,17 +27,16 @@ class test_Page(unittest.TestCase):
     # 正确的请求参数，id为综艺page
     def test_page_01(self):
         """正确的请求参数"""
-        data = '{"id" : [119639], "os_type" : 1, "app_version":"%(version)s", "app_key": "%(app_key)s"}' % {'version': version, 'app_key': app_key}
+        data = '{"id" : [122632], "os_type" : 1, "app_version":"%(version)s", "app_key": "%(app_key)s"}' % {'version': version, 'app_key': app_key}
         crypt_data = aes.encrypt(data, 'c_q')
         form = {'data': crypt_data, 'encode': 'v1'}
         response = requests.post(self.url, data=json.dumps(form), headers=headers)
-        r_data = response.json()['data']
-        response_data = RunMain().decrypt_to_dict(r_data, 'r')[0]
-        assert response_data['id'] == 119639
+        response_data = RunMain().decrypt_to_dict(response, 'r')[0]
+        assert response_data['id'] == 122632
 
     def test_page_02(self):
         """错误的请求参数"""
-        data = '{"id" : [119639], "os_type" : 3, "app_version": "%(verison)s", "app_key":"%(app_key)s"}'%{'verison': version, 'app_key': app_key}
+        data = '{"id" : [122632], "os_type" : 3, "app_version": "%(verison)s", "app_key":"%(app_key)s"}'%{'verison': version, 'app_key': app_key}
         crypt_data = aes.encrypt(data, 'c_q')
         form = {'data': crypt_data, 'encode': 'v1'}
         response = requests.post(self.url, data=json.dumps(form), headers=headers)
@@ -52,9 +51,9 @@ class test_Page(unittest.TestCase):
         assert response.json()['err_code']==500
 
 
-if __name__ == '__main__':
-
-    test_Page().test_page_01()
+# if __name__ == '__main__':
+#
+#     test_Page().test_page_01()
 #     test_Page().test_page_02()
 #     test_Page().test_page_03()
 

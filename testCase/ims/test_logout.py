@@ -79,7 +79,8 @@ class test_Logout(unittest.TestCase):
     def test_logout_03(self):
         """空的退出登录参数"""
         headers = RunMain.headers(self)
-        response = requests.post(self.url, data='', headers=headers())
+        data = {}
+        response = requests.post(self.url, data=json.dumps(data), headers=headers)
         assert response.json()['err_code'] == 500
 
 

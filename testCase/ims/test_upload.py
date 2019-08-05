@@ -23,7 +23,7 @@ class test_Upload(unittest.TestCase):
         super().__init__(*args, **kwargs)
         self.url = baseurl + '/ims/v1.0/upload'
         self.boundary = '--'+ str(uuid.uuid1())
-        self.file = os.path.abspath(os.path.join(os.getcwd(), "../..")) + '\\files\\Avatar.png'
+        self.file = os.path.join(os.path.abspath(os.path.join(os.getcwd(), "../../..")),'API-Test', 'files', 'Avatar.png')
 
     def get_url_params(self):
         timeStamp = int(time.mktime(datetime.now().timetuple()))
@@ -76,4 +76,6 @@ class test_Upload(unittest.TestCase):
 
 
 # if __name__ == '__main__':
-#     test_Upload().test_upload_01()
+    # test_Upload().test_upload_01()
+    # a = os.path.abspath(os.path.join(os.getcwd(), "../..")).join('files','Avatar.png')
+    # print(a)

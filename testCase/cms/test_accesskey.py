@@ -39,8 +39,7 @@ class funtv_accesskey(unittest.TestCase):
     def test_01_funtv_accesskey(self):
         '''正确的请求参数'''
         response = requests.get(url = self.get_url_param(), headers = headers)
-        assert response['err_code'] == 0
-        assert response['data']['access_key'] == "ZmlhZzY0dCwxNTY0Mzk0MjY1LGIzZjBhOTllNDZjOWMxZTNkMDI0NmUwMWQxNjUzNDgz"
+        assert response.json()['data']['access_key'] == "ZmlhZzY0dCwxNTY0Mzk0MjY1LGIzZjBhOTllNDZjOWMxZTNkMDI0NmUwMWQxNjUzNDgz"
 
     def test_02_funtv_accesskey_cp_error(self):
         '''请求参数cp的值错误'''

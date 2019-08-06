@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
-#@Time  : 2019/8/5 16:32
-#@Author: dongyani
-#@interfacetest:
+# @Time  : 2019/8/5 16:32
+# @Author: dongyani
+# @interfacetest:
 # 1.热搜列表 :/cms/v1.0/hotsearch/list
 # 2.遍历热搜列表所有页签所有点播视频是否可以点播
 # 3.播放此视频: /cms/v1.2/video
@@ -25,16 +25,16 @@ class test_hotsearch_video(unittest.TestCase):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.bookmark_dict = {"猜你想搜":"%E7%8C%9C%E4%BD%A0%E6%83%B3%E6%90%9C",
-                         "电影":"CRI",
-                         "新闻":"%E7%9F%AD%E8%A7%86%E9%A2%91",
-                         "电视剧":"%E7%BB%BC%E8%89%BA",
-                         "体育":"%E8%B4%A2%E7%BB%8F",
-                         "短视频":"%E7%94%B5%E5%BD%B1",
-                         "综艺":"%E6%96%B0%E9%97%BB",
-                         "财经":"%E7%94%B5%E8%A7%86%E5%89%A7",
-                         "动漫":"%E4%BD%93%E8%82%B2"
-                         }
+        self.bookmark_dict = {"猜你想搜": "%E7%8C%9C%E4%BD%A0%E6%83%B3%E6%90%9C",
+                              "电影": "CRI",
+                              "新闻": "%E7%9F%AD%E8%A7%86%E9%A2%91",
+                              "电视剧": "%E7%BB%BC%E8%89%BA",
+                              "体育": "%E8%B4%A2%E7%BB%8F",
+                              "短视频": "%E7%94%B5%E5%BD%B1",
+                              "综艺": "%E6%96%B0%E9%97%BB",
+                              "财经": "%E7%94%B5%E8%A7%86%E5%89%A7",
+                              "动漫": "%E4%BD%93%E8%82%B2"
+                              }
 
     def get_url_params(self, url, bookmark):
         # order_id 必填, 订单id
@@ -49,7 +49,6 @@ class test_hotsearch_video(unittest.TestCase):
                    'app_key': app_key}
         data = get_Sign().encrypt(data)
         return RunMain().get_url_params(data, url)
-
 
     def hotsearch_list(self, bookmark):
         """正确的请求参数"""
@@ -78,24 +77,16 @@ class test_hotsearch_video(unittest.TestCase):
                        '"os_type": 1, ' \
                        '"app_version": "%(version)s", ' \
                        '"app_key":"%(app_key)s"}' % {
-                    'content_id': content["content_id"],
-                    'content_type': content["content_type"],
-                    'version': version,
-                    'app_key': app_key}
+                           'content_id': content["content_id"],
+                           'content_type': content["content_type"],
+                           'version': version,
+                           'app_key': app_key}
                 crypt_data = aes.encrypt(data, 'c_q')
                 form = {"data": crypt_data, "encode": "v1"}
                 headers = RunMain().headers()
                 url = baseurl + "/cms/v1.2/video"
-                response = requests.post(url = url, data=json.dumps(form), headers=headers)
+                response = requests.post(url=url, data=json.dumps(form), headers=headers)
                 msg = "搜索页面{0}页签的{1}视频无法点播".format(bookmark, content["title"])
-                self.assertEqual(response.status_code, 200, msg)
+                self.assertEqual(response.status_code, 200, msg=msg)
                 response_data = RunMain().decrypt_to_dict(response, 'r')
-                self.assertEqual(response_data['id'], content["content_id"], msg = msg)
-
-
-
-
-
-
-
-
+                self.assertEqual(response_data['id'], content["content_id"], msg=msg)

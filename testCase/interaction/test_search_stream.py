@@ -16,7 +16,6 @@ from common.configHttp import RunMain
 
 
 global true, null, false
-
 class test_search_stream(unittest.TestCase):
     """
     1. 打开应用
@@ -41,7 +40,6 @@ class test_search_stream(unittest.TestCase):
     def test_Viewlivestreamdetails(self):
         stream_list = self.get_sql_list()
         for stream in stream_list:
-            # for id in list(stream_list.)
             url = self.baseurl + "/cms/v1.2/stream"
             data = '{"os_type":1, ' \
                    '"app_version":"%(version)s", ' \

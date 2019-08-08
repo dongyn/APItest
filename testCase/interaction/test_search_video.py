@@ -1,9 +1,9 @@
 # -*- coding:utf-8 -*-
-#@Time: 2019/08/06
-#@Author: yanghuiyu
-#@interfacetest:
-# 1.打开应用，搜索点播视频名称 :/cms/v1.2/content/search
-# 2.播放此视频: /cms/v1.2/video
+# @Time: 2019/08/06
+# @Author: yanghuiyu
+# @interfacetest:
+# 1.在数据库中查找所有安卓剧集类型上线的点播视频的id和title
+# 2.播放搜到的点播视频: /cms/v1.2/video
 
 
 from common.configHttp import RunMain
@@ -15,10 +15,11 @@ import unittest, json, requests, time
 
 global false, true, null
 
-class test_Search_video(unittest.TestCase):
-    #搜索点播视频，播放视频
 
-    def __init__(self,*args, **kwargs):
+class test_Search_video(unittest.TestCase):
+    # 搜索点播视频，播放视频
+
+    def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.headers = RunMain().headers()
         self.baseurl = ReadConfig().get_http("baseurl")
@@ -35,25 +36,43 @@ class test_Search_video(unittest.TestCase):
         )
 
     def test_Videolist(self):
-            video_list = self.get_sql_list()
-            for video in video_list:
-                url = self.baseurl + "/cms/v1.2/video"
-                data = '{"os_type":1, ' \
-                       '"app_version":"%(version)s", ' \
-                       '"content_id":%(video_id)d, ' \
-                       '"content_type":1,'\
-                       '"timestamp":%(timeStamp)d,' \
-                       '"app_key":"%(app_key)s"}' % {
-                           'version': self.version,
-                           'app_key': self.app_key,
-                           'timeStamp': self.timeStamp,
-                           'video_id': video["id"]}
-                crypt_data = self.aes.encrypt(data, 'c_q')
-                form = {"data": crypt_data, "encode": "v1"}
-                response = requests.post(url=url, data=json.dumps(form), headers=self.headers)
-                assert response.json()['err_code'] == 0
-                print(response)
-                print(response.json())
-                response_data = RunMain().decrypt_to_dict(response, 'r')
-                print(response_data)
+        video_list = self.get_sql_list()
+        for video in video_list:
+            print(video["id"], video["title"])
+            url = self.baseurl + "/cms/v1.2/video"
+            data = '{"os_type":1, ' \
+                   '"app_version":"%(version)s", ' \
+                   '"content_id":%(video_id)d, ' \
+                   '"content_type":1,' \
+                   '"timestamp":%(timeStamp)d,' \
+                   '"app_key":"%(app_key)s"}' % {
+                       'version': self.version,
+                       'app_key': self.app_key,
+                       'timeStamp': self.timeStamp,
+                       'video_id': video["id"]}
+            crypt_data = self.aes.encrypt(data, 'c_q')
+            form = {"data": crypt_data, "encode": "v1"}
+            response = requests.post(url=url, data=json.dumps(form), headers=self.headers)
+            response_data = RunMain().decrypt_to_dict(response, 'r')
+            msg = '上线剧集{0}的期望id是{1},实际id是{2}'.format(video["title"], video["id"], response_data["id"])
+            self.assertEqual(video["id"], response_data["id"], msg=msg)
 
+    @staticmethod
+    def getTestFunc(stream):
+        def func(self):
+            self.test_Videolist(stream)
+
+        return func
+
+
+def __generateTestCases():
+    video_list = test_Search_video().get_sql_list()
+    for video in video_list:
+        setattr(test_Search_video, 'test_func_%s' % (video["title"]),
+                test_Search_video.getTestFunc(video))
+
+
+__generateTestCases()
+
+if __name__ == '__main__':
+    unittest.main()

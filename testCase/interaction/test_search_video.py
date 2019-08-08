@@ -14,11 +14,6 @@ from datetime import datetime
 import unittest, json, requests, time
 
 global false, true, null
-baseurl = ReadConfig().get_http('baseurl')
-version = ReadConfig().get_app('version')
-app_key = ReadConfig().get_app('app_key')
-aes = AES_CBC()
-mysql = OperationDbInterface()
 
 class test_Search_video(unittest.TestCase):
     #搜索点播视频，播放视频
@@ -31,6 +26,7 @@ class test_Search_video(unittest.TestCase):
         self.app_key = ReadConfig().get_app("app_key")
         self.mysql = OperationDbInterface()
         self.aes = AES_CBC()
+        self.timeStamp = int(time.mktime(datetime.now().timetuple()))
 
     def get_sql_list(self):
         return self.mysql.select_all(
@@ -42,7 +38,6 @@ class test_Search_video(unittest.TestCase):
             video_list = self.get_sql_list()
             for video in video_list:
                 url = self.baseurl + "/cms/v1.2/video"
-                self.timeStamp = int(time.mktime(datetime.now().timetuple()))
                 data = '{"os_type":1, ' \
                        '"app_version":"%(version)s", ' \
                        '"content_id":%(video_id)d, ' \
@@ -56,9 +51,9 @@ class test_Search_video(unittest.TestCase):
                 crypt_data = self.aes.encrypt(data, 'c_q')
                 form = {"data": crypt_data, "encode": "v1"}
                 response = requests.post(url=url, data=json.dumps(form), headers=self.headers)
+                assert response.json()['err_code'] == 0
+                print(response)
+                print(response.json())
                 response_data = RunMain().decrypt_to_dict(response, 'r')
                 print(response_data)
-
-    # if __name__ == "__main__":
-    #     test_search_stream().get_sql_list()
 

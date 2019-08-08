@@ -9,8 +9,6 @@ from common.configHttp import RunMain
 from readConfig import ReadConfig
 import requests, unittest, json
 
-global true, false, null
-
 headers = RunMain().headers()
 baseurl = ReadConfig().get_http('baseurl')
 version = ReadConfig().get_app('version')

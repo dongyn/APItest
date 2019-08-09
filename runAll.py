@@ -22,18 +22,6 @@ log = common.Log.logger
 # 当前脚本所在文件真实路径
 cur_path = os.path.dirname(os.path.realpath(__file__)) + "\\testCase"
 
-
-def add_case(caseName="", rule="test*.py"):
-    '''第一步：加载所有的测试用例'''
-    case_path = os.path.join(cur_path, caseName)  # 用例文件夹
-    # 如果不存在这个case文件夹，就自动创建一个
-    if not os.path.exists(case_path): os.mkdir(case_path)
-    print("test case path:%s" % case_path)
-    # 定义discover方法的参数
-    discover = unittest.defaultTestLoader.discover(cur_path, pattern=rule, top_level_dir=None)
-    return discover
-
-
 def all_case():
     testcase = unittest.TestSuite()
     discover = unittest.defaultTestLoader.discover(cur_path, pattern="test*.py", top_level_dir=None)
@@ -42,7 +30,6 @@ def all_case():
         for test_case in test_suite:
             # 添加用例到testcase
             testcase.addTests(test_case)
-    print(testcase)
     return testcase
 
 

@@ -10,7 +10,6 @@ from common.getSign import get_Sign
 from common.configHttp import RunMain
 import unittest,json,requests,time
 
-global false, true, null
 baseurl = ReadConfig().get_http('baseurl')
 version = ReadConfig().get_app('version')
 app_key = ReadConfig().get_app('app_key')
@@ -50,7 +49,9 @@ class test_Userinfo(unittest.TestCase):
         timeStamp = int(time.mktime(datetime.now().timetuple()))
         headers = RunMain().headers_get_token(timeStamp)
         response = requests.get(self.get_url_params(), headers=headers)
-        assert response.json()['data']['nickname'][0:2] == '星星'
+        acture_name = response.json()['data']['nickname'][0:2]
+        msg = "用户信息中用户的名称前两个字默认是星星，实际是{0}".format(acture_name)
+        self.assertEqual('星星', acture_name, msg)
 
     def test_userinfo_02(self):
         """参数为空"""

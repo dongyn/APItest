@@ -63,7 +63,7 @@ class test_streamlist(unittest.TestCase):
 
 
 
-if __name__ == "__main__":
+# if __name__ == "__main__":
 #     suite = unittest.TestLoader().loadTestsFromTestCase(test_streamlist)
 #     suite.TextTestsRunner().run(suite)
-    test_streamlist().test_01_getlivelist
+#     test_streamlist().test_01_getlivelist

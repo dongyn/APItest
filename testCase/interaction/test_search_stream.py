@@ -14,8 +14,8 @@ from common.configMysql import OperationDbInterface
 from readConfig import ReadConfig
 from common.configHttp import RunMain
 
+mysql = OperationDbInterface()
 
-global true, null, false
 class test_search_stream(unittest.TestCase):
     """
     1. 打开应用
@@ -28,12 +28,11 @@ class test_search_stream(unittest.TestCase):
         self.baseurl = ReadConfig().get_http("baseurl")
         self.version = ReadConfig().get_app("version")
         self.app_key = ReadConfig().get_app("app_key")
-        self.mysql = OperationDbInterface()
         self.aes = AES_CBC()
 
     def get_sql_list(self):
         """查询数据库，循环取值"""
-        return self.mysql.select_all(
+        return mysql.select_all(
             'select stream.id, stream.title from stream LEFT JOIN resource_param on stream.id = resource_param.content_id '
             'where resource_param.online = 1 and resource_param.app_id = 1 and resource_param.content_type = 4;')
 
@@ -68,8 +67,8 @@ def __generateTestCases():
 
 __generateTestCases()
 
-if __name__ == '__main__':
-    unittest.main()
+# if __name__ == '__main__':
+#     unittest.main()
 
 
 

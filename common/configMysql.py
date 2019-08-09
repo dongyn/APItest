@@ -16,6 +16,7 @@ class OperationDbInterface(object):
         self.dbary = ['ams', 'ims', 'mms', 'cms']
         self.db_conn = {} #连接的对应字典
         for db in self.dbary:
+            # host='ams.starschina.com',正式跑的时候要连正式服
             self.conn = pymysql.connect(host='test.ams.starschina.com',
                                         user='root',
                                         password='78dx4AMS',
@@ -102,12 +103,12 @@ class OperationDbInterface(object):
 
 # if __name__ == "__main__":
 #     test = OperationDbInterface()  # 实例化类
-    # result_1 = test.select_one('select*from video where id = 1014874')  # 查询一条数据
-    # print(result_1)
-
-    # result_2 = test.select_all('select*from video where score>9.5')  # 查询所有数据
-    # result_2 = test.select_one('select video_id FROM episode where status = 2 ORDER BY RAND() LIMIT 1;')
-    # print(result_2)
+#     result_1 = test.select_one('select*from video where id = 1014874')  # 查询一条数据
+#     print(result_1)
+#
+#     result_2 = test.select_all('select*from video where score>9.5')  # 查询所有数据
+#     result_2 = test.select_one('select video_id FROM episode where status = 2 ORDER BY RAND() LIMIT 1;')
+#     print(result_2)
 
 
     # result_3 = test.operate_more('insert into persons  values (%s, %s, %s)', (4, '付千', '兰州'))  # 插入一条数据

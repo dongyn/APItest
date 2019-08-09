@@ -32,15 +32,9 @@ class test_Feedback(unittest.TestCase):
                '"access_token":"%(access_token)s",' \
                '"os_type":1,' \
                '"timestamp":%(timeStamp)d,' \
-               '"provider":1,' \
                '"app_key":"%(app_key)s",' \
-               '"device_id":"f04cad98633f6da1",' \
                '"installation_id":1904301718321742,' \
-               '"longitude":108.871538,' \
-               '"latitude":34.22999,' \
-               '"bssid": "4c:e9:e4:7d:41:c0",' \
                '"content": "\\u54c8\\u54c8",' \
-               '"user_id": 7561494,' \
                '}' % {
                    'version': version,
                    'app_key': app_key,
@@ -60,13 +54,8 @@ class test_Feedback(unittest.TestCase):
                '"timestamp":%(timeStamp)d,' \
                '"provider":1,' \
                '"app_key":"%(app_key)s",' \
-               '"device_id":"f04cad98633f6da1",' \
                '"installation_id":1904301718321742,' \
-               '"longitude":108.871538,' \
-               '"latitude":34.22999,' \
-               '"bssid": "4c:e9:e4:7d:41:c0",' \
                '"content": "\\u54c8\\u54c8",' \
-               '"user_id": 7561494,' \
                '}' % {
                    'version': version,
                    'app_key': app_key,
@@ -76,33 +65,21 @@ class test_Feedback(unittest.TestCase):
         response = requests.post(self.url, data=json.dumps(data), headers=headers)
         assert response.json()['err_code'] == 500
 
-   # def test_feedback_03(self):
-   #      """空的参数"""
-   #      timeStamp = int(time.mktime(datetime.now().timetuple()))
-   #      access_token = md5.encrypt_md5(timeStamp)
-   #      data = '{"app_version":"%(version)s",' \
-   #             '"access_token":"%(access_token)s",' \
-   #             '"os_type":,' \
-   #             '"timestamp":%(timeStamp)d,' \
-   #             '"provider":1,' \
-   #             '"app_key":"%(app_key)s",' \
-   #             '"device_id":"f04cad98633f6da1",' \
-   #             '"installation_id":1904301718321742,' \
-   #             '"longitude":108.871538,' \
-   #             '"latitude":34.22999,' \
-   #             '"bssid": "4c:e9:e4:7d:41:c0",' \
-   #             '"content": "\\u54c8\\u54c8",' \
-   #             '"user_id": 7561494,' \
-   #             '}' % {
-   #                 'version': version,
-   #                 'app_key': app_key,
-   #                 'access_token': access_token,
-   #                 'timeStamp': self.timeStamp}
-   #      data = get_Sign().encrypt(data)
-   #      response = requests.post(self.url, data=json.dumps(data), headers=headers)
-   #      assert response.json()['err_code'] == 500
-# if __name__ == "__main__":
-#     test_Feedbakc().test_feedback_01()
-#     test_Feedback().test_feedback_02()
-#     test_Feedback();test_feedback_03()
-#
+    def test_feedback_03(self):
+        """content参数为空"""
+        timeStamp = int(time.mktime(datetime.now().timetuple()))
+        access_token = md5.encrypt_md5(timeStamp)
+        data = '{"app_version":"%(version)s",' \
+               '"access_token":"%(access_token)s",' \
+               '"os_type":1,' \
+               '"timestamp":%(timeStamp)d,' \
+               '"app_key":"%(app_key)s",' \
+               '"installation_id":1904301718321742,' \
+               '}' % {
+                   'version': version,
+                   'app_key': app_key,
+                   'access_token': access_token,
+                   'timeStamp': self.timeStamp}
+        data = get_Sign().encrypt(data)
+        response = requests.post(self.url, data=json.dumps(data), headers=headers)
+        assert response.json()['err_code'] == 500

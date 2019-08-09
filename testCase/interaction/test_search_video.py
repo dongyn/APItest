@@ -2,7 +2,7 @@
 # @Time: 2019/08/06
 # @Author: yanghuiyu
 # @interfacetest:
-# 1.在数据库中查找所有安卓剧集类型上线的点播视频的id和title
+# 1.在数据库中随机查找1000个安卓剧集类型上线的点播视频的id和title
 # 2.播放搜到的点播视频: /cms/v1.2/video
 
 
@@ -14,7 +14,7 @@ from datetime import datetime
 import unittest, json, requests, time
 
 global false, true, null
-
+mysql = OperationDbInterface()
 
 class test_Search_video(unittest.TestCase):
     # 搜索点播视频，播放视频
@@ -25,20 +25,16 @@ class test_Search_video(unittest.TestCase):
         self.baseurl = ReadConfig().get_http("baseurl")
         self.version = ReadConfig().get_app("version")
         self.app_key = ReadConfig().get_app("app_key")
-        self.mysql = OperationDbInterface()
         self.aes = AES_CBC()
         self.timeStamp = int(time.mktime(datetime.now().timetuple()))
 
     def get_sql_list(self):
-        return self.mysql.select_all(
+        return mysql.select_all(
             'select video.id, video.title FROM video LEFT JOIN resource_param on video.id = resource_param.content_id '
-            'where resource_param.online = 1 and resource_param.app_id = 1 and resource_param.content_type = 1 ;'
+            'where resource_param.online = 1 and resource_param.app_id = 1 and resource_param.content_type = 1 limit 1000;'
         )
 
-    def test_Videolist(self):
-        video_list = self.get_sql_list()
-        for video in video_list:
-            print(video["id"], video["title"])
+    def test_Videolist(self,video):
             url = self.baseurl + "/cms/v1.2/video"
             data = '{"os_type":1, ' \
                    '"app_version":"%(version)s", ' \
@@ -58,9 +54,9 @@ class test_Search_video(unittest.TestCase):
             self.assertEqual(video["id"], response_data["id"], msg=msg)
 
     @staticmethod
-    def getTestFunc(stream):
+    def getTestFunc(video):
         def func(self):
-            self.test_Videolist(stream)
+            self.test_Videolist(video)
 
         return func
 

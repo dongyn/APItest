@@ -8,7 +8,7 @@ import hashlib
 import hmac
 
 class get_Sign():
-    def encrypt(self, resultParams):
+    def encrypt(self, resultParams, only_sign=False):
         resultParams = eval(resultParams) if type(resultParams) == type("a") else resultParams
         if "timestamp" in list(resultParams.keys()):
             timeStamp = resultParams["timestamp"]
@@ -31,7 +31,7 @@ class get_Sign():
         dict_sign = {"sign": sign_hmac}
         #把sign添加到参数列表中
         resultParams.update(dict_sign)
-        return resultParams
+        return dict_sign if only_sign else resultParams
 
 # if __name__ == "__main__":
 #     a = "a"

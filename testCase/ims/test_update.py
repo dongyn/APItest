@@ -37,16 +37,9 @@ class test_Update(unittest.TestCase):
                '"access_token":"%(access_token)s",' \
                '"os_type":1,' \
                '"timestamp":%(timeStamp)d,' \
-               '"provider":1,' \
                '"app_key":"%(app_key)s",' \
-               '"device_id":"802ca0fba119ab0a",' \
-               '"country_code":"+86",' \
                '"installation_id":1904301718321742,' \
-               '"device_id" : "40439d078e887033",' \
-               '"imei" : "A000008D9CEF1C",' \
-               '"gcid" : "c9d669a8cf72d08952acdff036cd7ea1",' \
-               '"avatar" : "%(avatar)s",' \
-               '"os_version" : "8.1.0",' \
+               '"avatar" : "%(avatar)s"' \
                '}' % {
                    'version': version,
                    'app_key': app_key,
@@ -67,16 +60,9 @@ class test_Update(unittest.TestCase):
                '"access_token":"%(access_token)s",' \
                '"os_type":1,' \
                '"timestamp":%(timeStamp)d,' \
-               '"provider":1,' \
                '"app_key":"%(app_key)s",' \
-               '"device_id":"802ca0fba119ab0a",' \
-               '"country_code":"+86",' \
                '"installation_id":1904301718321742,' \
-               '"device_id" : "40439d078e887033",' \
-               '"imei" : "A000008D9CEF1C",' \
-               '"gcid" : "c9d669a8cf72d08952acdff036cd7ea1",' \
-               '"avatar" : "%(avatar)s",' \
-               '"os_version" : "8.1.0",' \
+               '"avatar" : "%(avatar)s"' \
                '}' % {
                    'version': version,
                    'app_key': app_key,
@@ -86,9 +72,3 @@ class test_Update(unittest.TestCase):
         data = get_Sign().encrypt(data)
         response = requests.post(self.url, data=json.dumps(data), headers=headers)
         assert response.json()['err_code'] == 500
-
-
-# if __name__ == "__main__":
-#     test_Update().test_update_01()
-#     test_Update().test_update_02()
-#     test_Update().test_update_03()

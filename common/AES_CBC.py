@@ -20,6 +20,9 @@ import base64
 from Crypto.Cipher import AES
 import requests,json
 from readConfig import ReadConfig
+from common.getSign import get_Sign
+from datetime import datetime
+import requests, unittest, json, time
 
 global false, null, true
 
@@ -27,6 +30,7 @@ baseurl = ReadConfig().get_http("baseurl")
 version = ReadConfig().get_app("version")
 config_request_key = ReadConfig().get_app("config_request")
 app_key = ReadConfig().get_app("app_key")
+app_scret_key = ReadConfig().get_app("app_scret_key")
 
 class AES_CBC():
     def __init__(self):
@@ -46,9 +50,21 @@ class AES_CBC():
                         }
 
     def get_app_scret_key(self):
-        data = '{"mac_address":"02:00:00:00:00:00","device_id":"802ca0fba119ab0a","os_type": 1,"app_key":"xdThhy2239daax","app_version":"%(version)s","os_version":"9"}'% {'version':version}
+        timeStamp = int(time.mktime(datetime.now().timetuple()))
+        # 以下参数包括sign是必传的，总共有八个参数
+        data = '{"os_type": 1,' \
+               '"app_key":"xdThhy2239daax",' \
+               '"os_version":"9",' \
+               '"mac_address":"02:00:00:00:00:00",' \
+               '"device_id":"802ca0fba119ab0a",' \
+               '"app_version":"%(version)s",' \
+               '"timeStamp":%(timeStamp)d}' % {
+                   'timeStamp': timeStamp,
+                   'version': version}
+        sign = get_Sign().encrypt(data, True)["sign"]
+        data = data.replace('}', ',"sign":"%s"}' % sign)
         crypt_data = self.encrypt(data, 'c_q')
-        form = {"data":crypt_data,"encode":"v1"}
+        form = {"data": crypt_data, "encode": "v1"}
         response = requests.post(url = self.url, data = json.dumps(form), headers = self.headers)
         r_data = response.json()['data']
         str_decrypt = self.decrypt(r_data, 'c_p')
@@ -65,7 +81,7 @@ class AES_CBC():
             config_response_key = app_key + "c0"
             return config_response_key.encode("utf-8")
         else:
-            return self.get_app_scret_key().encode("utf-8")
+            return app_scret_key.encode("utf-8")
 
 
     def pkcs7padding(self, text):
@@ -142,6 +158,7 @@ class AES_CBC():
 
 # if __name__ == '__main__':
 #     aes = AES_CBC()
+#     key = aes.get_app_scret_key()
     # # 刚好16字节的情况
     # en_16 = 'abcdefgj10124567'
     # encrypt_en = aes.encrypt(en_16, 'r')

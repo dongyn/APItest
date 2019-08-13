@@ -7,8 +7,12 @@ import time
 import hashlib
 import hmac
 
+global false, null, true
+
 class get_Sign():
     def encrypt(self, resultParams, only_sign=False):
+        global false, null, true
+        false = null = true = ""
         resultParams = eval(resultParams) if type(resultParams) == type("a") else resultParams
         if "timestamp" in list(resultParams.keys()):
             timeStamp = resultParams["timestamp"]

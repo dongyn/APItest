@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
-#@Time  : 2019/8/13
-#@Author: yanghuiyu
-#@interfacetest: https://apiv1.starschina.com/cms/v1.2/stock/realtime
+# @Time  : 2019/8/13
+# @Author: yanghuiyu
+# @interfacetest: https://apiv1.starschina.com/cms/v1.2/stock/realtime
 
 from readConfig import ReadConfig
 from common.configHttp import RunMain
@@ -9,7 +9,7 @@ from common.AES_CBC import AES_CBC
 from datetime import datetime
 from common.md5_sms import timeStamp_md5
 from common.getSign import get_Sign
-import unittest,json,requests,time
+import unittest, json, requests, time
 
 baseurl = ReadConfig().get_http('baseurl')
 version = ReadConfig().get_app('version')
@@ -18,8 +18,10 @@ headers = RunMain().headers()
 aes = AES_CBC()
 md5 = timeStamp_md5()
 
+
 class test_Stock_realtime(unittest.TestCase):
-    """获取股指分时数据， 分时曲线数据"""
+    """获取股指最新交易数据"""
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.url = baseurl + '/cms/v1.2/stock/realtime'
@@ -44,6 +46,7 @@ class test_Stock_realtime(unittest.TestCase):
         crypt_data = aes.encrypt(data, 'c_q')
         form = {"data": crypt_data, "encode": "v1"}
         response = requests.post(self.url, data=json.dumps(form), headers=headers)
-        response_data = RunMain().decrypt_to_dict(response, 'r')
-        msg = "股票应该{0}是{1}".format("sh000001", response_data["stock_name"])
-        self.assertEqual("sh000001", response_data["stock_code"], msg=msg)
+        response_stock_code = RunMain().decrypt_to_dict(response, 'r')[0]["stock_code"]
+        response_stock_name = RunMain().decrypt_to_dict(response, 'r')[0]["stock_name"]
+        msg = "股票应该{0}是{1}".format("sh000001", response_stock_name)
+        self.assertEqual("sh000001", response_stock_code, msg=msg)

@@ -45,8 +45,9 @@ class test_Minutely_list(unittest.TestCase):
         crypt_data = aes.encrypt(data, 'c_q')
         form = {"data": crypt_data, "encode": "v1"}
         response = requests.post(self.url, data=json.dumps(form), headers=headers)
-        response_data = RunMain().decrypt_to_dict(response, 'r')
-        msg = "股票应该{0}是{1}".format("sh000001",response_data["stock_name"])
-        self.assertEqual("sh000001",response_data["stock_code"],msg=msg)
+        response_stock_code = RunMain().decrypt_to_dict(response, 'r')[0]["stock_code"]
+        response_stock_name = RunMain().decrypt_to_dict(response, 'r')[0]["stock_name"]
+        msg = "股票应该{0}是{1}".format("sh000001", response_stock_name )
+        self.assertEqual("sh000001", response_stock_code, msg=msg)
 
 

@@ -10,6 +10,7 @@ from common.configHttp import RunMain
 from readConfig import ReadConfig
 from common.AES_CBC import AES_CBC
 from common.configMysql import OperationDbInterface
+from common.getSign import get_Sign
 from datetime import datetime
 import unittest, json, requests, time
 
@@ -26,16 +27,17 @@ class test_Search_video(unittest.TestCase):
         self.version = ReadConfig().get_app("version")
         self.app_key = ReadConfig().get_app("app_key")
         self.aes = AES_CBC()
-        self.timeStamp = int(time.mktime(datetime.now().timetuple()))
 
     def get_sql_list(self):
         return mysql.select_all(
             'select video.id, video.title FROM video LEFT JOIN resource_param on video.id = resource_param.content_id '
-            'where resource_param.online = 1 and resource_param.app_id = 1 and resource_param.content_type = 1 limit 1000;'
+            'where resource_param.online = 1 and resource_param.app_id = 1 and resource_param.content_type = 1;'
         )
 
-    def test_Videolist(self,video):
+    def videolist(self,video):
+            time.sleep(3) #点播资源连跑有5000多条，服务器请求会有延时，加3秒等待下就好了
             url = self.baseurl + "/cms/v1.2/video"
+            timeStamp = int(time.mktime(datetime.now().timetuple()))
             data = '{"os_type":1, ' \
                    '"app_version":"%(version)s", ' \
                    '"content_id":%(video_id)d, ' \
@@ -44,8 +46,10 @@ class test_Search_video(unittest.TestCase):
                    '"app_key":"%(app_key)s"}' % {
                        'version': self.version,
                        'app_key': self.app_key,
-                       'timeStamp': self.timeStamp,
+                       'timeStamp': timeStamp,
                        'video_id': video["id"]}
+            sign = get_Sign().encrypt(data, True)["sign"]
+            data = data.replace('}', ',"sign":"%s"}' % sign)
             crypt_data = self.aes.encrypt(data, 'c_q')
             form = {"data": crypt_data, "encode": "v1"}
             response = requests.post(url=url, data=json.dumps(form), headers=self.headers)
@@ -56,8 +60,7 @@ class test_Search_video(unittest.TestCase):
     @staticmethod
     def getTestFunc(video):
         def func(self):
-            self.test_Videolist(video)
-
+            self.videolist(video)
         return func
 
 
@@ -70,5 +73,5 @@ def __generateTestCases():
 
 __generateTestCases()
 
-if __name__ == '__main__':
-    unittest.main()
+# if __name__ == '__main__':
+#     unittest.main()

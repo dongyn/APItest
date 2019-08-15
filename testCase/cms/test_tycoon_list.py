@@ -6,8 +6,10 @@
 from common.configHttp import RunMain
 from readConfig import ReadConfig
 from common.configMysql import OperationDbInterface
+from common.getSign import get_Sign
 from common.AES_CBC import AES_CBC
-import requests, unittest, json
+from datetime import datetime
+import requests, unittest, json, time
 
 baseurl = ReadConfig().get_http('baseurl')
 version = ReadConfig().get_app('version')
@@ -28,15 +30,23 @@ class test_Tycoon_list(unittest.TestCase):
 
     def test_tycoon_list_01(self):
         """参数有tycoon_id，返回单个大咖信息"""
+        timeStamp = int(time.mktime(datetime.now().timetuple()))
         data = '{"app_version":"%(version)s",' \
                '"os_type":1,' \
                '"tycoon_id":%(tycoon_id)d,' \
+               '"os_version":"9",' \
+               '"mac_address":"02:00:00:00:00:00",'\
+               '"device_id":"802ca0fba119ab0a",' \
                '"limit":1,' \
+               '"timestamp":%(timeStamp)d,' \
                '"app_key":"%(app_key)s"' \
                '}' % {
                    'version': version,
                    'tycoon_id': self.tycoon_detail["id"],
+                   'timeStamp': timeStamp,
                    'app_key': app_key}
+        sign = get_Sign().encrypt(data, True)["sign"]
+        data = data.replace('}', ',"sign":"%s"}' % sign)
         crypt_data = aes.encrypt(data, 'c_q')
         form = {'data': crypt_data, 'encode': 'v1'}
         response = requests.post(self.url, data=json.dumps(form), headers=headers)
@@ -48,17 +58,22 @@ class test_Tycoon_list(unittest.TestCase):
         data = '{"app_version":"%(version)s",' \
                '"os_type":1,' \
                '"tycoon_id":%(tycoon_id)d,' \
+               '"os_version":"9",' \
+               '"mac_address":"02:00:00:00:00:00",' \
+               '"device_id":"802ca0fba119ab0a",' \
                '"limit":1,' \
                '"app_key":"%(app_key)s"' \
                '}' % {
                    'version': version,
                    'tycoon_id': -1,
                    'app_key': app_key}
+        sign = get_Sign().encrypt(data, True)["sign"]
+        data = data.replace('}', ',"sign":"%s"}' % sign)
         crypt_data = aes.encrypt(data, 'c_q')
         form = {'data': crypt_data, 'encode': 'v1'}
         response = requests.post(self.url, data=json.dumps(form), headers=headers)
-        self.assertEqual(400, response.status_code, "大咖的id参数错误，接口状态码应为400")
-        self.assertEqual(500, response.json()["err_code"], "大咖的id参数错误，接口应返回err_code为500")
+        self.assertEqual(10032, response.json()["err_code"], "大咖的id参数错误，接口应返回err_code为500")
+        self.assertEqual("无效的签名", response.json()["err_msg"], "大咖的id参数错误，接口应返回无效的签名")
 
     def get_tycoon_name(self):
         names = []
@@ -67,14 +82,22 @@ class test_Tycoon_list(unittest.TestCase):
         return names
 
     def get_tycoon_list(self):
+        timeStamp = int(time.mktime(datetime.now().timetuple()))
         data = '{"app_version":"%(version)s",' \
                '"os_type":1,' \
                '"limit":5,' \
+               '"os_version":"9",' \
+               '"mac_address":"02:00:00:00:00:00",' \
+               '"device_id":"802ca0fba119ab0a",' \
+               '"timestamp":%(timeStamp)d,' \
                '"app_key":"%(app_key)s"' \
                '}' % {
                    'version': version,
                    'tycoon_id': self.tycoon_detail["id"],
+                   'timeStamp': timeStamp,
                    'app_key': app_key}
+        sign = get_Sign().encrypt(data, True)["sign"]
+        data = data.replace('}', ',"sign":"%s"}' % sign)
         crypt_data = aes.encrypt(data, 'c_q')
         form = {'data': crypt_data, 'encode': 'v1'}
         response = requests.post(self.url, data=json.dumps(form), headers=headers)

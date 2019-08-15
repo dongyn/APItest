@@ -12,12 +12,14 @@ from common.getSign import get_Sign
 from common.configHttp import RunMain
 import unittest, json, requests, time
 
+global false, null, true
 baseurl = ReadConfig().get_http('baseurl')
 version = ReadConfig().get_app('version')
 app_key = ReadConfig().get_app('app_key')
 headers = RunMain().headers()
 aes = AES_CBC()
 mysql = OperationDbInterface()
+md5 = timeStamp_md5()
 
 class test_Researchreport_Detail(unittest.TestCase):
     """测试用户信息"""
@@ -25,37 +27,50 @@ class test_Researchreport_Detail(unittest.TestCase):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.url = baseurl + "/cms/v1.2/researchreport/detail"
+        self.timeStamp = int(time.mktime(datetime.now().timetuple()))
         self.reseachreport_id = mysql.select_one(
-            'SELECT researchreport.id from researchreport left join ims.product on ims.product.content_id = cms.researchreport.tycoon_id where ims.product.content_type=35;')
+            'SELECT researchreport.id from researchreport '
+            'left join ims.product on ims.product.content_id = cms.researchreport.tycoon_id '
+            'where ims.product.content_type=35;')
 
     def test_researchreport_detail_01(self):
         """正确的请求参数"""
         data = '{"app_version":"%(version)s",' \
+               '"timestamp":%(timeStamp)d,' \
                '"app_key":"%(app_key)s", ' \
                '"installation_id": 1904301718321742,' \
+               '"os_version":"9",' \
+               '"mac_address":"02:00:00:00:00:00",' \
+               '"device_id":"802ca0fba119ab0a",' \
                '"os_type":1,' \
                '"id": %(id)d}' % {
                    'version': version,
                    'id': self.reseachreport_id['id'],
+                   'timeStamp': self.timeStamp,
                    'app_key': app_key}
+        sign = get_Sign().encrypt(data, True)["sign"]
+        data = data.replace('}', ',"sign":"%s"}' % sign)
         crypt_data = aes.encrypt(data, 'c_q')
         form = {"data" : crypt_data, "encode" : "v1"}
-        response = requests.post(self.url, data=json.dumps(form), headers=headers)
-        response_reseachreport_id = RunMain().decrypt_to_dict(response, 'r')['id']
-        msg = "研报id{0}应该是{1}".format(self.reseachreport_id['id'],
-                                       response_reseachreport_id)
-        self.assertEqual(self.reseachreport_id['id'], response_reseachreport_id, msg)
-    #
+        response = requests.post(url=self.url, data=json.dumps(form), headers=headers)
+        self.assertTrue(response.json()['err_code'] == 0 and response.json()['encode'] == 'v1', "请求失败")
+
     def test_researchreport_detail_02(self):
-        """正确的请求参数"""
+        """错误的请求参数"""
         data = '{"app_version":"%(version)s",' \
+               '"timestamp":%(timeStamp)d,' \
                '"app_key":"%(app_key)s", ' \
                '"installation_id": 1904301718321742,' \
+               '"os_version":"9",' \
+               '"mac_address":"02:00:00:00:00:00",' \
+               '"device_id":"802ca0fba119ab0a",' \
                '"os_type":1,' \
-               '"id": %(id)d}' % {
+               '"id": -1}' % {
                    'version': version,
-                   'id': -1,
+                   'timeStamp': self.timeStamp,
                    'app_key': app_key}
+        sign = get_Sign().encrypt(data, True)["sign"]
+        data = data.replace('}', ',"sign":"%s"}' % sign)
         crypt_data = aes.encrypt(data, 'c_q')
         form = {"data" : crypt_data, "encode" : "v1"}
         response = requests.post(self.url, data=json.dumps(form), headers=headers)

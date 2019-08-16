@@ -7,14 +7,19 @@
 #3. 进行播放
 
 
-import unittest
-import requests, json
-from common.AES_CBC import AES_CBC
-from common.configMysql import OperationDbInterface
-from readConfig import ReadConfig
 from common.configHttp import RunMain
+from readConfig import ReadConfig
+from common.AES_CBC import AES_CBC
+from common.getSign import get_Sign
+from common.configMysql import OperationDbInterface
+from datetime import datetime
+import unittest, json, requests, time
 
+baseurl = ReadConfig().get_http('baseurl')
+version = ReadConfig().get_app('version')
+app_key = ReadConfig().get_app('app_key')
 mysql = OperationDbInterface()
+aes = AES_CBC()
 
 class test_search_stream(unittest.TestCase):
     """
@@ -38,13 +43,18 @@ class test_search_stream(unittest.TestCase):
 
     def Viewlivestreamdetails(self, stream):
         url = self.baseurl + "/cms/v1.2/stream"
+        timeStamp = int(time.mktime(datetime.now().timetuple()))
         data = '{"os_type":1, ' \
                '"app_version":"%(version)s", ' \
                '"id":%(stream_id)d, ' \
+               '"timestamp":%(timeStamp)d,' \
                '"app_key":"%(app_key)s"}' % {
                    'version': self.version,
                    'app_key': self.app_key,
+                   'timeStamp': timeStamp,
                    'stream_id': stream["id"]}
+        sign = get_Sign().encrypt(data, True)["sign"]
+        data = data.replace('}', ',"sign":"%s"}' % sign)
         crypt_data = self.aes.encrypt(data, 'c_q')
         form = {"data": crypt_data, "encode": "v1"}
         response = requests.post(url=url, data=json.dumps(form), headers=self.headers)
@@ -61,7 +71,7 @@ class test_search_stream(unittest.TestCase):
 def __generateTestCases():
     stream_list = test_search_stream().get_sql_list()
     for stream in stream_list:
-        setattr(test_search_stream, 'test_func_%s' % (stream["title"]),
+        setattr(test_search_stream, 'test_stream_%s' % (stream["title"]),
                 test_search_stream.getTestFunc(stream))
 
 

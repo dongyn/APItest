@@ -9,16 +9,14 @@
 
 from common.configHttp import RunMain
 from readConfig import ReadConfig
-from common.md5_sms import timeStamp_md5
 from common.AES_CBC import AES_CBC
 from common.getSign import get_Sign
-import unittest, json, requests
+from datetime import datetime
+import unittest, json, requests, time
 
-global false, true, null
 baseurl = ReadConfig().get_http('baseurl')
 version = ReadConfig().get_app('version')
 app_key = ReadConfig().get_app('app_key')
-md5 = timeStamp_md5()
 aes = AES_CBC()
 
 
@@ -70,24 +68,29 @@ class test_hotsearch_video(unittest.TestCase):
         return hotsearch_content
 
     def hotsearch_list_video(self, content, bookmark):
-            data = '{"content_id": %(content_id)d, ' \
-                   '"content_type": %(content_type)d, ' \
-                   '"os_type": 1, ' \
-                   '"app_version": "%(version)s", ' \
-                   '"app_key":"%(app_key)s"}' % {
-                       'content_id': content["content_id"],
-                       'content_type': content["content_type"],
-                       'version': version,
-                       'app_key': app_key}
-            crypt_data = aes.encrypt(data, 'c_q')
-            form = {"data": crypt_data, "encode": "v1"}
-            headers = RunMain().headers()
-            url = baseurl + "/cms/v1.2/video"
-            response = requests.post(url=url, data=json.dumps(form), headers=headers)
-            msg = "搜索页面{0}页签的{1}视频无法点播".format(bookmark, content["title"])
-            self.assertEqual(200, response.status_code, msg=msg)
-            response_data = RunMain().decrypt_to_dict(response, 'r')
-            self.assertEqual(content["content_id"], response_data['id'], msg=msg)
+        timeStamp = int(time.mktime(datetime.now().timetuple()))
+        data = '{"content_id": %(content_id)d, ' \
+               '"content_type": %(content_type)d, ' \
+               '"os_type": 1, ' \
+               '"app_version": "%(version)s", ' \
+               '"timestamp":%(timeStamp)d,' \
+               '"app_key":"%(app_key)s"}' % {
+                   'content_id': content["content_id"],
+                   'content_type': content["content_type"],
+                   'version': version,
+                   'timeStamp': timeStamp,
+                   'app_key': app_key}
+        sign = get_Sign().encrypt(data, True)["sign"]
+        data = data.replace('}', ',"sign":"%s"}' % sign)
+        crypt_data = aes.encrypt(data, 'c_q')
+        form = {"data": crypt_data, "encode": "v1"}
+        headers = RunMain().headers()
+        url = baseurl + "/cms/v1.2/video"
+        response = requests.post(url=url, data=json.dumps(form), headers=headers)
+        msg = "搜索页面{0}页签的{1}视频无法点播".format(bookmark, content["title"])
+        self.assertEqual(200, response.status_code, msg=msg)
+        response_data = RunMain().decrypt_to_dict(response, 'r')
+        self.assertEqual(content["content_id"], response_data['id'], msg=msg)
 
     @staticmethod
     def getTestFunc(content, bookmark):
@@ -110,7 +113,7 @@ def __generateTestCases():
     for bookmark in list(bookmark_dict.keys()):
         hotsearch_content = test_hotsearch_video().get_hotsearch_list_content(bookmark_dict[bookmark])
         for content in hotsearch_content:
-            setattr(test_hotsearch_video, 'test_func_%s_%s' % (bookmark, content["title"]),
+            setattr(test_hotsearch_video, 'test_hotsearch_%s_%s' % (bookmark, content["title"]),
                     test_hotsearch_video.getTestFunc(content, bookmark))
 
 __generateTestCases()

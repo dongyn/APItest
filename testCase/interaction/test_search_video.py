@@ -67,7 +67,7 @@ class test_Search_video(unittest.TestCase):
 def __generateTestCases():
     video_list = test_Search_video().get_sql_list()
     for video in video_list:
-        setattr(test_Search_video, 'test_func_%s' % (video["title"]),
+        setattr(test_Search_video, 'test_video_%s' % (video["title"]),
                 test_Search_video.getTestFunc(video))
 
 

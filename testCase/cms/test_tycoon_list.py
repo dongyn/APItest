@@ -111,15 +111,13 @@ class test_Tycoon_list(unittest.TestCase):
     def getTestFunc(tycoon):
         def func(self):
             self.tycoon_list(tycoon)
-
         return func
 
 
 def __generateTestCases():
     tycoon_list = test_Tycoon_list().get_tycoon_list()
     for tycoon in tycoon_list:
-        setattr(test_Tycoon_list, 'test_func_%s' % (tycoon["name"]),
+        setattr(test_Tycoon_list, 'test_tycoon_list_%s' % (tycoon["name"]),
                 test_Tycoon_list.getTestFunc(tycoon))
-
 
 __generateTestCases()

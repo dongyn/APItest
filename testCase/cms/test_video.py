@@ -27,10 +27,8 @@ class test_Video(unittest.TestCase):
             'select video.id, video.title FROM video LEFT JOIN resource_param on video.id = resource_param.content_id'
             ' where resource_param.online = 1 and resource_param.app_id = 1 and resource_param.content_type = 1'
             ' ORDER BY RAND() LIMIT 1;')
-        self.content_id = self.content_video['id']
-        self.content_type = \
-            mysql.select_one('select content_type from resource_param where content_id = %d' % self.content_id)[
-                "content_type"]
+        self.content_type = mysql.select_one('select content_type from resource_param where content_id = %d' %
+                                             self.content_video['id'])["content_type"]
 
     def test_video_01(self):
         """正确的请求参数"""
@@ -39,7 +37,7 @@ class test_Video(unittest.TestCase):
                '"os_type": 1, ' \
                '"app_version": "%(version)s", ' \
                '"app_key":"%(app_key)s"}' % {
-                   'content_id': self.content_id,
+                   'content_id': self.content_video['id'],
                    'content_type': self.content_type,
                    'version': version,
                    'app_key': app_key}
@@ -59,7 +57,7 @@ class test_Video(unittest.TestCase):
                '"os_type": 4, ' \
                '"app_version": "%(version)s", ' \
                '"app_key":"%(app_key)s"}' % {
-                   'content_id': self.content_id,
+                   'content_id': self.content_video['id'],
                    'version': version,
                    'app_key': app_key}
         crypt_data = aes.encrypt(data, 'c_q')
@@ -74,7 +72,7 @@ class test_Video(unittest.TestCase):
                '"os_type": , ' \
                '"app_version": "%(version)s", ' \
                '"app_key":"%(app_key)s"}' % {
-                   'content_id': self.content_id,
+                   'content_id': self.content_video['id'],
                    'version': version,
                    'app_key': app_key}
         crypt_data = aes.encrypt(data, 'c_q')
@@ -82,8 +80,3 @@ class test_Video(unittest.TestCase):
         response = requests.post(self.url, data=json.dumps(form), headers=headers)
         assert response.json()['err_code'] == 500
 
-# if __name__ == 'main':
-
-# test_Video().test_video_01()
-# test_Video().test_video_02()
-# test_Video().test_video_03()

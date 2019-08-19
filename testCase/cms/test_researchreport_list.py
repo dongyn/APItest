@@ -51,7 +51,6 @@ class test_Researchreport_list(unittest.TestCase):
         form = {'data': crypt_data, 'encode': 'v1'}
         response = requests.post(self.url, data=json.dumps(form), headers=headers)
         researchreport_all = RunMain().decrypt_to_dict(response, 'r')
-        print(researchreport_all)
         # - charge 列表为收费研报
         # - free  列表为免费研报
         title_list = []
@@ -59,7 +58,6 @@ class test_Researchreport_list(unittest.TestCase):
             if free_page in researchreport_all.keys():
                 for researchreport in researchreport_all[free_page]:
                     title_list.append(researchreport["title"])
-        print(title_list)
         msg = "大咖id为{0}，大咖的研报应该包含{1}".format(self.researchreport_detail["tycoon_id"],
                                        self.researchreport_detail["title"])
         self.assertIn(self.researchreport_detail["title"], title_list, msg)

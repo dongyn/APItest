@@ -46,7 +46,50 @@ class test_Stock_realtime(unittest.TestCase):
         crypt_data = aes.encrypt(data, 'c_q')
         form = {"data": crypt_data, "encode": "v1"}
         response = requests.post(self.url, data=json.dumps(form), headers=headers)
-        response_stock_code = RunMain().decrypt_to_dict(response, 'r')[0]["stock_code"]
-        response_stock_name = RunMain().decrypt_to_dict(response, 'r')[0]["stock_name"]
-        msg = "股票应该{0}是{1}".format("sh000001", response_stock_name)
-        self.assertEqual("sh000001", response_stock_code, msg=msg)
+        response_stock= RunMain().decrypt_to_dict(response, 'r')[0]
+        msg = "股票应该{0}是{1}".format("sh000001", response_stock["stock_name"])
+        self.assertEqual("sh000001", response_stock["stock_code"], msg=msg)
+
+    def test_realtime_02(self):
+        """股票代码参数值为错误的"""
+        timeStamp = int(time.mktime(datetime.now().timetuple()))
+        access_token = md5.encrypt_md5(timeStamp)
+        data = '{"app_version":"%(version)s",' \
+               '"os_type":1,' \
+               '"app_key":"xdThhy2239daax",' \
+               '"timestamp":%(timeStamp)d,' \
+               '"installation_id":1904301718321742,' \
+               '"stock_code":"sh"' \
+               '}' % {
+                   'version': version,
+                   'timeStamp': timeStamp}
+        sign = get_Sign().encrypt(data, True)["sign"]
+        data = data.replace('}', ',"sign": "%s"}' % sign)
+        crypt_data = aes.encrypt(data, 'c_q')
+        form = {"data": crypt_data, "encode": "v1"}
+        response = requests.post(self.url, data=json.dumps(form), headers=headers)
+        assert response.status_code == 200
+
+    def test_realtime_03(self):
+        """股票代码参数为空"""
+        timeStamp = int(time.mktime(datetime.now().timetuple()))
+        access_token = md5.encrypt_md5(timeStamp)
+        data = '{"app_version":"%(version)s",' \
+               '"os_type":1,' \
+               '"app_key":"xdThhy2239daax",' \
+               '"timestamp":%(timeStamp)d,' \
+               '"installation_id":1904301718321742,' \
+               '}' % {
+                   'version': version,
+                   'timeStamp': timeStamp}
+        sign = get_Sign().encrypt(data, True)["sign"]
+        data = data.replace('}', ',"sign": "%s"}' % sign)
+        crypt_data = aes.encrypt(data, 'c_q')
+        form = {"data": crypt_data, "encode": "v1"}
+        response = requests.post(self.url, data=json.dumps(form), headers=headers)
+        assert response.status_code == 403
+
+if __name__ == "main":
+    test_Stock_realtime().test_realtime_01()
+    test_Stock_realtime().test_realtime_02()
+    test_Stock_realtime().test_realtime_03()

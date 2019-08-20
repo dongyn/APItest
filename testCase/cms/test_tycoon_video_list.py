@@ -14,7 +14,7 @@ import requests, unittest, json, time
 baseurl = ReadConfig().get_http('baseurl')
 version = ReadConfig().get_app('version')
 app_key = ReadConfig().get_app('app_key')
-mysql = OperationDbInterface()
+mysql = OperationDbInterface("cms")
 aes = AES_CBC()
 headers = RunMain().headers()
 
@@ -25,8 +25,7 @@ class test_tycoon_video_list(unittest.TestCase):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.url = baseurl + '/cms/v1.2/tycoon/video/list'
-        # self.tycoon_id =  mysql.select_one('select tycoon_id from tycoon_video ORDER BY RAND() limit 1;')["tycoon_id"]
-        self.tycoon_id = 40 #测试服这个id的大咖有视频
+        self.tycoon_id =  mysql.select_one('select tycoon_id from tycoon_video ORDER BY RAND() limit 1;')["tycoon_id"]
         self.tycoon_video_all = mysql.select_all('select video_id FROM tycoon_video where tycoon_id = %d;' %self.tycoon_id)
         self.tycoon_name = mysql.select_one('select tycoon.name FROM tycoon where id = %d;' %self.tycoon_id)["name"]
 

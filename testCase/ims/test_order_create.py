@@ -10,7 +10,6 @@ from datetime import datetime
 from common.getSign import get_Sign
 import unittest, json, requests, time
 
-global false, true, null
 baseurl = ReadConfig().get_http('baseurl')
 version = ReadConfig().get_app('version')
 app_key = ReadConfig().get_app('app_key')

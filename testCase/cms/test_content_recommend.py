@@ -17,7 +17,7 @@ version = ReadConfig().get_app('version')
 app_key = ReadConfig().get_app('app_key')
 headers = RunMain().headers_get()
 md5 = timeStamp_md5()
-mysql = OperationDbInterface()
+mysql = OperationDbInterface("cms")
 
 class test_Content_Recomment(unittest.TestCase):
     """测试用户信息"""
@@ -26,9 +26,10 @@ class test_Content_Recomment(unittest.TestCase):
         self.url = baseurl + '/cms/v1.0/content/recommend'
         self.timeStamp = int(time.mktime(datetime.now().timetuple()))
         self.access_token = md5.encrypt_md5(self.timeStamp)
-        self.sql_id = mysql.select_one(
-            'select video.id FROM video LEFT JOIN resource_param on video.id = resource_param.content_id where resource_param.online = 1 and resource_param.app_id = 1 and resource_param.content_type = 1 ORDER BY RAND() LIMIT 1;')
-        self.content_id = self.sql_id['id']
+        self.content_id = mysql.select_one(
+            'select video.id FROM video LEFT JOIN resource_param on video.id = resource_param.content_id '
+            'where resource_param.online = 1 and resource_param.app_id = 1 '
+            'and resource_param.content_type = 1 ORDER BY RAND() LIMIT 1;')['id']
 
     def get_url_params(self):
         timeStamp = int(time.mktime(datetime.now().timetuple()))
@@ -68,8 +69,3 @@ class test_Content_Recomment(unittest.TestCase):
         response_data = str(response.json()['err_code'])
         msg = "猜你喜欢的接口返回的err_code应该是{0}实际是{1}".format('500', response_data)
         self.assertEqual('500', response_data, msg=msg)
-
-#
-# if __name__ == '__main__':
-#     test_Content_Recomment().test_content_recomment_01()
-#     test_Content_Recomment().test_content_recomment_02()

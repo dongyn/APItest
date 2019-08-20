@@ -3,12 +3,11 @@
 #@Author: pengjuan
 #@interfacetest: http://apiv1.starschina.com/cms/v1.0/stream/randlist
 
-import unittest
-import requests,json
 from common.AES_CBC import AES_CBC
 from common.configHttp import RunMain
 from readConfig import ReadConfig
-
+from common.getSign import get_Sign
+import unittest, requests, json, datetime, time
 
 global false, null, true
 
@@ -36,8 +35,16 @@ class test_randlist(unittest.TestCase):
 
     def test_01_getlivelist(self):
         """正确的请求参数"""
-        data = '{"os_type":1, "app_version":"%(version)s", "app_key":"%(app_key)s"}' % {'version': version,
-                                                                                                  'app_key': app_key}
+        timeStamp = int(time.mktime(datetime.datetime.now().timetuple()))
+        data = '{"os_type":1, ' \
+               '"app_version":"%(version)s", ' \
+               '"timestamp":%(timeStamp)d,' \
+               '"app_key":"%(app_key)s"}' % {
+            'version': version,
+            'timeStamp': timeStamp,
+            'app_key': app_key}
+        sign = get_Sign().encrypt(data, True)["sign"]
+        data = data.replace('}', ',"sign":"%s"}' % sign)
         crypt_data = aes.encrypt(data, 'c_q')
         form = {"data": crypt_data, "encode": "v1"}
         response = requests.post(url=self.url, data=json.dumps(form), headers=headers)
@@ -47,7 +54,10 @@ class test_randlist(unittest.TestCase):
 
     def test_02_getlivelist_error(self):
         """错误的请求参数"""
-        data = '{"os_type":1, "app_version":"%(version)s", "id":160, "app_key":"abdcdsaoswuiewka"}' % {'version':version}
+        data = '{"os_type":1, ' \
+               '"app_version":"%(version)s", ' \
+               '"id":160, ' \
+               '"app_key":"abdcdsaoswuiewka"}' % {'version':version}
         crypt_data = aes.encrypt(data, 'c_q')
         form = {"data": crypt_data, "encode": "v1"}
         response = requests.post(url=self.url, data=json.dumps(form), headers=headers)
@@ -60,8 +70,3 @@ class test_randlist(unittest.TestCase):
         form = {"data": crypt_data, "encode": "v1"}
         response = requests.post(url=self.url, data=json.dumps(form), headers=headers)
         assert response.json()['err_code'] == 500
-
-if __name__ == "__main__":
-    # suite = unittest.TestLoader().loadTestsFromTestCase(test_randlist)
-    # suite.TextTestsRunner().run(suite)
-    test_randlist().test_01_getlivelist

@@ -11,7 +11,6 @@ from readConfig import ReadConfig
 from datetime import datetime
 import requests, unittest, json, time, os, uuid
 
-global false, true, null
 baseurl = ReadConfig().get_http('baseurl')
 version = ReadConfig().get_app('version')
 app_key = ReadConfig().get_app('app_key')

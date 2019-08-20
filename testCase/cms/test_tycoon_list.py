@@ -14,7 +14,7 @@ import requests, unittest, json, time
 baseurl = ReadConfig().get_http('baseurl')
 version = ReadConfig().get_app('version')
 app_key = ReadConfig().get_app('app_key')
-mysql = OperationDbInterface()
+mysql = OperationDbInterface("cms")
 aes = AES_CBC()
 headers = RunMain().headers()
 
@@ -30,6 +30,7 @@ class test_Tycoon_list(unittest.TestCase):
 
     def test_tycoon_list_01(self):
         """参数有tycoon_id，返回单个大咖信息"""
+        # 在数据库中查出来有这个id的大咖，但是不知道为何接口返回为空,数据库与服务器不匹配造成的
         timeStamp = int(time.mktime(datetime.now().timetuple()))
         data = '{"app_version":"%(version)s",' \
                '"os_type":1,' \

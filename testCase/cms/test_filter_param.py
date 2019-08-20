@@ -5,10 +5,9 @@
 
 from common.configHttp import RunMain
 from readConfig import ReadConfig
-from common.md5_sms import timeStamp_md5
 from datetime import datetime
 from common.getSign import get_Sign
-import unittest, json, requests, time
+import unittest, requests, time
 
 global false, true, null
 baseurl = ReadConfig().get_http('baseurl')
@@ -50,14 +49,13 @@ class test_Filterparam(unittest.TestCase):
 
     def test_filterparam_02(self):
         """错误的参数"""
-        url = self.get_url_params().replace("category_id=1", "category_id=a")
+        url = self.get_url_params().replace("category_id=1", "category_id=11")
         response = requests.get(url, headers=headers)
-        assert response.json()['err_code']==500
+        self.assertEqual(response.json()["err_msg"], "无效的签名","category_id参数错误应返回无效的签名")
+
 
     def test_filterparam_03(self):
         """参数为空"""
         response = requests.get(self.url, headers=headers)
         assert response.json()['err_code']==500
 
-# if __name__ == "__main__":
-#     test_filterparam().test_filterparam_01()

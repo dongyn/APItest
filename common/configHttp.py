@@ -58,11 +58,14 @@ class RunMain():
         return headers
 
     def headers_get(self):
-        headers = {"Host": "apiv1.starschina.com",
-                    "Connection": "Keep-Alive",
-                    "Accept-Encoding": "gzip"
-                   }
+        headers = {
+            "User-Agent": "Mozilla/5.0 (Linux; Android 9; COL-AL10 Build/HUAWEICOL-AL10; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/72.0.3626.121 Mobile Safari/537.36",
+            "Host": baseurl,
+            "Connection": "Keep-Alive",
+            "Accept-Encoding": "gzip"
+            }
         return headers
+
     # 将解密后的字符串转为字典
     def decrypt_to_dict(self, text, key_type):
         r_data = text.json()['data']
@@ -124,8 +127,8 @@ class RunMain():
 
     def headers_get_token(self, timeStamp):
         headers = {"Host": "apiv1.starschina.com",
-                    "Connection": "Keep-Alive",
-                    "Accept-Encoding": "gzip",
+                   "Connection": "Keep-Alive",
+                   "Accept-Encoding": "gzip",
                    "Authorization": self.get_login_token(timeStamp=timeStamp)
                    }
         return headers

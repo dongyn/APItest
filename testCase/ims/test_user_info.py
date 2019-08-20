@@ -8,7 +8,7 @@ from common.md5_sms import timeStamp_md5
 from datetime import datetime
 from common.getSign import get_Sign
 from common.configHttp import RunMain
-import unittest,json,requests,time
+import unittest,requests,time
 
 baseurl = ReadConfig().get_http('baseurl')
 version = ReadConfig().get_app('version')

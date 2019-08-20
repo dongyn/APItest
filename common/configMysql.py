@@ -6,28 +6,34 @@
 3.独立添加多条数据
 '''
 
-import pymysql
-import logging
-import os,json
+import pymysql,logging,os
 
 class OperationDbInterface(object):
 
-    def __init__(self):
-        self.dbary = ['ams', 'ims', 'mms', 'cms']
+    def __init__(self, datebase):
+        self.cms_dbary = [{"cms":{"host":"rm-2zeqy9b4b2d1t0t53io.mysql.rds.aliyuncs.com",
+                              "user":"test_cms_r",
+                              "password":"JZfxvueHqM9wgnzU"}}]
+        self.ims_dbary = [{"ims":{"host":"rm-2zebsoy4r1fzuweln7o.mysql.rds.aliyuncs.com",
+                              "user":"test_ims_r",
+                              "password":"AYmHvvGp4tyOdPnz"}}]
+
         self.db_conn = {} #连接的对应字典
+        self.dbary = self.cms_dbary if datebase == "cms" else self.ims_dbary
         for db in self.dbary:
             # host='ams.starschina.com',正式跑的时候要连正式服
-            self.conn = pymysql.connect(host='test.ams.starschina.com',
-                                        user='root',
-                                        password='78dx4AMS',
-                                        db=db,
+            db_name = list(db.keys())[0]
+            self.conn = pymysql.connect(host=db[db_name]["host"],
+                                        user=db[db_name]["user"],
+                                        password=db[db_name]["password"],
+                                        db=db_name,
                                         port=3306,
                                         charset='utf8',
                                         cursorclass=pymysql.cursors.DictCursor)  # 创建数据库连接
             self.cur = self.conn.cursor()  # 创建游标
             self.conn_cur= {} # 连接-库的对应字典
             self.conn_cur[self.conn] = self.cur
-            self.db_conn[db] = self.conn_cur
+            self.db_conn[db_name] = self.conn_cur
 
     # 定义单条数据操作，增删改
     def op_sql(self, params):

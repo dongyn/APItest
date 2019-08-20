@@ -8,7 +8,7 @@ from readConfig import ReadConfig
 from common.getSign import get_Sign
 from common.AES_CBC import AES_CBC
 from datetime import datetime
-from common.configMysql import OperationDbInterface
+
 import requests, unittest, json, time
 
 baseurl = ReadConfig().get_http('baseurl')
@@ -16,7 +16,7 @@ version = ReadConfig().get_app('version')
 app_key = ReadConfig().get_app('app_key')
 aes = AES_CBC()
 headers = RunMain().headers()
-mysql = OperationDbInterface("cms")
+
 
 
 class test_Page(unittest.TestCase):
@@ -25,42 +25,48 @@ class test_Page(unittest.TestCase):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.url = baseurl + "/cms/v1.2/page"
-        self.id = mysql.select_one('select id from page WHERE app_id=1 and type=1 ORDER BY RAND() LIMIT 1;')['id']
 
     # 正确的请求参数，id为综艺page
     def test_page_01(self):
         """正确的请求参数"""
         timeStamp = int(time.mktime(datetime.now().timetuple()))
         #id需要在数据库中查, 提示-无效的签名
-        data = '{"id": "%(id)d", "os_type" : 1,' \
+        data = '{"id": [122237], "os_type" : 1,' \
                '"app_version":"%(version)s",' \
                '"timestamp":%(timeStamp)d,' \
+               '"page_alias":"",'\
+               '"installation_id":1901231425555756,'\
+               '"device_id":"40439d078e887033",'\
+               '"os_version":"8.1.0",'\
+               '"channel":"dopool",'\
                '"app_key": "%(app_key)s"}' % {
-                   'id': self.id,
                    'version': version,
                    'timeStamp': timeStamp,
                    'app_key': app_key}
         sign = get_Sign().encrypt(data, True)["sign"]
         data = data.replace('}', ',"sign":"%s"}' % sign)
-        print(data)
         crypt_data = aes.encrypt(data, 'c_q')
         form = {'data': crypt_data, 'encode': 'v1'}
         response = requests.post(self.url, data=json.dumps(form), headers=headers)
-        response_data = RunMain().decrypt_to_dict(response, 'r')
-        print(response_data.json())
-        msg = 'page的期望id是{0},实际id是{1}'.format(self.id,
-                                                 response_data["id"])
-        self.assertEqual(self.id["id"], response_data["id"], msg=msg)
+        response_data = RunMain().decrypt_to_dict(response, 'r')[0]
+        msg = '页面{0}的期望id是{1},实际id是{2}'.format(response_data['name'],
+                                                 122237,
+                                                 response_data['id'])
+        self.assertEqual(122237, response_data['id'], msg=msg)
 
     def test_page_02(self):
         """错误的请求参数"""
         timeStamp = int(time.mktime(datetime.now().timetuple()))
-        data = '{"id": [0],' \
-               '"os_type" : 1,' \
+        data = '{"id": [0], "os_type" : 1,' \
                '"app_version":"%(version)s",' \
                '"timestamp":%(timeStamp)d,' \
-               '"app_key":"%(app_key)s"}' % {
-                   'verison': version,
+               '"page_alias":"",' \
+               '"installation_id":1901231425555756,' \
+               '"device_id":"40439d078e887033",' \
+               '"os_version":"8.1.0",' \
+               '"channel":"dopool",' \
+               '"app_key": "%(app_key)s"}' % {
+                   'version': version,
                    'timeStamp': timeStamp,
                    'app_key': app_key}
         sign = get_Sign().encrypt(data, True)["sign"]

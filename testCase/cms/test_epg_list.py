@@ -69,7 +69,7 @@ class test_epglist(unittest.TestCase):
         form = {"data": crypt_data, "encode": "v1"}
         response = requests.post(url=self.url, data=json.dumps(form), headers=headers)
         actual_id = self.get_response_stream_id(response)
-        msg = "CCTV1电视台返回的id应该是{1}，实际是{2}".format(stream_id, actual_id)
+        msg = "CCTV1电视台返回的id应该是{0}，实际是{1}".format(stream_id, actual_id)
         self.assertEqual(stream_id, actual_id, msg)
 
     def test_02_epg_list_error(self):
@@ -94,5 +94,6 @@ class test_epglist(unittest.TestCase):
         crypt_data = aes.encrypt(data, 'c_q')
         form = {"data": crypt_data, "encode": "v1"}
         response = requests.post(url=self.url, data=json.dumps(form), headers=headers)
-        self.assertEqual(response.json()["err_msg"], "无效的签名", "stream_id为0接口应返回错误信息无效的签名")
+        print(response.json())
+        self.assertEqual(response.json()["err_code"], 500, "stream_id为0接口应返回错误code为500")
 

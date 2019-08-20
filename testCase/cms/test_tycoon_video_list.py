@@ -25,9 +25,9 @@ class test_tycoon_video_list(unittest.TestCase):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.url = baseurl + '/cms/v1.2/tycoon/video/list'
-        self.tycoon_id =  mysql.select_one('select tycoon_id from tycoon_video ORDER BY RAND() limit 1;')["tycoon_id"]
+        self.tycoon_id = mysql.select_one('select tycoon_id from tycoon_video ORDER BY RAND() limit 1;')["tycoon_id"]
         self.tycoon_video_all = mysql.select_all('select video_id FROM tycoon_video where tycoon_id = %d;' %self.tycoon_id)
-        self.tycoon_name = mysql.select_one('select tycoon.name FROM tycoon where id = %d;' %self.tycoon_id)["name"]
+        self.tycoon_name = mysql.select_one('select tycoon.name FROM tycoon where id = %d;' %self.tycoon_id)
 
     def get_database_tycoon_video(self):
         database_tycoon_video = []
@@ -43,7 +43,7 @@ class test_tycoon_video_list(unittest.TestCase):
                 video_id_list.append(video["id"])
         return video_id_list
 
-    def test_tycoon_list_01(self):
+    def test_tycoon_video_list_01(self):
         """参数有tycoon_id，返回单个大咖信息"""
         timeStamp = int(time.mktime(datetime.now().timetuple()))
         data = '{"app_version":"%(version)s",' \
@@ -69,7 +69,8 @@ class test_tycoon_video_list(unittest.TestCase):
         # 返回的是curriculum课程和realtime实时分析两个列表,合在一起验证
         video_dict = self.get_response_tycoon_video(response)
         for video_id in self.get_database_tycoon_video():
-            self.assertIn(video_id, video_dict, "大咖{0}的视频列表中应包含的视频id为{1}".format(self.tycoon_name, video_id))
+            msg = "大咖{0}的视频列表中应包含的视频id为{1}".format(self.tycoon_name["name"], video_id)
+            self.assertIn(video_id, video_dict, msg)
 
     def test_tycoon_list_02(self):
         """参数tycoon_id值错误"""

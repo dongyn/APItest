@@ -36,8 +36,8 @@ class test_tycoon_detail(unittest.TestCase):
             'ORDER BY RAND() limit 1;')
         self.video_title = mysql.select_one('SELECT title from video where id = %d;' % self.tycoon_video["video_id"])[
             "title"]
-        self.tycoon_name = \
-        mysql.select_one('SELECT tycoon.name from tycoon where id = %d;' % self.tycoon_video["tycoon_id"])["name"]
+        self.tycoon_name = mysql.select_one('SELECT tycoon.name from tycoon where id = %d;'
+                                            % self.tycoon_video["tycoon_id"])
         self.content_video_error = {"tycoon_id": 1000000000, "video_id": 1000000000}
 
     def tycoon_detail(self, params, param):
@@ -63,11 +63,11 @@ class test_tycoon_detail(unittest.TestCase):
         crypt_data = aes.encrypt(data, 'c_q')
         form = {"data": crypt_data, "encode": "v1"}
         response = requests.post(url=self.url, data=json.dumps(form), headers=headers)
-        if type(list(params.values())[0]) == type("a"):
+        if type(list(params.values())[0]) != type("a"):
             if list(params.values())[0] < 1000000000:
                 tycoon_name = RunMain().decrypt_to_dict(response, 'r')["name"]
-                msg = "大咖详情接口返回的大咖-{0}信息错误".format(self.tycoon_name)
-                self.assertEqual(self.tycoon_name, tycoon_name, msg)
+                msg = "大咖详情接口返回的大咖-{0}信息错误".format(self.tycoon_name["name"])
+                self.assertEqual(self.tycoon_name["name"], tycoon_name, msg)
         else:
             self.assertEqual(400, response.status_code, "参数错误，接口应返回400")
             self.assertEqual(500, response.json()["err_code"], "参数错误，接口应返回err_code500")
@@ -79,7 +79,7 @@ class test_tycoon_detail(unittest.TestCase):
         elif id == "video_id":
             return self.video_title
         else:
-            return self.tycoon_name
+            return self.tycoon_name["name"]
 
 
     @staticmethod

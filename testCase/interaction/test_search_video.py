@@ -15,7 +15,7 @@ from datetime import datetime
 import unittest, json, requests, time
 
 global false, true, null
-mysql = OperationDbInterface()
+mysql = OperationDbInterface("cms")
 
 class test_Search_video(unittest.TestCase):
     # 搜索点播视频，播放视频
@@ -35,7 +35,7 @@ class test_Search_video(unittest.TestCase):
         )
 
     def videolist(self,video):
-            time.sleep(3) #点播资源连跑有5000多条，服务器请求会有延时，加3秒等待下就好了
+            time.sleep(1) #点播资源连跑有5000多条，服务器请求会有延时，加3秒等待下就好了
             url = self.baseurl + "/cms/v1.2/video"
             timeStamp = int(time.mktime(datetime.now().timetuple()))
             data = '{"os_type":1, ' \

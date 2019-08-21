@@ -31,7 +31,7 @@ class test_Page(unittest.TestCase):
         """正确的请求参数"""
         timeStamp = int(time.mktime(datetime.now().timetuple()))
         #id需要在数据库中查, 提示-无效的签名
-        data = '{"id": [122237], "os_type" : 1,' \
+        data = '{"id": [122237], "os_type":1,' \
                '"app_version":"%(version)s",' \
                '"timestamp":%(timeStamp)d,' \
                '"page_alias":"",'\

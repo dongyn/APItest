@@ -4,7 +4,6 @@
 # @interfacetest: http://apiv1.starschina.com/cms/v1.2/researchreport/detail
 
 from readConfig import ReadConfig
-from common.md5_sms import timeStamp_md5
 from common.configMysql import OperationDbInterface
 from datetime import datetime
 from common.AES_CBC import AES_CBC
@@ -12,29 +11,40 @@ from common.getSign import get_Sign
 from common.configHttp import RunMain
 import unittest, json, requests, time
 
-global false, null, true
 baseurl = ReadConfig().get_http('baseurl')
 version = ReadConfig().get_app('version')
 app_key = ReadConfig().get_app('app_key')
 headers = RunMain().headers()
+cms_mysql = OperationDbInterface("cms")
+ims_mysql = OperationDbInterface("ims")
 aes = AES_CBC()
-mysql = OperationDbInterface()
-md5 = timeStamp_md5()
 
 class test_Researchreport_Detail(unittest.TestCase):
-    """测试用户信息"""
+    """测试研报详情"""
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.url = baseurl + "/cms/v1.2/researchreport/detail"
-        self.timeStamp = int(time.mktime(datetime.now().timetuple()))
-        self.reseachreport_id = mysql.select_one(
-            'SELECT researchreport.id from researchreport '
-            'left join ims.product on ims.product.content_id = cms.researchreport.tycoon_id '
-            'where ims.product.content_type=35;')
+        self.tycoon_id = cms_mysql.select_all('SELECT researchreport.tycoon_id from researchreport')
+        self.all_content_id = ims_mysql.select_all('select content_id from product where content_type = 35;')
+        self.all_researchreport_tycoon_id = cms_mysql.select_all('select id, tycoon_id from researchreport;')
+
+    def get_product_content_id(self):
+        content_id_list = []
+        for content_id in self.all_content_id: content_id_list.append(content_id['content_id'])
+        return content_id_list
+
+    def get_reseachreport_id(self):
+        reseachreport_id = 1
+        content_id_list = self.get_product_content_id()
+        for researchreport_tycoon in self.all_researchreport_tycoon_id:
+            if researchreport_tycoon["tycoon_id"] in content_id_list:
+                if reseachreport_id == 1 : reseachreport_id = researchreport_tycoon["id"]
+        return reseachreport_id
 
     def test_researchreport_detail_01(self):
         """正确的请求参数"""
+        timeStamp = int(time.mktime(datetime.now().timetuple()))
         data = '{"app_version":"%(version)s",' \
                '"timestamp":%(timeStamp)d,' \
                '"app_key":"%(app_key)s", ' \
@@ -45,9 +55,9 @@ class test_Researchreport_Detail(unittest.TestCase):
                '"os_type":1,' \
                '"id": %(id)d}' % {
                    'version': version,
-                   'id': self.reseachreport_id['id'],
-                   'timeStamp': self.timeStamp,
-                   'app_key': app_key}
+                   'id': self.get_reseachreport_id(),
+                   'app_key': app_key,
+                   'timeStamp': timeStamp}
         sign = get_Sign().encrypt(data, True)["sign"]
         data = data.replace('}', ',"sign":"%s"}' % sign)
         crypt_data = aes.encrypt(data, 'c_q')
@@ -57,6 +67,7 @@ class test_Researchreport_Detail(unittest.TestCase):
 
     def test_researchreport_detail_02(self):
         """错误的请求参数"""
+        timeStamp = int(time.mktime(datetime.now().timetuple()))
         data = '{"app_version":"%(version)s",' \
                '"timestamp":%(timeStamp)d,' \
                '"app_key":"%(app_key)s", ' \
@@ -67,7 +78,7 @@ class test_Researchreport_Detail(unittest.TestCase):
                '"os_type":1,' \
                '"id": -1}' % {
                    'version': version,
-                   'timeStamp': self.timeStamp,
+                   'timeStamp': timeStamp,
                    'app_key': app_key}
         sign = get_Sign().encrypt(data, True)["sign"]
         data = data.replace('}', ',"sign":"%s"}' % sign)

@@ -14,7 +14,6 @@ baseurl = ReadConfig().get_http('baseurl')
 version = ReadConfig().get_app('version')
 app_key = ReadConfig().get_app('app_key')
 md5 = timeStamp_md5()
-headers = RunMain().headers()
 
 class test_Ordercreate(unittest.TestCase):
     """测试创建订单"""

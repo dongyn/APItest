@@ -10,7 +10,7 @@ from common.configEmail import send_email
 
 send_mail = send_email()
 on_off = readConfig.ReadConfig().get_email('on_off')
-retry = readConfig.ReadConfig().get_test('retry')
+retry = int(readConfig.ReadConfig().get_test('retry'))
 log = common.Log.logger
 
 # 这个是优化版执行所有用例并发送报告，分四个步骤
@@ -29,6 +29,7 @@ def all_case():
     for test_suite in discover:
         for test_case in test_suite:
             # 添加用例到testcase
+            # print(test_case)
             testcase.addTests(test_case)
     return testcase
 

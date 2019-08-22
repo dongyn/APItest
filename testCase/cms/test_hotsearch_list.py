@@ -18,7 +18,7 @@ headers = RunMain().headers_get()
 aes = AES_CBC()
 
 
-class test_hotsearch_video(unittest.TestCase):
+class test_hotsearch_list(unittest.TestCase):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

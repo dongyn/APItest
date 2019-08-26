@@ -73,8 +73,7 @@ class test_Tycoon_list(unittest.TestCase):
         crypt_data = aes.encrypt(data, 'c_q')
         form = {'data': crypt_data, 'encode': 'v1'}
         response = requests.post(self.url, data=json.dumps(form), headers=headers)
-        self.assertEqual(10032, response.json()["err_code"], "大咖的id参数错误，接口应返回err_code为500")
-        self.assertEqual("无效的签名", response.json()["err_msg"], "大咖的id参数错误，接口应返回无效的签名")
+        self.assertEqual(500, response.json()["err_code"], "大咖的id参数错误，接口应返回err_code为500")
 
     def get_tycoon_name(self):
         names = []

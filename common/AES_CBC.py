@@ -18,11 +18,10 @@ AES加密模式 为cbc
 
 import base64
 from Crypto.Cipher import AES
-import requests,json
 from readConfig import ReadConfig
 from common.getSign import get_Sign
 from datetime import datetime
-import requests, unittest, json, time
+import requests, json, time
 
 global false, null, true
 

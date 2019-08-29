@@ -4,36 +4,38 @@
 1.包括基本的单条语句操作，删除、修改、更新
 2.独立查询单条、查询多条数据
 3.独立添加多条数据
+4.解决兼容正式服和测试服数据库问题
 '''
 
 import pymysql,logging,os
 
 class OperationDbInterface(object):
 
-    def __init__(self, datebase):
-        self.cms_dbary = [{"cms":{"host":"rm-2zeqy9b4b2d1t0t53io.mysql.rds.aliyuncs.com",
-                              "user":"test_cms_r",
-                              "password":"JZfxvueHqM9wgnzU"}}]
-        self.ims_dbary = [{"ims":{"host":"rm-2zebsoy4r1fzuweln7o.mysql.rds.aliyuncs.com",
-                              "user":"test_ims_r",
-                              "password":"AYmHvvGp4tyOdPnz"}}]
-
-        self.db_conn = {} #连接的对应字典
-        self.dbary = self.cms_dbary if datebase == "cms" else self.ims_dbary
+    def __init__(self, database = "test"):
+        cms_connect = {"host": "rm-2zeqy9b4b2d1t0t53.mysql.rds.aliyuncs.com",
+                            "user": "test_cms_r",
+                            "password": "JZfxvueHqM9wgnzU"}
+        ims_connect = {"host": "rm-2zebsoy4r1fzuweln.mysql.rds.aliyuncs.com",
+                            "user": "test_ims_r",
+                            "password": "AYmHvvGp4tyOdPnz"}
+        test_connect = {"host": "test.ams.starschina.com",
+                             "user": "root",
+                             "password": "78dx4AMS"}
+        self.dbary = ['ams', 'ims', 'mms', 'cms'] if database == "test" else [database]
+        self.connect = locals()[database+"_connect"] #将上面定义的三种连接的变量名当作字符串作为新的变量名
+        self.db_conn = {}  # 连接的对应字典
         for db in self.dbary:
-            # host='ams.starschina.com',正式跑的时候要连正式服
-            db_name = list(db.keys())[0]
-            self.conn = pymysql.connect(host=db[db_name]["host"],
-                                        user=db[db_name]["user"],
-                                        password=db[db_name]["password"],
-                                        db=db_name,
+            self.conn = pymysql.connect(host=self.connect["host"],
+                                        user=self.connect["user"],
+                                        password=self.connect["password"],
+                                        db=db,
                                         port=3306,
                                         charset='utf8',
                                         cursorclass=pymysql.cursors.DictCursor)  # 创建数据库连接
             self.cur = self.conn.cursor()  # 创建游标
-            self.conn_cur= {} # 连接-库的对应字典
+            self.conn_cur = {}  # 连接-库的对应字典
             self.conn_cur[self.conn] = self.cur
-            self.db_conn[db_name] = self.conn_cur
+            self.db_conn[db] = self.conn_cur
 
     # 定义单条数据操作，增删改
     def op_sql(self, params):
@@ -108,8 +110,8 @@ class OperationDbInterface(object):
 
 
 # if __name__ == "__main__":
-#     test = OperationDbInterface()  # 实例化类
-#     result_1 = test.select_one('select*from video where id = 1014874')  # 查询一条数据
+#     test = OperationDbInterface("test")  # 实例化类
+#     result_1 = test.select_one('select * from video where id = 1014874')  # 查询一条数据
 #     print(result_1)
 #
 #     result_2 = test.select_all('select*from video where score>9.5')  # 查询所有数据

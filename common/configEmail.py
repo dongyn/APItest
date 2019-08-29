@@ -58,12 +58,12 @@ class send_email():
 
 
 
-if __name__ == '__main__':# 运行此文件来验证写的send_email是否正确
+# if __name__ == '__main__':# 运行此文件来验证写的send_email是否正确
     # 邮箱配置
     # print(os.path.dirname(sys.path[0])) # send_email().tx_mial()
       # 4最后一步发送报告
     # report_file =
-      send_email().tx_mial(report_file)
+    #   send_email().tx_mial(report_file)
     # os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.getcwd()))))
     # print(receiver)
     # a = "1;2;3"

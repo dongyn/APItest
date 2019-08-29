@@ -13,7 +13,7 @@ from common.Log import logger
 from common.md5_sms import timeStamp_md5
 from datetime import datetime
 from common.getSign import get_Sign
-import json, requests, time
+import json, requests, time, socket
 
 logger = logger
 baseurl = ReadConfig().get_http('baseurl')
@@ -146,6 +146,15 @@ class RunMain():
             print("method值错误！！！")
             logger.info("method值错误！！！")
         return result
+
+    def get_host_ip(self):
+        try:
+            s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+            s.connect(('8.8.8.8', 80))
+            ip = s.getsockname()[0]
+        finally:
+            s.close()
+        return ip
 
 # if __name__ == '__main__':#通过写死参数，来验证我们写的请求是否正确
 # #     result = RunMain().run_main('post', '', 'name=xiaoming&pwd=')

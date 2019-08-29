@@ -115,6 +115,3 @@ def __generateTestCases():
                     test_hotsearch_video.getTestFunc(content, category))
 
 __generateTestCases()
-
-# if __name__ == '__main__':
-#     unittest.main()

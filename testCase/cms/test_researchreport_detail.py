@@ -15,8 +15,11 @@ baseurl = ReadConfig().get_http('baseurl')
 version = ReadConfig().get_app('version')
 app_key = ReadConfig().get_app('app_key')
 headers = RunMain().headers()
-cms_mysql = OperationDbInterface("cms")
-ims_mysql = OperationDbInterface("ims")
+ip = RunMain().get_host_ip()
+cms_db = "cms" if ip == "39.105.54.219" else "test"
+cms_mysql = OperationDbInterface(cms_db)
+ims_db = "ims" if ip == "39.105.54.219" else "test"
+ims_mysql = OperationDbInterface(ims_db)
 aes = AES_CBC()
 
 class test_Researchreport_Detail(unittest.TestCase):
@@ -25,9 +28,9 @@ class test_Researchreport_Detail(unittest.TestCase):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.url = baseurl + "/cms/v1.2/researchreport/detail"
-        self.tycoon_id = cms_mysql.select_all('SELECT researchreport.tycoon_id from researchreport')
-        self.all_content_id = ims_mysql.select_all('select content_id from product where content_type = 35;')
-        self.all_researchreport_tycoon_id = cms_mysql.select_all('select id, tycoon_id from researchreport;')
+        self.tycoon_id = cms_mysql.select_all('SELECT researchreport.tycoon_id from cms.researchreport')
+        self.all_content_id = ims_mysql.select_all('select content_id from ims.product where content_type = 35;')
+        self.all_researchreport_tycoon_id = cms_mysql.select_all('select id, tycoon_id from cms.researchreport;')
 
     def get_product_content_id(self):
         content_id_list = []

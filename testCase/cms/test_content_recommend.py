@@ -17,7 +17,9 @@ version = ReadConfig().get_app('version')
 app_key = ReadConfig().get_app('app_key')
 headers = RunMain().headers_get()
 md5 = timeStamp_md5()
-mysql = OperationDbInterface("cms")
+ip = RunMain().get_host_ip()
+db = "cms" if ip == "39.105.54.219" else "test"
+mysql = OperationDbInterface(db)
 
 class test_Content_Recomment(unittest.TestCase):
     """测试用户信息"""

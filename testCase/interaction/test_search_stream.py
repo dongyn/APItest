@@ -18,7 +18,9 @@ import unittest, json, requests, time
 baseurl = ReadConfig().get_http('baseurl')
 version = ReadConfig().get_app('version')
 app_key = ReadConfig().get_app('app_key')
-mysql = OperationDbInterface("cms")
+ip = RunMain().get_host_ip()
+db = "cms" if ip == "39.105.54.219" else "test"
+mysql = OperationDbInterface(db)
 aes = AES_CBC()
 
 class test_search_stream(unittest.TestCase):
@@ -38,7 +40,8 @@ class test_search_stream(unittest.TestCase):
     def get_sql_list(self):
         """查询数据库，循环取值"""
         return mysql.select_all(
-            'select stream.id, stream.title from stream LEFT JOIN resource_param on stream.id = resource_param.content_id '
+            'select stream.id, stream.title from cms.stream LEFT JOIN cms.resource_param on '
+            'stream.id = resource_param.content_id '
             'where resource_param.online = 1 and resource_param.app_id = 1 and resource_param.content_type = 4;')
 
     def Viewlivestreamdetails(self, stream):

@@ -14,7 +14,9 @@ import requests, unittest, json, time
 baseurl = ReadConfig().get_http('baseurl')
 version = ReadConfig().get_app('version')
 app_key = ReadConfig().get_app('app_key')
-mysql = OperationDbInterface("cms")
+ip = RunMain().get_host_ip()
+db = "cms" if ip == "39.105.54.219" else "test"
+mysql = OperationDbInterface(db)
 aes = AES_CBC()
 headers = RunMain().headers()
 

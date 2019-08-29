@@ -14,10 +14,11 @@ import requests, unittest, json, time
 baseurl = ReadConfig().get_http('baseurl')
 version = ReadConfig().get_app('version')
 app_key = ReadConfig().get_app('app_key')
-mysql = OperationDbInterface("cms")
 aes = AES_CBC()
 headers = RunMain().headers()
-
+ip = RunMain().get_host_ip()
+db = "cms" if ip == "39.105.54.219" else "test"
+mysql = OperationDbInterface(db)
 
 class test_Researchreport_list(unittest.TestCase):
     """测试研报列表"""
@@ -25,8 +26,8 @@ class test_Researchreport_list(unittest.TestCase):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.url = baseurl + '/cms/v1.2/researchreport/list'
-        self.researchreport_detail = mysql.select_one('select * FROM researchreport ORDER BY RAND() limit 1;')
-        self.researchreport_title = mysql.select_all('select researchreport.title FROM researchreport;')
+        self.researchreport_detail = mysql.select_one('select * FROM cms.researchreport ORDER BY RAND() limit 1;')
+        self.researchreport_title = mysql.select_all('select researchreport.title FROM cms.researchreport;')
 
     def test_researchreport_list_01(self):
         """参数有tycoon_id，返回大咖主页研报"""

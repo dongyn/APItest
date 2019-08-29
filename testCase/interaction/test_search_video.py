@@ -14,8 +14,9 @@ from common.getSign import get_Sign
 from datetime import datetime
 import unittest, json, requests, time
 
-global false, true, null
-mysql = OperationDbInterface("cms")
+ip = RunMain().get_host_ip()
+db = "cms" if ip == "39.105.54.219" else "test"
+mysql = OperationDbInterface(db)
 
 class test_Search_video(unittest.TestCase):
     # 搜索点播视频，播放视频
@@ -30,7 +31,8 @@ class test_Search_video(unittest.TestCase):
 
     def get_sql_list(self):
         return mysql.select_all(
-            'select video.id, video.title FROM video LEFT JOIN resource_param on video.id = resource_param.content_id '
+            'select video.id, video.title FROM cms.video LEFT JOIN cms.resource_param on '
+            'cms.video.id = cms.resource_param.content_id '
             'where resource_param.online = 1 and resource_param.app_id = 1 and resource_param.content_type = 1;'
         )
 
@@ -72,6 +74,3 @@ def __generateTestCases():
 
 
 __generateTestCases()
-
-# if __name__ == '__main__':
-#     unittest.main()

@@ -18,7 +18,9 @@ baseurl = ReadConfig().get_http("baseurl")
 version = ReadConfig().get_app("version")
 app_key = ReadConfig().get_app("app_key")
 aes = AES_CBC()
-mysql = OperationDbInterface("cms")
+ip = RunMain().get_host_ip()
+db = "cms" if ip == "39.105.54.219" else "test"
+mysql = OperationDbInterface(db)
 
 
 class test_stream(unittest.TestCase):
@@ -67,7 +69,7 @@ class test_stream(unittest.TestCase):
     def test_stream_epg_list(self):
         """正确的请求参数"""
         stream_title = self.get_stream_title()
-        stream_id = mysql.select_one('select id FROM stream where title = "%s"' % stream_title)["id"]
+        stream_id = mysql.select_one('select id FROM cms.stream where title = "%s"' % stream_title)["id"]
         date_list = self.get_date_list()
         timeStamp = int(time.mktime(datetime.datetime.now().timetuple()))
         data = '{"stream_id":%(stream_id)d,' \

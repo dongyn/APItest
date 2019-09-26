@@ -7,7 +7,9 @@
 import unittest, time, os, readConfig, common.Log
 import common.HTMLTestRunner_cn as HTMLTestRunner
 from common.configEmail import send_email
+from common.configHttp import RunMain
 
+ip = RunMain().get_host_ip()
 send_mail = send_email()
 on_off = readConfig.ReadConfig().get_email('on_off')
 retry = int(readConfig.ReadConfig().get_test('retry'))
@@ -20,7 +22,8 @@ log = common.Log.logger
 # 第四步发送邮箱 （这一步不想执行的话，可以注释掉最后面那个函数就行）
 
 # 当前脚本所在文件真实路径
-cur_path = os.path.dirname(os.path.realpath(__file__)) + "\\testCase"
+file_path = "//testCase" if ip == "39.105.54.219" else "\\testCase"
+cur_path = os.path.dirname(os.path.realpath(__file__)) + file_path
 
 def all_case():
     testcase = unittest.TestSuite()

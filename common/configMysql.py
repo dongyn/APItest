@@ -8,9 +8,9 @@
 '''
 
 import pymysql,logging,os
-from common.configHttp import RunMain
+import common.url as url
 
-ip = RunMain().get_host_ip()
+ip = url.get_host_ip()
 
 class OperationDbInterface(object):
 

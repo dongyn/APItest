@@ -11,10 +11,11 @@ from common.configHttp import RunMain
 from readConfig import ReadConfig
 from common.configMysql import OperationDbInterface
 from common.getSign import get_Sign
+import common.url as url
 import unittest, requests, json, datetime, time
 
 headers = RunMain().headers()
-baseurl = ReadConfig().get_http("baseurl")
+baseurl = url.baseurl()
 version = ReadConfig().get_app("version")
 app_key = ReadConfig().get_app("app_key")
 aes = AES_CBC()

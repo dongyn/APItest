@@ -7,12 +7,13 @@ from common.AES_CBC import AES_CBC
 from common.configHttp import RunMain
 from readConfig import ReadConfig
 from common.getSign import get_Sign
+import common.url as url
 import unittest, requests, json, datetime, time
 
 global false, null, true
 
 headers = RunMain().headers()
-baseurl = ReadConfig().get_http("baseurl")
+baseurl = url.baseurl()
 version = ReadConfig().get_app("version")
 app_key = ReadConfig().get_app("app_key")
 aes = AES_CBC()

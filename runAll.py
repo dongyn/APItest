@@ -7,9 +7,9 @@
 import unittest, time, os, readConfig, common.Log
 import common.HTMLTestRunner_cn as HTMLTestRunner
 from common.configEmail import send_email
-from common.configHttp import RunMain
+import common.url as url
 
-ip = RunMain().get_host_ip()
+ip = url.get_host_ip()
 send_mail = send_email()
 on_off = readConfig.ReadConfig().get_email('on_off')
 retry = int(readConfig.ReadConfig().get_test('retry'))

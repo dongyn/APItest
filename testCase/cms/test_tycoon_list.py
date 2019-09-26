@@ -9,9 +9,10 @@ from common.configMysql import OperationDbInterface
 from common.getSign import get_Sign
 from common.AES_CBC import AES_CBC
 from datetime import datetime
+import common.url as url
 import requests, unittest, json, time
 
-baseurl = ReadConfig().get_http('baseurl')
+baseurl = url.baseurl()
 version = ReadConfig().get_app('version')
 app_key = ReadConfig().get_app('app_key')
 mysql = OperationDbInterface()
@@ -30,7 +31,6 @@ class test_Tycoon_list(unittest.TestCase):
 
     def test_tycoon_list_01(self):
         """参数有tycoon_id，返回单个大咖信息"""
-        # 在数据库中查出来有这个id的大咖，但是不知道为何接口返回为空,数据库与服务器不匹配造成的
         timeStamp = int(time.mktime(datetime.now().timetuple()))
         data = '{"app_version":"%(version)s",' \
                '"os_type":1,' \
@@ -51,6 +51,7 @@ class test_Tycoon_list(unittest.TestCase):
         crypt_data = aes.encrypt(data, 'c_q')
         form = {'data': crypt_data, 'encode': 'v1'}
         response = requests.post(self.url, data=json.dumps(form), headers=headers)
+        print(RunMain().decrypt_to_dict(response, 'r'))
         tycoon_name = RunMain().decrypt_to_dict(response, 'r')[0]["name"]
         self.assertEqual(self.tycoon_detail["name"], tycoon_name, "大咖姓名应该是{0}".format(self.tycoon_detail["name"]))
 

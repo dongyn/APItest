@@ -9,9 +9,10 @@ from datetime import datetime
 from common.AES_CBC import AES_CBC
 from common.getSign import get_Sign
 from common.configHttp import RunMain
+import common.url as url
 import unittest, json, requests, time
 
-baseurl = ReadConfig().get_http('baseurl')
+baseurl = url.baseurl()
 version = ReadConfig().get_app('version')
 app_key = ReadConfig().get_app('app_key')
 headers = RunMain().headers()

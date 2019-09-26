@@ -13,9 +13,9 @@ from common.AES_CBC import AES_CBC
 from common.getSign import get_Sign
 from common.configMysql import OperationDbInterface
 from datetime import datetime
+import common.url as url
 import unittest, json, requests, time
 
-baseurl = ReadConfig().get_http('baseurl')
 version = ReadConfig().get_app('version')
 app_key = ReadConfig().get_app('app_key')
 mysql = OperationDbInterface()
@@ -30,7 +30,7 @@ class test_search_stream(unittest.TestCase):
     def __init__(self,*args, **kwargs):
         super().__init__(*args, **kwargs)
         self.headers = RunMain().headers()
-        self.baseurl = ReadConfig().get_http("baseurl")
+        self.baseurl = url.baseurl()
         self.version = ReadConfig().get_app("version")
         self.app_key = ReadConfig().get_app("app_key")
         self.aes = AES_CBC()
@@ -75,11 +75,8 @@ def __generateTestCases():
         setattr(test_search_stream, 'test_stream_%s' % (stream["title"]),
                 test_search_stream.getTestFunc(stream))
 
-
 __generateTestCases()
 
-# if __name__ == '__main__':
-#     unittest.main()
 
 
 

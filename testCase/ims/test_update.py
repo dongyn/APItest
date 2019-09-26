@@ -9,9 +9,10 @@ from common.getSign import get_Sign
 from common.md5_sms import timeStamp_md5
 from readConfig import ReadConfig
 from datetime import datetime
+import common.url as url
 import requests, unittest, json, time
 
-baseurl = ReadConfig().get_http('baseurl')
+baseurl = url.baseurl()
 version = ReadConfig().get_app('version')
 app_key = ReadConfig().get_app('app_key')
 avatar = ReadConfig().get_app('avatar')

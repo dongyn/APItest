@@ -10,10 +10,11 @@ from datetime import datetime
 from common.AES_CBC import AES_CBC
 from common.getSign import get_Sign
 from common.configHttp import RunMain
+import common.url as url
 import unittest, json, requests, time
 
 global false, null, true
-baseurl = ReadConfig().get_http('baseurl')
+baseurl = url.baseurl()
 version = ReadConfig().get_app('version')
 app_key = ReadConfig().get_app('app_key')
 headers = RunMain().headers()
@@ -34,8 +35,7 @@ class test_tycoon_detail(unittest.TestCase):
             'left join resource_param on tycoon_video.video_id = resource_param.content_id '
             'where resource_param.online = 1 and resource_param.app_id = 1 and resource_param.content_type = 1 '
             'ORDER BY RAND() limit 1;')
-        self.video_title = mysql.select_one('SELECT title from video where id = %d;' % self.tycoon_video["video_id"])[
-            "title"]
+        self.video_title = mysql.select_one('SELECT title from video where id = %d;' % self.tycoon_video["video_id"])
         self.tycoon_name = mysql.select_one('SELECT tycoon.name from tycoon where id = %d;'
                                             % self.tycoon_video["tycoon_id"])
         self.content_video_error = {"tycoon_id": 1000000000, "video_id": 1000000000}
@@ -63,7 +63,7 @@ class test_tycoon_detail(unittest.TestCase):
         crypt_data = aes.encrypt(data, 'c_q')
         form = {"data": crypt_data, "encode": "v1"}
         response = requests.post(url=self.url, data=json.dumps(form), headers=headers)
-        if type(list(params.values())[0]) != type("a"):
+        if type(param) != type("a"):
             if list(params.values())[0] < 1000000000:
                 tycoon_name = RunMain().decrypt_to_dict(response, 'r')["name"]
                 msg = "大咖详情接口返回的大咖-{0}信息错误".format(self.tycoon_name["name"])
@@ -77,7 +77,7 @@ class test_tycoon_detail(unittest.TestCase):
         if params[id] == 1000000000:
             return id + "错误"
         elif id == "video_id":
-            return self.video_title
+            return self.video_title["title"]
         else:
             return self.tycoon_name["name"]
 

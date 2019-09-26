@@ -12,6 +12,7 @@ from common.AES_CBC import AES_CBC
 from common.configMysql import OperationDbInterface
 from common.getSign import get_Sign
 from datetime import datetime
+import common.url as url
 import unittest, json, requests, time
 
 mysql = OperationDbInterface()
@@ -22,7 +23,7 @@ class test_Search_video(unittest.TestCase):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.headers = RunMain().headers()
-        self.baseurl = ReadConfig().get_http("baseurl")
+        self.baseurl = url.baseurl()
         self.version = ReadConfig().get_app("version")
         self.app_key = ReadConfig().get_app("app_key")
         self.aes = AES_CBC()

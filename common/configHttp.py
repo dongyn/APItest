@@ -13,13 +13,15 @@ from common.Log import logger
 from common.md5_sms import timeStamp_md5
 from datetime import datetime
 from common.getSign import get_Sign
-import json, requests, time, socket
+import common.url as url
+import json, requests, time
 
 logger = logger
-baseurl = ReadConfig().get_http('baseurl')
 version = ReadConfig().get_app('version')
 app_key = ReadConfig().get_app('app_key')
 telephone = ReadConfig().get_app('telephone')
+baseurl = url.baseurl()
+host = url.host()
 md5 = timeStamp_md5()
 global false, null, true
 aes = AES_CBC()
@@ -29,7 +31,6 @@ class RunMain():
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.url = baseurl + '/ims/v1.0/user/login'
         self.timeStamp = int(time.mktime(datetime.now().timetuple()))
         self.access_token = md5.encrypt_md5(self.timeStamp)
 
@@ -51,8 +52,7 @@ class RunMain():
     def headers(self):
         headers = {'Content-Type': 'application/json;charset=UTF-8',
                    'Content-Length': '732',
-                   # 'Host': 'test.ams.starschina.com',
-                   'Host': 'apiv1.starschina.com',
+                   'Host': host,
                    'Accept-Encoding': 'gzip'
                    }
         return headers
@@ -60,7 +60,7 @@ class RunMain():
     def headers_get(self):
         headers = {
             "User-Agent": "Mozilla/5.0 (Linux; Android 9; COL-AL10 Build/HUAWEICOL-AL10; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/72.0.3626.121 Mobile Safari/537.36",
-            "Host": "apiv1.starschina.com",
+            "Host": host,
             "Connection": "Keep-Alive",
             "Accept-Encoding": "gzip"
             }
@@ -88,6 +88,7 @@ class RunMain():
 
     def login(self, timeStamp):
         '''获取登录接口的token'''
+        url = baseurl + '/ims/v1.0/user/login'
         data = '{"app_version":"%(version)s",' \
                '"access_token":"%(access_token)s",' \
                '"os_type":1,' \
@@ -107,7 +108,7 @@ class RunMain():
                    'timeStamp': timeStamp,
                    'telephone': telephone}
         data = get_Sign().encrypt(data)
-        response = requests.post(self.url, data=json.dumps(data), headers=self.headers())
+        response = requests.post(url, data=json.dumps(data), headers=self.headers())
         return response
 
     def get_login_token(self, timeStamp):
@@ -118,15 +119,14 @@ class RunMain():
     def headers_token(self, timeStamp):
         headers = {'Content-Type': 'application/json;charset=UTF-8',
                    'Content-Length': '732',
-                   # 'Host': 'test.ams.starschina.com',
-                   'Host': 'apiv1.starschina.com',
+                   'Host': host,
                    'Accept-Encoding': 'gzip',
                    'Authorization': self.get_login_token(timeStamp=timeStamp)
                    }
         return headers
 
     def headers_get_token(self, timeStamp):
-        headers = {"Host": "apiv1.starschina.com",
+        headers = {"Host": host,
                    "Connection": "Keep-Alive",
                    "Accept-Encoding": "gzip",
                    "Authorization": self.get_login_token(timeStamp=timeStamp)
@@ -147,15 +147,6 @@ class RunMain():
             logger.info("method值错误！！！")
         return result
 
-    def get_host_ip(self):
-        try:
-            s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-            s.connect(('8.8.8.8', 80))
-            ip = s.getsockname()[0]
-        finally:
-            s.close()
-        return ip
-
 # if __name__ == '__main__':#通过写死参数，来验证我们写的请求是否正确
-# #     result = RunMain().run_main('post', '', 'name=xiaoming&pwd=')
-# #     print(result)
+#     result = RunMain().run_main('post', '', 'name=xiaoming&pwd=')
+#     print(result)

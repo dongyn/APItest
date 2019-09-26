@@ -6,9 +6,10 @@
 import requests, unittest
 from common.AES_CBC import AES_CBC
 from readConfig import ReadConfig
+import common.url as url
 from common.configHttp import RunMain
 
-baseurl = ReadConfig().get_http("baseurl")
+baseurl = url.baseurl()
 version = ReadConfig().get_app("version")
 app_key = ReadConfig().get_app("app_key")
 funtv_version = ["8.0.1", "8.0.2", "8.0.3", "8.0.4", "8.0.5", "8.0.6"]

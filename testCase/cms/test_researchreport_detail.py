@@ -15,11 +15,7 @@ baseurl = ReadConfig().get_http('baseurl')
 version = ReadConfig().get_app('version')
 app_key = ReadConfig().get_app('app_key')
 headers = RunMain().headers()
-ip = RunMain().get_host_ip()
-cms_db = "cms" if ip == "39.105.54.219" else "test"
-cms_mysql = OperationDbInterface(cms_db)
-ims_db = "ims" if ip == "39.105.54.219" else "test"
-ims_mysql = OperationDbInterface(ims_db)
+mysql = OperationDbInterface()
 aes = AES_CBC()
 
 class test_Researchreport_Detail(unittest.TestCase):
@@ -28,9 +24,10 @@ class test_Researchreport_Detail(unittest.TestCase):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.url = baseurl + "/cms/v1.2/researchreport/detail"
-        self.tycoon_id = cms_mysql.select_all('SELECT researchreport.tycoon_id from cms.researchreport')
-        self.all_content_id = ims_mysql.select_all('select content_id from ims.product where content_type = 35;')
-        self.all_researchreport_tycoon_id = cms_mysql.select_all('select id, tycoon_id from cms.researchreport;')
+        self.reseachreport_id = mysql.select_one(
+            'SELECT researchreport.id from researchreport '
+            'left join ims.product on ims.product.content_id = cms.researchreport.tycoon_id '
+            'where ims.product.content_type=35;')
 
     def get_product_content_id(self):
         content_id_list = []
@@ -58,9 +55,9 @@ class test_Researchreport_Detail(unittest.TestCase):
                '"os_type":1,' \
                '"id": %(id)d}' % {
                    'version': version,
-                   'id': self.get_reseachreport_id(),
-                   'app_key': app_key,
-                   'timeStamp': timeStamp}
+                   'id': self.reseachreport_id['id'],
+                   'timeStamp': timeStamp,
+                   'app_key': app_key}
         sign = get_Sign().encrypt(data, True)["sign"]
         data = data.replace('}', ',"sign":"%s"}' % sign)
         crypt_data = aes.encrypt(data, 'c_q')
@@ -90,7 +87,3 @@ class test_Researchreport_Detail(unittest.TestCase):
         response = requests.post(self.url, data=json.dumps(form), headers=headers)
         self.assertEqual(400, response.status_code, "大咖的id参数错误，研报接口状态码应为400")
         self.assertEqual(500, response.json()["err_code"], "大咖的id参数错误，研报接口应返回err_code为500")
-
-# if __name__ == "main":
-#     test_Researchreport_Detail().test_researchreport_detail_01()
-#     test_Researchreport_Detail().test_researchreport_detail_02()

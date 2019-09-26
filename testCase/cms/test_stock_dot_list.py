@@ -18,9 +18,7 @@ app_key = ReadConfig().get_app('app_key')
 headers = RunMain().headers()
 aes = AES_CBC()
 md5 = timeStamp_md5()
-ip = RunMain().get_host_ip()
-db = "cms" if ip == "39.105.54.219" else "test"
-mysql = OperationDbInterface(db)
+mysql = OperationDbInterface()
 global stock_code
 
 def __get_stock_code():
@@ -93,8 +91,3 @@ class test_Dot_list(unittest.TestCase):
         form = {"data": crypt_data, "encode": "v1"}
         response = requests.post(self.url, data=json.dumps(form), headers=headers)
         assert response.status_code == 400
-
-if __name__ == "main":
-            test_Dot_list().test_dotlist_01()
-            test_Dot_list().test_dotlist_02()
-            test_Dot_list().test_dotlist_03()

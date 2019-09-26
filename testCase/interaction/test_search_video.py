@@ -14,9 +14,7 @@ from common.getSign import get_Sign
 from datetime import datetime
 import unittest, json, requests, time
 
-ip = RunMain().get_host_ip()
-db = "cms" if ip == "39.105.54.219" else "test"
-mysql = OperationDbInterface(db)
+mysql = OperationDbInterface()
 
 class test_Search_video(unittest.TestCase):
     # 搜索点播视频，播放视频

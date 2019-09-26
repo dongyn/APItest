@@ -8,22 +8,22 @@
 '''
 
 import pymysql,logging,os
+from common.configHttp import RunMain
+
+ip = RunMain().get_host_ip()
 
 class OperationDbInterface(object):
 
-    def __init__(self, database = "test"):
-        cms_connect = {"host": "rm-2zeqy9b4b2d1t0t53.mysql.rds.aliyuncs.com",
-                            "user": "test_cms_r",
-                            "password": "JZfxvueHqM9wgnzU"}
-        ims_connect = {"host": "rm-2zebsoy4r1fzuweln.mysql.rds.aliyuncs.com",
-                            "user": "test_ims_r",
-                            "password": "AYmHvvGp4tyOdPnz"}
+    def __init__(self):
+        official_connect = {"host": "pe-2zeo0qsbx247wduks.rwlb.rds.aliyuncs.com",
+                            "user": "stars",
+                            "password": "d32XtxMQc73B"}
         test_connect = {"host": "test.ams.starschina.com",
-                             "user": "root",
-                             "password": "78dx4AMS"}
-        self.dbary = ['ams', 'ims', 'mms', 'cms'] if database == "test" else [database]
-        self.connect = locals()[database+"_connect"] #将上面定义的三种连接的变量名当作字符串作为新的变量名
+                        "user": "root",
+                        "password": "78dx4AMS"}
+        self.connect = official_connect if ip == "39.105.54.219" else test_connect
         self.db_conn = {}  # 连接的对应字典
+        self.dbary = ['ims', 'cms']# 'ams', 'mms'，这两个数据库暂时没有用到
         for db in self.dbary:
             self.conn = pymysql.connect(host=self.connect["host"],
                                         user=self.connect["user"],

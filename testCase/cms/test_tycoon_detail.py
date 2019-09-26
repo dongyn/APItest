@@ -18,9 +18,7 @@ version = ReadConfig().get_app('version')
 app_key = ReadConfig().get_app('app_key')
 headers = RunMain().headers()
 aes = AES_CBC()
-ip = RunMain().get_host_ip()
-db = "cms" if ip == "39.105.54.219" else "test"
-mysql = OperationDbInterface(db)
+mysql = OperationDbInterface()
 md5 = timeStamp_md5()
 
 

@@ -21,7 +21,7 @@ class OperationDbInterface(object):
         test_connect = {"host": "test.ams.starschina.com",
                         "user": "root",
                         "password": "78dx4AMS"}
-        self.connect = official_connect if ip == "39.105.54.219" else test_connect
+        self.connect = test_connect if ip[0:7]== "192.168" else official_connect
         self.db_conn = {}  # 连接的对应字典
         self.dbary = ['ims', 'cms']# 'ams', 'mms'，这两个数据库暂时没有用到
         for db in self.dbary:
@@ -110,7 +110,7 @@ class OperationDbInterface(object):
 
 
 # if __name__ == "__main__":
-#     test = OperationDbInterface("test")  # 实例化类
+#     test = OperationDbInterface()  # 实例化类
 #     result_1 = test.select_one('select * from video where id = 1014874')  # 查询一条数据
 #     print(result_1)
 #

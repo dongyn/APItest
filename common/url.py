@@ -16,10 +16,12 @@ def get_host_ip():
 
 def baseurl():
     ip = get_host_ip()
-    url = "https://apiv1.starschina.com" if ip == "39.105.54.219" else "http://test.ams.starschina.com"
+    url = "http://test.ams.starschina.com" if ip[0:7]== "192.168" else "https://apiv1.starschina.com"
     return url
 
 def host():
     ip = get_host_ip()
-    host = 'apiv1.starschina.com' if ip == "39.105.54.219" else 'test.ams.starschina.com'
+    host = 'test.ams.starschina.com' if ip[0:7]== "192.168" else 'apiv1.starschina.com'
     return host
+
+# print(get_host_ip())

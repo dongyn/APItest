@@ -49,8 +49,7 @@ class test_hotsearch_video(unittest.TestCase):
 
     def hotsearch_list(self, category):
         """正确的请求参数"""
-        url = baseurl + '/cms/v1.0/hotsearch/list'
-        url = self.get_url_params(url, category)
+        url = self.get_url_params(baseurl + '/cms/v1.0/hotsearch/list', category)
         headers = RunMain().headers_get()
         response = requests.get(url, headers=headers)
         hotsearch_list = list(response.json()['data'])
@@ -115,4 +114,4 @@ def __generateTestCases():
             setattr(test_hotsearch_video, 'test_hotsearch_%s_%s' % (category, content["title"]),
                     test_hotsearch_video.getTestFunc(content, category))
 
-__generateTestCases()
+# __generateTestCases()

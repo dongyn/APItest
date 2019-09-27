@@ -62,28 +62,28 @@ class test_Researchreport_list(unittest.TestCase):
                                        self.researchreport_detail["title"])
         self.assertIn(self.researchreport_detail["title"], title_list, msg)
 
-    def test_researchreport_list_02(self):
-        """researchreport_id参数为错误"""
-        timeStamp = int(time.mktime(datetime.now().timetuple()))
-        data = '{"app_version":"%(version)s",' \
-               '"os_type":1,' \
-               '"os_version":"9",' \
-               '"mac_address":"02:00:00:00:00:00",' \
-               '"device_id":"802ca0fba119ab0a",' \
-               '"tycoon_id":%(tycoon_id)d,' \
-               '"timestamp":%(timeStamp)d,' \
-               '"app_key":"%(app_key)s"' \
-               '}' % {
-                   'version': version,
-                   'tycoon_id': 10000000000,
-                   'timeStamp': timeStamp,
-                   'app_key': app_key}
-        sign = get_Sign().encrypt(data, True)["sign"]
-        data = data.replace('}', ',"sign":"%s"}' % sign)
-        crypt_data = aes.encrypt(data, 'c_q')
-        form = {'data': crypt_data, 'encode': 'v1'}
-        response = requests.post(self.url, data=json.dumps(form), headers=headers)
-        self.assertEqual(500, response.json()["err_code"], "大咖的id参数错误，接口应返回err_code为500")
+    # def test_researchreport_list_02(self):
+    #     """researchreport_id参数为错误"""
+    #     timeStamp = int(time.mktime(datetime.now().timetuple()))
+    #     data = '{"app_version":"%(version)s",' \
+    #            '"os_type":1,' \
+    #            '"os_version":"9",' \
+    #            '"mac_address":"02:00:00:00:00:00",' \
+    #            '"device_id":"802ca0fba119ab0a",' \
+    #            '"tycoon_id":%(tycoon_id)d,' \
+    #            '"timestamp":%(timeStamp)d,' \
+    #            '"app_key":"%(app_key)s"' \
+    #            '}' % {
+    #                'version': version,
+    #                'tycoon_id': 10000000000,
+    #                'timeStamp': timeStamp,
+    #                'app_key': app_key}
+    #     sign = get_Sign().encrypt(data, True)["sign"]
+    #     data = data.replace('}', ',"sign":"%s"}' % sign)
+    #     crypt_data = aes.encrypt(data, 'c_q')
+    #     form = {'data': crypt_data, 'encode': 'v1'}
+    #     response = requests.post(self.url, data=json.dumps(form), headers=headers)
+    #     self.assertEqual(500, response.json()["err_code"], "大咖的id参数错误，接口应返回err_code为500")
 
 
     def get_researchreport_title(self):

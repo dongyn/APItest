@@ -63,7 +63,7 @@ class test_tycoon_detail(unittest.TestCase):
         crypt_data = aes.encrypt(data, 'c_q')
         form = {"data": crypt_data, "encode": "v1"}
         response = requests.post(url=self.url, data=json.dumps(form), headers=headers)
-        if type(param) != type("a"):
+        if type(params.values()) != type("a"):
             if list(params.values())[0] < 1000000000:
                 tycoon_name = RunMain().decrypt_to_dict(response, 'r')["name"]
                 msg = "大咖详情接口返回的大咖-{0}信息错误".format(self.tycoon_name["name"])

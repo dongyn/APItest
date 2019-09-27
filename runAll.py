@@ -22,7 +22,7 @@ log = common.Log.logger
 # 第四步发送邮箱 （这一步不想执行的话，可以注释掉最后面那个函数就行）
 
 # 当前脚本所在文件真实路径
-file_path = "//testCase" if ip == "39.105.54.219" else "\\testCase"
+file_path = "\\testCase" if ip[0:7]== "192.168" else "//testCase"
 cur_path = os.path.dirname(os.path.realpath(__file__)) + file_path
 
 def all_case():
@@ -32,7 +32,7 @@ def all_case():
     for test_suite in discover:
         for test_case in test_suite:
             # 添加用例到testcase
-            # print(test_case)
+            print(test_case)
             testcase.addTests(test_case)
     return testcase
 

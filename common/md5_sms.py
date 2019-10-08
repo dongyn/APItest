@@ -20,6 +20,6 @@ class timeStamp_md5():
         return md5_str
 
 # 调用
-if __name__ == '__main__':
+# if __name__ == '__main__':
     # c0d1bc
-    print(timeStamp_md5().encrypt_md5())
+    # print(timeStamp_md5().encrypt_md5())

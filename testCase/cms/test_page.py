@@ -17,8 +17,6 @@ app_key = ReadConfig().get_app('app_key')
 aes = AES_CBC()
 headers = RunMain().headers()
 
-
-
 class test_Page(unittest.TestCase):
     """测试页面加载接口"""
 
@@ -26,12 +24,39 @@ class test_Page(unittest.TestCase):
         super().__init__(*args, **kwargs)
         self.url = baseurl + "/cms/v1.2/page"
 
+    def get_config_page_id(self):
+        # id需要在config接口中返回
+        timeStamp = int(time.mktime(datetime.now().timetuple()))
+        data = '{"os_type": 1,' \
+               '"app_key":"%(app_key)s",' \
+               '"os_version":"9",' \
+               '"carrier":3,' \
+               '"mac_address":"02:00:00:00:00:00",' \
+               '"device_id":"802ca0fba119ab0a",' \
+               '"imei":"869384032108431",' \
+               '"latitude":34.223866,' \
+               '"gcid":"dba9f3c2e8926564d3c930790c232bcf",' \
+               '"bssid":"4c:e9:e4:7d:41:c1",' \
+               '"longitude":108.909907,' \
+               '"installation_id":1904301718321742,' \
+               '"force_reload_user":true,' \
+               '"app_version":"%(version)s",' \
+               '"timeStamp":%(timeStamp)d}' % {
+                   'app_key': app_key,
+                   'timeStamp': timeStamp,
+                   'version': version}
+        sign = get_Sign().encrypt(data, True)["sign"]
+        data = data.replace('}', ',"sign":"%s"}' % sign)
+        crypt_data = aes.encrypt(data, 'c_q')
+        form = {"data": crypt_data, "encode": "v1"}
+        response = requests.post(url=baseurl + "/cms/v1.2/config", data=json.dumps(form), headers=headers)
+        return RunMain().decrypt_to_dict(response, 'c_p')['pages'][0]['pages'][0]['id']
+
     # 正确的请求参数，id为综艺page
     def test_page_01(self):
         """正确的请求参数"""
         timeStamp = int(time.mktime(datetime.now().timetuple()))
-        #id需要在数据库中查, 提示-无效的签名
-        data = '{"id": [122237], "os_type":1,' \
+        data = '{"id": [%(page_id)d], "os_type":1,' \
                '"app_version":"%(version)s",' \
                '"timestamp":%(timeStamp)d,' \
                '"page_alias":"",'\
@@ -42,7 +67,8 @@ class test_Page(unittest.TestCase):
                '"app_key": "%(app_key)s"}' % {
                    'version': version,
                    'timeStamp': timeStamp,
-                   'app_key': app_key}
+                   'app_key': app_key,
+                   'page_id' : self.get_config_page_id()}
         sign = get_Sign().encrypt(data, True)["sign"]
         data = data.replace('}', ',"sign":"%s"}' % sign)
         crypt_data = aes.encrypt(data, 'c_q')
@@ -50,9 +76,9 @@ class test_Page(unittest.TestCase):
         response = requests.post(self.url, data=json.dumps(form), headers=headers)
         response_data = RunMain().decrypt_to_dict(response, 'r')[0]
         msg = '页面{0}的期望id是{1},实际id是{2}'.format(response_data['name'],
-                                                 122237,
+                                                 self.get_config_page_id(),
                                                  response_data['id'])
-        self.assertEqual(122237, response_data['id'], msg=msg)
+        self.assertEqual(self.get_config_page_id(), response_data['id'], msg=msg)
 
     def test_page_02(self):
         """错误的请求参数"""
@@ -89,4 +115,3 @@ class test_Page(unittest.TestCase):
         form = {'data': crypt_data, 'encode': 'v1'}
         response = requests.post(self.url, data=json.dumps(form), headers=headers)
         assert response.json()['err_code'] == 500
-

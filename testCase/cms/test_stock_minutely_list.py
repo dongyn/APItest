@@ -91,11 +91,3 @@ class test_Minutely_list(unittest.TestCase):
         form = {"data": crypt_data, "encode": "v1"}
         response = requests.post(self.url, data=json.dumps(form), headers=headers)
         assert response.status_code == 400
-
-
-if __name__ == "main":
-            test_Minutely_list().test_minutelylist_01()
-            test_Minutely_list().test_minutelylist_02()
-            test_Minutely_list().test_minutelylist_03()
-
-

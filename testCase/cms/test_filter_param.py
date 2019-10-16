@@ -17,7 +17,7 @@ app_key = ReadConfig().get_app('app_key')
 headers= RunMain().headers_get()
 
 class test_Filterparam(unittest.TestCase):
-    """测试订单状态"""
+    """测试过滤参数"""
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -44,19 +44,19 @@ class test_Filterparam(unittest.TestCase):
         url = self.get_url_params()
         response = requests.get(url, headers=headers)
         data = response.json()['data']
-        assert data['category_id'] == 1
-        assert data['properties'][0]['name'] == '地域'
+        self.assertEqual(1, data['category_id'], "filterparam接口返回的category_id应该是1")
+        self.assertEqual('地域', data['properties'][0]['name'], "filterparam接口返回properties的name应该是地域")
 
 
     def test_filterparam_02(self):
         """错误的参数"""
         url = self.get_url_params().replace("category_id=1", "category_id=11")
         response = requests.get(url, headers=headers)
-        self.assertEqual(response.json()["err_msg"], "无效的签名","category_id参数错误应返回无效的签名")
+        self.assertEqual("无效的签名", response.json()["err_msg"],"category_id参数错误应返回无效的签名")
 
 
     def test_filterparam_03(self):
         """参数为空"""
         response = requests.get(self.url, headers=headers)
-        assert response.json()['err_code']==500
+        self.assertEqual(500, response.json()['err_code'], "category_id参数错误应返回无效的签名")
 

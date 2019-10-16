@@ -58,11 +58,13 @@ class test_Stock_realtime(unittest.TestCase):
         data = '{"app_version":"%(version)s",' \
                '"os_type":1,' \
                '"app_key":"xdThhy2239daax",' \
+               '"access_token":"%(access_token)s",' \
                '"timestamp":%(timeStamp)d,' \
                '"installation_id":1904301718321742,' \
                '"stock_code":"sh"' \
                '}' % {
                    'version': version,
+                   'access_token': access_token,
                    'timeStamp': timeStamp}
         sign = get_Sign().encrypt(data, True)["sign"]
         data = data.replace('}', ',"sign": "%s"}' % sign)
@@ -82,6 +84,7 @@ class test_Stock_realtime(unittest.TestCase):
                '"installation_id":1904301718321742,' \
                '}' % {
                    'version': version,
+                   'access_token': access_token,
                    'timeStamp': timeStamp}
         sign = get_Sign().encrypt(data, True)["sign"]
         data = data.replace('}', ',"sign": "%s"}' % sign)
@@ -89,8 +92,3 @@ class test_Stock_realtime(unittest.TestCase):
         form = {"data": crypt_data, "encode": "v1"}
         response = requests.post(self.url, data=json.dumps(form), headers=headers)
         assert response.status_code == 403
-
-if __name__ == "main":
-    test_Stock_realtime().test_realtime_01()
-    test_Stock_realtime().test_realtime_02()
-    test_Stock_realtime().test_realtime_03()

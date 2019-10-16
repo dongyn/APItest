@@ -115,8 +115,3 @@ class test_Page(unittest.TestCase):
         form = {'data': crypt_data, 'encode': 'v1'}
         response = requests.post(self.url, data=json.dumps(form), headers=headers)
         assert response.json()['err_code'] == 500
-
-# if __name__ == "__main__":
-#     id = test_Page().get_config_page_id()
-#     print(id)
-#     test_Page().test_page_01()

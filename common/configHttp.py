@@ -20,6 +20,7 @@ logger = logger
 version = ReadConfig().get_app('version')
 app_key = ReadConfig().get_app('app_key')
 telephone = ReadConfig().get_app('telephone')
+shield_ip = ReadConfig().get_app("xi'an_ip")
 baseurl = url.baseurl()
 host = url.host()
 md5 = timeStamp_md5()
@@ -64,6 +65,15 @@ class RunMain():
             "Connection": "Keep-Alive",
             "Accept-Encoding": "gzip"
             }
+        return headers
+
+    def shield_headers(self):
+        headers = {'Content-Type': 'application/json;charset=UTF-8',
+                   'Content-Length': '732',
+                   'Host': host,
+                   'Accept-Encoding': 'gzip',
+                   'X-Forwarded-For' : shield_ip
+                   }
         return headers
 
     # 将解密后的字符串转为字典

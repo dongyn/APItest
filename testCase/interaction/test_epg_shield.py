@@ -12,7 +12,7 @@ from common.getSign import get_Sign
 import common.url as url
 import unittest, requests, json, datetime, time
 
-shield_headers = RunMain().shield_headers()
+headers = RunMain().shield_headers()
 baseurl = url.baseurl()
 host = url.host()
 version = ReadConfig().get_app("version")
@@ -35,7 +35,6 @@ class test_epg_shield(unittest.TestCase):
     def get_date_list(self):
         now_date = datetime.datetime.now()
         date_0 = str(now_date.strftime("%Y-%m-%d"))
-        # datetime.datetime.now()+datetime.timedelta(days=1)
         date_1 = str((now_date - datetime.timedelta(days=1)).strftime("%Y-%m-%d"))
         date_2 = str((now_date - datetime.timedelta(days=2)).strftime("%Y-%m-%d"))
         date_3 = str((now_date - datetime.timedelta(days=3)).strftime("%Y-%m-%d"))
@@ -47,6 +46,9 @@ class test_epg_shield(unittest.TestCase):
         all_days_epg_dict = RunMain().decrypt_to_dict(response, 'r')
         for epg_dict_oneday in all_days_epg_dict:
             for epg in epg_dict_oneday["epg"]:
+                print(epg)
+                直播列表屏蔽 = [epg["title"], bool(epg["blocked"])]
+                print(直播列表屏蔽)
                 if keyword in epg["title"]:
                     self.assertTrue(epg["blocked"], f"{epg['title']}节目中包含关键字{keyword}，""应该被屏蔽")
 
@@ -60,29 +62,26 @@ class test_epg_shield(unittest.TestCase):
 
     def test_01_epg_shield_keyword(self):
         """按关键字屏蔽"""
-        stream_id = mysql.select_one('select id FROM stream where title = "CCTV3";')["id"]
+        stream_id = mysql.select_one('select id FROM stream where title = "CCTV1";')["id"]
         date_list = self.get_date_list()
         timeStamp = int(time.mktime(datetime.datetime.now().timetuple()))
-        data = '{"stream_id":%(stream_id)d,' \
-               '"date":["%(date_3)s","%(date_2)s","%(date_1)s","%(date_0)s","%(date_4)s"],' \
-               '"os_type":1,' \
-               '"app_version":"%(version)s",' \
-               '"timestamp":%(timeStamp)d,' \
-               '"app_key":"%(app_key)s"}' % {
-                   'date_3': date_list[0],
-                   'date_2': date_list[1],
-                   'date_1': date_list[2],
-                   'date_0': date_list[3],
-                   'date_4': date_list[4],
-                   'stream_id': stream_id,
-                   'version': version,
-                   'timeStamp': timeStamp,
-                   'app_key': app_key}
+        data = '{' \
+            f'"stream_id":{stream_id},' \
+                   f'"date":"{date_list[0]}",' \
+                   f'"date":"{date_list[1]}",' \
+                   f'"date":"{date_list[2]}",' \
+                   f'"date":"{date_list[3]}",' \
+                   f'"date":"{date_list[4]}",' \
+                   '"os_type":1,' \
+                   f'"app_version":"{version}",' \
+                   f'"timestamp":{timeStamp},' \
+                   f'"app_key":"{app_key}"'+ '}'
         sign = get_Sign().encrypt(data, True)["sign"]
         data = data.replace('}', ',"sign":"%s"}' % sign)
         crypt_data = aes.encrypt(data, 'c_q')
         form = {"data": crypt_data, "encode": "v1"}
-        response = requests.post(url=self.url, data=json.dumps(form), headers=shield_headers)
+        response = requests.post(url=self.url, data=json.dumps(form), headers=headers)
+        print(response.status_code, response.json())
         self.assert_epg_keyword_blocked(response, keyword)
 
     def test_02_epg_shield_timeslot(self):

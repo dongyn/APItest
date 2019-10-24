@@ -26,7 +26,7 @@ mysql = OperationDbInterface()
 
 
 class test_epg_shield(unittest.TestCase):
-    """测试节目单列表接口"""
+    """测试屏蔽节目单接口"""
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -65,17 +65,22 @@ class test_epg_shield(unittest.TestCase):
         stream_id = mysql.select_one('select id FROM stream where title = "CCTV1";')["id"]
         date_list = self.get_date_list()
         timeStamp = int(time.mktime(datetime.datetime.now().timetuple()))
-        data = '{' \
-            f'"stream_id":{stream_id},' \
-                   f'"date":"{date_list[0]}",' \
-                   f'"date":"{date_list[1]}",' \
-                   f'"date":"{date_list[2]}",' \
-                   f'"date":"{date_list[3]}",' \
-                   f'"date":"{date_list[4]}",' \
-                   '"os_type":1,' \
-                   f'"app_version":"{version}",' \
-                   f'"timestamp":{timeStamp},' \
-                   f'"app_key":"{app_key}"'+ '}'
+        data = '{"stream_id":%(stream_id)d,' \
+               '"date":["%(date_3)s","%(date_2)s","%(date_1)s","%(date_0)s","%(date_4)s"],' \
+               '"os_type":1,' \
+               '"app_version":"%(version)s",' \
+               '"timestamp":%(timeStamp)d,' \
+               '"app_key":"%(app_key)s"}' % {
+                   'date_3': date_list[0],
+                   'date_2': date_list[1],
+                   'date_1': date_list[2],
+                   'date_0': date_list[3],
+                   'date_4': date_list[4],
+                   'stream_id': stream_id,
+                   'version': version,
+                   'timeStamp': timeStamp,
+                   'app_key': app_key}
+        print(data)
         sign = get_Sign().encrypt(data, True)["sign"]
         data = data.replace('}', ',"sign":"%s"}' % sign)
         crypt_data = aes.encrypt(data, 'c_q')

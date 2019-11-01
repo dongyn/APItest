@@ -46,9 +46,6 @@ class test_epg_shield(unittest.TestCase):
         all_days_epg_dict = RunMain().decrypt_to_dict(response, 'r')
         for epg_dict_oneday in all_days_epg_dict:
             for epg in epg_dict_oneday["epg"]:
-                print(epg)
-                直播列表屏蔽 = [epg["title"], bool(epg["blocked"])]
-                print(直播列表屏蔽)
                 if keyword in epg["title"]:
                     self.assertTrue(epg["blocked"], f"{epg['title']}节目中包含关键字{keyword}，""应该被屏蔽")
 
@@ -80,7 +77,6 @@ class test_epg_shield(unittest.TestCase):
                    'version': version,
                    'timeStamp': timeStamp,
                    'app_key': app_key}
-        print(data)
         sign = get_Sign().encrypt(data, True)["sign"]
         data = data.replace('}', ',"sign":"%s"}' % sign)
         crypt_data = aes.encrypt(data, 'c_q')
@@ -113,5 +109,5 @@ class test_epg_shield(unittest.TestCase):
         data = data.replace('}', ',"sign":"%s"}' % sign)
         crypt_data = aes.encrypt(data, 'c_q')
         form = {"data": crypt_data, "encode": "v1"}
-        response = requests.post(url=self.url, data=json.dumps(form), headers=shield_headers)
+        response = requests.post(url=self.url, data=json.dumps(form), headers=headers)
         self.assert_epg_timeslot_blocked(response, starttime, endtime)

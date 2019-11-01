@@ -23,8 +23,6 @@ class test_Checkin(unittest.TestCase):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.url = baseurl + '/ims/v1.0/user/checkin'
-        self.timeStamp = int(time.mktime(datetime.now().timetuple()))
-        self.access_token = md5.encrypt_md5(self.timeStamp)
 
     def test_checkin_01(self):
         # 正确的签到参数
@@ -48,9 +46,9 @@ class test_Checkin(unittest.TestCase):
                    'access_token': access_token,
                    'timeStamp': timeStamp}
         data = get_Sign().encrypt(data)
-        response = requests.post(self.url, data=json.dumps(data), headers=headers)
-        response_data = response.json()
-        assert response_data['err_code'] == 0 and response_data['data']['already_checkin'] == True
+        response_data = requests.post(self.url, data=json.dumps(data), headers=headers).json()
+        self.assertEqual(0, response_data['err_code'], "正确的参数请求签到接口，返回的err_code应为0")
+        self.assertTrue(response_data['data']['already_checkin'],"正确的参数请求签到接口，返回的already_checkin应为Ture")
 
     def test_checkin_02(self):
         timeStamp = int(time.mktime(datetime.now().timetuple()))
@@ -73,10 +71,4 @@ class test_Checkin(unittest.TestCase):
         data = get_Sign().encrypt(data)
         response = requests.post(self.url, data=json.dumps(data), headers=RunMain().headers())
         assert response.json()['err_code'] == 500
-
-
-if __name__ == "__main__":
-
-    test_Checkin().test_checkin_01()
-    test_Checkin().test_checkin_02()
 

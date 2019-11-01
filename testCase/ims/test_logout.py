@@ -24,15 +24,13 @@ class test_Logout(unittest.TestCase):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.url = baseurl + '/ims/v1.0/user/logout'
-        self.timeStamp = int(time.mktime(datetime.now().timetuple()))
-        self.access_token = md5.encrypt_md5(self.timeStamp)
 
     def test_logout_01(self):
         """正确的退出登录参数"""
         timeStamp_login = int(time.mktime(datetime.now().timetuple()))
         headers = RunMain().headers_token(timeStamp_login)
         timeStamp = int(time.mktime(datetime.now().timetuple()))
-        access_token = md5.encrypt_md5(self.timeStamp)
+        access_token = md5.encrypt_md5(timeStamp)
         data = '{"app_version":"%(version)s",' \
                '"access_token":"%(access_token)s",' \
                '"os_type":1,' \
@@ -51,12 +49,12 @@ class test_Logout(unittest.TestCase):
                    'timeStamp': timeStamp}
         data = get_Sign().encrypt(data)
         response = requests.post(self.url, data=json.dumps(data), headers=headers)
-        assert response.json()['err_code'] == 0
+        self.assertEqual(0, response.json()['err_code'], "接口返回的err_code应为0")
 
     def test_logout_02(self):
         """headers中不包含token"""
         timeStamp = int(time.mktime(datetime.now().timetuple()))
-        access_token = md5.encrypt_md5(self.timeStamp)
+        access_token = md5.encrypt_md5(timeStamp)
         headers = RunMain.headers(self)
         data = '{"app_version":"%(version)s",' \
                '"access_token":"%(access_token)s",' \
@@ -75,17 +73,5 @@ class test_Logout(unittest.TestCase):
                    'timeStamp': timeStamp}
         data = get_Sign().encrypt(data)
         response = requests.post(self.url, data=json.dumps(data), headers=headers)
-        assert response.json()['err_code'] == 500
+        self.assertEqual(500, response.json()['err_code'], "接口返回的err_code应为500")
 
-    def test_logout_03(self):
-        """空的退出登录参数"""
-        headers = RunMain.headers(self)
-        data = {}
-        response = requests.post(self.url, data=json.dumps(data), headers=headers)
-        assert response.json()['err_code'] == 500
-
-
-if __name__ == "__main__":
-    test_Logout().test_logout_01()
-    test_Logout().test_logout_02()
-    test_Logout().test_logout_03()

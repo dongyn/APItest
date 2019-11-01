@@ -50,6 +50,7 @@ class test_Orderstatus(unittest.TestCase):
         response = requests.get(self.get_url_params(), headers=RunMain().headers_get())
         assert response.json()['err_code'] == 500
 
+
     def test_orderstatus_03(self):
         """order_id参数为空"""
         timeStamp = int(time.mktime(datetime.now().timetuple()))
@@ -57,6 +58,3 @@ class test_Orderstatus(unittest.TestCase):
         url = self.get_url_params().replace('order_id=116592', 'order_id= ')
         response = requests.get(url, headers=headers)
         assert response.status_code == 400
-
-# if __name__ == "__main__":
-#     test_Orderstatus().test_orderstatus_01()

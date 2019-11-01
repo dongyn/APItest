@@ -50,9 +50,9 @@ class test_Filterparam(unittest.TestCase):
 
     def test_filterparam_02(self):
         """错误的参数"""
-        url = self.get_url_params().replace("category_id=1", "category_id=11")
+        url = self.get_url_params().replace("category_id=1", "category_id=100")
         response = requests.get(url, headers=headers)
-        self.assertEqual("无效的签名", response.json()["err_msg"],"category_id参数错误应返回无效的签名")
+        self.assertEqual(100, response.json()["data"]["category_id"],"返回的category_id应是100")
 
 
     def test_filterparam_03(self):

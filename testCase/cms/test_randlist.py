@@ -50,7 +50,8 @@ class test_randlist(unittest.TestCase):
         form = {"data": crypt_data, "encode": "v1"}
         response = requests.post(url=self.url, data=json.dumps(form), headers=headers)
         r_data = response.json()['data']
-        response_data = self.decrypt_to_dict(r_data, 1, '"provider_play_urls":null}')
+        #"stream_tabs":null}: 接口返回数组的第一个电视台信息的最后一个键值对
+        response_data = self.decrypt_to_dict(r_data, 1, '"stream_tabs":null}')
         assert response_data['id'] != "" and response_data['title'] != ""
 
     def test_02_getlivelist_error(self):

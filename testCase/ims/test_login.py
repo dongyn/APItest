@@ -50,7 +50,7 @@ class test_Login(unittest.TestCase):
                    'telephone': telephone}
         data = get_Sign().encrypt(data)
         response = requests.post(self.url, data=json.dumps(data), headers=headers)
-        assert response.json()['err_code'] == 0
+        self.assertTrue("Bearer" in response.json()["data"]["token"], "login接口返回的token中包含Bearer")
 
     def test_login_02(self):
         '''错误的参数'''
@@ -102,8 +102,3 @@ class test_Login(unittest.TestCase):
         data = get_Sign().encrypt(data)
         response = requests.post(self.url, data=data, headers=headers)
         assert response.json()['err_code'] == 500
-
-# if __name__ == "__main__":
-#     test_Login().test_login_01()
-#     test_Login().test_login_02()
-#     test_Login().test_login_03()

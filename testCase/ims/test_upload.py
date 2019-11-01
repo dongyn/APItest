@@ -73,9 +73,3 @@ class test_Upload(unittest.TestCase):
                                  data=m,
                                  headers=headers)
         assert response.status_code == 403
-
-
-# if __name__ == '__main__':
-    # test_Upload().test_upload_01()
-    # a = os.path.abspath(os.path.join(os.getcwd(), "../..")).join('files','Avatar.png')
-    # print(a)

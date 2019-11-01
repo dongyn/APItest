@@ -45,7 +45,7 @@ class test_Ordercreate(unittest.TestCase):
                    'timeStamp': timeStamp}
         data = get_Sign().encrypt(data)
         response = requests.post(self.url, data=json.dumps(data), headers=headers)
-        assert response.json()['data']['source_id'] == 1
+        self.assertEqual(1, response.json()['data']['source_id'], "订单创建接口返回的source_id应为1")
 
     def test_ordercreate_02(self):
         """headers没有token"""
@@ -66,7 +66,7 @@ class test_Ordercreate(unittest.TestCase):
                    'timeStamp': timeStamp}
         data = get_Sign().encrypt(data)
         response = requests.post(self.url, data=json.dumps(data), headers=RunMain().headers())
-        assert response.json()['err_code'] == 500
+        self.assertEqual(500, response.json()['err_code'], "订单创建接口入参错误返回的err_code应为1")
 
     def test_ordercreate_03(self):
         """source_id参数值错误"""
@@ -89,7 +89,4 @@ class test_Ordercreate(unittest.TestCase):
                    'timeStamp': timeStamp}
         data = get_Sign().encrypt(data)
         response = requests.post(self.url, data=json.dumps(data), headers=headers)
-        assert response.status_code == 400
-
-# if __name__ == "__main__":
-#     test_Ordercreate().test_ordercreate_02()
+        self.assertEqual(400, response.status_code, "source_id参数值错误接口状态码应返回400")

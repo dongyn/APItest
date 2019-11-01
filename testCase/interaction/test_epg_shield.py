@@ -10,9 +10,9 @@ from readConfig import ReadConfig
 from common.configMysql import OperationDbInterface
 from common.getSign import get_Sign
 import common.url as url
-import unittest, requests, json, datetime, time
+import unittest, requests, json, datetime, time, xlrd, os
 
-headers = RunMain().shield_headers()
+
 baseurl = url.baseurl()
 host = url.host()
 version = ReadConfig().get_app("version")
@@ -22,7 +22,8 @@ starttime = ReadConfig().get_app("starttime")
 endtime = ReadConfig().get_app("endtime")
 aes = AES_CBC()
 mysql = OperationDbInterface()
-
+parent_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))+ os.path.sep+"files"
+xlsfile = os.path.join(parent_dir, 'IPList.xlsx')
 
 class test_epg_shield(unittest.TestCase):
     """测试屏蔽节目单接口"""
@@ -30,6 +31,11 @@ class test_epg_shield(unittest.TestCase):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.url = baseurl + "/cms/v1.2/epg/list"
+
+    def get_ip(self, n):
+        book = xlrd.open_workbook(xlsfile)  # 调用xlrd，打开Excel文件
+        sheet = book.sheet_by_index(0)  # 通过索引，获取相应的列表，这里表示获取Excel第一个sheet
+        return  sheet.col_values(n)
 
     def get_date_list(self):
         now_date = datetime.datetime.now()
@@ -56,8 +62,8 @@ class test_epg_shield(unittest.TestCase):
                     self.assertTrue(epg["blocked"], f"{epg['title']}"
                     f"节目在屏蔽时段{starttime}至{endtime}，""应该被屏蔽")
 
-    def test_01_epg_shield_keyword(self):
-        """按关键字屏蔽"""
+    def epg_shield(self, city_ip, shield_type):
+        """屏蔽"""
         stream_id = mysql.select_one('select id FROM stream where title = "CCTV1";')["id"]
         date_list = self.get_date_list()
         timeStamp = int(time.mktime(datetime.datetime.now().timetuple()))
@@ -80,32 +86,25 @@ class test_epg_shield(unittest.TestCase):
         data = data.replace('}', ',"sign":"%s"}' % sign)
         crypt_data = aes.encrypt(data, 'c_q')
         form = {"data": crypt_data, "encode": "v1"}
+        headers = RunMain().shield_headers(city_ip)
         response = requests.post(url=self.url, data=json.dumps(form), headers=headers)
-        self.assert_epg_keyword_blocked(response, keyword)
+        if shield_type == "keyword":
+            self.assert_epg_keyword_blocked(response, keyword)
+        else:
+            self.assert_epg_timeslot_blocked(response, starttime, endtime)
 
-    def test_02_epg_shield_timeslot(self):
-        """按时段屏蔽"""
-        stream_id = mysql.select_one('select id FROM stream where title = "CCTV3";')["id"]
-        date_list = self.get_date_list()
-        timeStamp = int(time.mktime(datetime.datetime.now().timetuple()))
-        data = '{"stream_id":%(stream_id)d,' \
-               '"date":["%(date_3)s","%(date_2)s","%(date_1)s","%(date_0)s","%(date_4)s"],' \
-               '"os_type":1,' \
-               '"app_version":"%(version)s",' \
-               '"timestamp":%(timeStamp)d,' \
-               '"app_key":"%(app_key)s"}' % {
-                   'date_3': date_list[0],
-                   'date_2': date_list[1],
-                   'date_1': date_list[2],
-                   'date_0': date_list[3],
-                   'date_4': date_list[4],
-                   'stream_id': stream_id,
-                   'version': version,
-                   'timeStamp': timeStamp,
-                   'app_key': app_key}
-        sign = get_Sign().encrypt(data, True)["sign"]
-        data = data.replace('}', ',"sign":"%s"}' % sign)
-        crypt_data = aes.encrypt(data, 'c_q')
-        form = {"data": crypt_data, "encode": "v1"}
-        response = requests.post(url=self.url, data=json.dumps(form), headers=headers)
-        self.assert_epg_timeslot_blocked(response, starttime, endtime)
+    @staticmethod
+    def getTestFunc(city_ip, shield_type):
+        def func(self):
+            self.epg_shield(city_ip, shield_type)
+        return func
+
+
+def __generateTestCases():
+    ip_list = test_epg_shield().get_ip(2)
+    for city_ip in ip_list:
+        for shield_type in ["keyword", "timeslot"]:
+            setattr(test_epg_shield, 'epg_shield_%s_%s' % (shield_type, city_ip),
+                    test_epg_shield.getTestFunc(city_ip, shield_type))
+
+__generateTestCases()

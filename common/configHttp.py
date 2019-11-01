@@ -13,7 +13,6 @@ from common.Log import logger
 from common.md5_sms import timeStamp_md5
 from datetime import datetime
 from common.getSign import get_Sign
-from common.configExcel import Read_Excel
 import common.url as url
 import json, requests, time
 
@@ -21,7 +20,6 @@ logger = logger
 version = ReadConfig().get_app('version')
 app_key = ReadConfig().get_app('app_key')
 telephone = ReadConfig().get_app('telephone')
-city_IP = Read_Excel().get_ip()
 baseurl = url.baseurl()
 host = url.host()
 md5 = timeStamp_md5()
@@ -68,7 +66,7 @@ class RunMain():
             }
         return headers
 
-    def shield_headers(self,city_ip):
+    def shield_headers(self, city_ip):
         headers = {"Content-Type": "application/json;charset=UTF-8",
                        "User-Agent": "Mozilla/5.0 (Linux; Android 9; COL-AL10 Build/HUAWEICOL-AL10; wv) "
                                      "AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/72.0.3626.121 Mobile Safari/537.36",

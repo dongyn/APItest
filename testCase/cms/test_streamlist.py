@@ -51,7 +51,7 @@ class test_streamlist(unittest.TestCase):
         crypt_data = aes.encrypt(data, 'c_q')
         form = {"data": crypt_data, "encode": "v1"}
         response = requests.post(url=self.url, data=json.dumps(form), headers=headers)
-        response_data = self.decrypt_to_dict(response, 1, '"provider_play_urls":null}')
+        response_data = self.decrypt_to_dict(response, 1, '"stream_tabs":null}')
         assert response_data['id'] != "" and response_data['title'] != ""
 
     def test_02_getlivelist_error(self):

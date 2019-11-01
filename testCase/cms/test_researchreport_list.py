@@ -58,52 +58,23 @@ class test_Researchreport_list(unittest.TestCase):
             if free_page in researchreport_all.keys():
                 for researchreport in researchreport_all[free_page]:
                     title_list.append(researchreport["title"])
-        msg = "大咖id为{0}，大咖的研报应该包含{1}".format(self.researchreport_detail["tycoon_id"],
-                                       self.researchreport_detail["title"])
+        msg = f'大咖id为{self.researchreport_detail["tycoon_id"]}，大咖的研报应该包含{self.researchreport_detail["title"]}'
         self.assertIn(self.researchreport_detail["title"], title_list, msg)
 
-    # def test_researchreport_list_02(self):
-    #     """researchreport_id参数为错误"""
-    #     timeStamp = int(time.mktime(datetime.now().timetuple()))
-    #     data = '{"app_version":"%(version)s",' \
-    #            '"os_type":1,' \
-    #            '"os_version":"9",' \
-    #            '"mac_address":"02:00:00:00:00:00",' \
-    #            '"device_id":"802ca0fba119ab0a",' \
-    #            '"tycoon_id":%(tycoon_id)d,' \
-    #            '"timestamp":%(timeStamp)d,' \
-    #            '"app_key":"%(app_key)s"' \
-    #            '}' % {
-    #                'version': version,
-    #                'tycoon_id': 10000000000,
-    #                'timeStamp': timeStamp,
-    #                'app_key': app_key}
-    #     sign = get_Sign().encrypt(data, True)["sign"]
-    #     data = data.replace('}', ',"sign":"%s"}' % sign)
-    #     crypt_data = aes.encrypt(data, 'c_q')
-    #     form = {'data': crypt_data, 'encode': 'v1'}
-    #     response = requests.post(self.url, data=json.dumps(form), headers=headers)
-    #     self.assertEqual(500, response.json()["err_code"], "大咖的id参数错误，接口应返回err_code为500")
-
-
-    def get_researchreport_title(self):
-        titles = []
-        for researchreport in self.researchreport_title:
-            titles.append(researchreport["title"])
-        return titles
-
-    def get_researchreport_list(self):
+    def test_researchreport_list_02(self):
+        """researchreport_id参数为错误"""
         timeStamp = int(time.mktime(datetime.now().timetuple()))
         data = '{"app_version":"%(version)s",' \
                '"os_type":1,' \
                '"os_version":"9",' \
                '"mac_address":"02:00:00:00:00:00",' \
                '"device_id":"802ca0fba119ab0a",' \
-               '"query_type":"all",' \
+               '"tycoon_id":%(tycoon_id)d,' \
                '"timestamp":%(timeStamp)d,' \
                '"app_key":"%(app_key)s"' \
                '}' % {
                    'version': version,
+                   'tycoon_id': 10000000000,
                    'timeStamp': timeStamp,
                    'app_key': app_key}
         sign = get_Sign().encrypt(data, True)["sign"]
@@ -111,12 +82,7 @@ class test_Researchreport_list(unittest.TestCase):
         crypt_data = aes.encrypt(data, 'c_q')
         form = {'data': crypt_data, 'encode': 'v1'}
         response = requests.post(self.url, data=json.dumps(form), headers=headers)
-        return RunMain().decrypt_to_dict(response, 'r')["free"]
-
-    def researchreport_list(self, researchreport):
-        """参数没有researchreport_id，返回多个大咖信息"""
-        self.assertIn(researchreport["title"], self.get_researchreport_title(),
-                      "研报表中未包含研报{0}".format(researchreport["title"]))
+        self.assertEqual(500, response.json()["err_code"], "大咖的id参数错误，接口应返回err_code为500")
 
     @staticmethod
     def getTestFunc(researchreport):

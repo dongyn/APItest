@@ -9,6 +9,7 @@ from common.configHttp import RunMain
 from common.getSign import get_Sign
 from readConfig import ReadConfig
 from datetime import datetime
+import warnings
 import common.url as url
 import requests, unittest, json, time, os, uuid
 
@@ -18,9 +19,8 @@ app_key = ReadConfig().get_app('app_key')
 
 class test_Upload(unittest.TestCase):
     '''用户上传头像接口'''
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+    def setUp(self):
+        warnings.simplefilter('ignore', ResourceWarning)
         self.url = baseurl + '/ims/v1.0/upload'
         self.boundary = '--'+ str(uuid.uuid1())
         self.file = os.path.join(os.path.abspath(os.path.join(os.getcwd(), "../../..")),'API-Test', 'files', 'Avatar.png')

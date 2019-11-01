@@ -12,8 +12,7 @@ class Read_Excel():
         sheet = book.sheet_by_index(0)  # 通过索引，获取相应的列表，这里表示获取Excel第一个sheet
         city_IP = sheet.col_values(2)
         for i in city_IP:
-            print(i)
-        return city_IP
+            return city_IP
 
 if __name__ == "__main":
     Read_Excel().get_ip(xlsfile)

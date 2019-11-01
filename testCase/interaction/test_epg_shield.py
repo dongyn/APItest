@@ -17,7 +17,6 @@ baseurl = url.baseurl()
 host = url.host()
 version = ReadConfig().get_app("version")
 app_key = ReadConfig().get_app("app_key")
-shield_ip = ReadConfig().get_app("xi'an_ip")
 keyword = ReadConfig().get_app("keyword")
 starttime = ReadConfig().get_app("starttime")
 endtime = ReadConfig().get_app("endtime")
@@ -82,7 +81,6 @@ class test_epg_shield(unittest.TestCase):
         crypt_data = aes.encrypt(data, 'c_q')
         form = {"data": crypt_data, "encode": "v1"}
         response = requests.post(url=self.url, data=json.dumps(form), headers=headers)
-        print(response.status_code, response.json())
         self.assert_epg_keyword_blocked(response, keyword)
 
     def test_02_epg_shield_timeslot(self):

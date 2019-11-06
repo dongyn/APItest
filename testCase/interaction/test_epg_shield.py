@@ -43,8 +43,7 @@ class test_epg_shield(unittest.TestCase):
         date_1 = str((now_date - datetime.timedelta(days=1)).strftime("%Y-%m-%d"))
         date_2 = str((now_date - datetime.timedelta(days=2)).strftime("%Y-%m-%d"))
         date_3 = str((now_date - datetime.timedelta(days=3)).strftime("%Y-%m-%d"))
-        date_4 = str((now_date + datetime.timedelta(days=1)).strftime("%Y-%m-%d"))
-        date_list = [date_3, date_2, date_1, date_0, date_4]
+        date_list = [date_3, date_2, date_1, date_0]
         return date_list
 
     def assert_epg_keyword_blocked(self, response, keyword):
@@ -68,7 +67,7 @@ class test_epg_shield(unittest.TestCase):
         date_list = self.get_date_list()
         timeStamp = int(time.mktime(datetime.datetime.now().timetuple()))
         data = '{"stream_id":%(stream_id)d,' \
-               '"date":["%(date_3)s","%(date_2)s","%(date_1)s","%(date_0)s","%(date_4)s"],' \
+               '"date":["%(date_3)s","%(date_2)s","%(date_1)s","%(date_0)s"],' \
                '"os_type":1,' \
                '"app_version":"%(version)s",' \
                '"timestamp":%(timeStamp)d,' \
@@ -77,7 +76,6 @@ class test_epg_shield(unittest.TestCase):
                    'date_2': date_list[1],
                    'date_1': date_list[2],
                    'date_0': date_list[3],
-                   'date_4': date_list[4],
                    'stream_id': stream_id,
                    'version': version,
                    'timeStamp': timeStamp,

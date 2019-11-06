@@ -82,7 +82,9 @@ class RunMain():
         r_data = text.json()['data']
         str_decrypt = aes.decrypt(r_data, key_type)
         global false, null, true
-        false = null = true = ""
+        null = ""
+        false = False
+        true = True
         response_data = eval(str_decrypt)
         return response_data
 

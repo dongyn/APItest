@@ -2,7 +2,6 @@
 # -*- coding:utf-8 -*-
 # @Time  : 2019/5/27 16:57
 # @Author: dongyani
-# @File  : runAll.py
 
 import unittest, time, os, readConfig, common.Log
 import common.HTMLTestRunner_cn as HTMLTestRunner

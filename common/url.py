@@ -15,13 +15,15 @@ def get_host_ip():
     return ip
 
 def baseurl():
-    ip = get_host_ip()
-    url = "http://test.ams.starschina.com" if ip[0:7]== "192.168" else "https://appl1-apiv1.starschina.com"
+    # ip = get_host_ip()
+    # url = "http://test.ams.starschina.com" if ip[0:7]== "192.168" else "https://appl1-apiv1.starschina.com"
+    url = "https://appl1-apiv1.starschina.com"
     return url
 
 def host():
-    ip = get_host_ip()
-    host = 'test.ams.starschina.com' if ip[0:7]== "192.168" else 'appl1-apiv1.starschina.com'
+    # ip = get_host_ip()
+    # host = 'test.ams.starschina.com' if ip[0:7]== "192.168" else 'appl1-apiv1.starschina.com'
+    host = 'appl1-apiv1.starschina.com'
     return host
 
 # print(get_host_ip())
